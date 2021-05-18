@@ -1,0 +1,36 @@
+{
+  "eslint": {
+    "options": {
+      "configFile": ".eslintrc.json"
+    },
+    "validate": [
+      "javascript",
+      "typescript",
+      "typescriptreact"
+    ],
+    "codeAction": {
+      "showDocumentation": {
+        "enable": true
+      }
+    },
+    "run": "onSave"
+  },
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+  }
+}

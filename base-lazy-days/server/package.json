@@ -1,0 +1,39 @@
+{
+  "name": "lazy-days-spa-server",
+  "version": "1.0.0",
+  "author": "Bonnie Schulkin",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "start": "node --loader ts-node/esm src/server.ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "core-js": "^3.8.1",
+    "cors": "^2.8.4",
+    "crypto": "^1.0.1",
+    "dotenv": "^8.2.0",
+    "es-main": "^1.0.2",
+    "express": "^4.16.3",
+    "express-jwt": "^6.0.0",
+    "fast-json-patch": "^3.0.0-1",
+    "jsonwebtoken": "^8.5.1",
+    "pbkdf2": "^3.1.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.11",
+    "@types/express-jwt": "^6.0.1",
+    "@types/node": "^14.14.37",
+    "@types/pbkdf2": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1"
+  },
+  "type": "module"
+}
