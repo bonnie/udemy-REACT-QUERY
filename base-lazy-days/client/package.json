@@ -4,8 +4,11 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.6.0",
+    "@chakra-ui/system": "^1.6.4",
     "@chakra-ui/theme": "^1.8.3",
     "@chakra-ui/theme-tools": "^1.1.5",
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
@@ -31,6 +34,7 @@
     "fast-json-patch": "*",
     "firebase": "^8.3.1",
     "formik": "^2.2.6",
+    "framer-motion": "^3.10.6",
     "image-webpack-loader": "^7.0.1",
     "prettier": "^2.2.1",
     "react": "^17.0.2",
@@ -39,6 +43,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "typescript": "^4.2.4",
     "web-vitals": "^1.1.1"
   },
   "scripts": {
