@@ -10,4 +10,6 @@
 
 ## Starting the server
 
+### Important: This server requires Node version 14+
+
 Run `npm start`. The server will be found at [http://localhost:3030]
