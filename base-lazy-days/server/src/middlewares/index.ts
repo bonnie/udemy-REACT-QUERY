@@ -1,5 +1,4 @@
 import { NextFunction, Request, RequestHandler } from 'express';
-import jwt from 'express-jwt';
 import { ParamsDictionary } from 'express-serve-static-core';
 import { Operation } from 'fast-json-patch';
 
@@ -35,15 +34,6 @@ export const validateUser: RequestHandler<
   NextFunction
 > = async (req, res, next) => {
   try {
-    // run the jwt middleware
-    jwt({
-      // process.env.EXPRESS_SECRET is checked for truthiness on app startup
-      // the || is to satisfy typescript
-      secret: process.env.EXPRESS_SECRET || 'NOT SO SECRET',
-      algorithms: ['HS256'],
-      requestProperty: 'auth',
-    });
-
     // check that the token matches the id url param (decoded token resides in req.user)
     const requestedId = Number(req.params.id);
     if (req.auth?.id !== requestedId) {
