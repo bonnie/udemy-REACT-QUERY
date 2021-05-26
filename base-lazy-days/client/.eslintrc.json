@@ -1,7 +1,7 @@
 {
   "extends": [
     "airbnb",
-    "plugin:testing-library/recommended",
+    "plugin:testing-library/dom",
     "plugin:testing-library/react",
     "plugin:@typescript-eslint/recommended",
     "react-app",
