@@ -15,7 +15,7 @@ export const handlers = [
     return res(ctx.json(mockStaff));
   }),
   rest.get(
-    'http://localhost:3030/appointments/:month/:year',
+    'http://localhost:3030/appointments/:year/:month',
     (req, res, ctx) => {
       return res(ctx.json(mockAppointments));
     },
