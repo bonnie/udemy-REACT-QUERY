@@ -37,7 +37,7 @@
     "formik": "^2.2.6",
     "framer-motion": "^3.10.6",
     "image-webpack-loader": "^7.0.1",
-    "msw": "^0.28.2",
+    "msw": "^0.32.0",
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
