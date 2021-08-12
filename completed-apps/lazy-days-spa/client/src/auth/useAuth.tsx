@@ -31,14 +31,14 @@ export function useAuth(): UseAuth {
         return;
       }
 
-      if (data?.token) {
+      if (data?.user?.token) {
         toast({
-          title: `Logged in as ${data.email}`,
+          title: `Logged in as ${data.user.email}`,
           status: 'info',
         });
 
         // update stored user data
-        updateUser(data);
+        updateUser(data.user);
       }
     } catch (errorResponse) {
       toast({

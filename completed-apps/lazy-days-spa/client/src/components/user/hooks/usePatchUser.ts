@@ -24,7 +24,7 @@ async function patchUserOnServer(
       headers: getJWTHeader(originalData),
     },
   );
-  return data;
+  return data.user;
 }
 
 export function usePatchUser(): UseMutateFunction<
