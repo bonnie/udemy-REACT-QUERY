@@ -11,16 +11,18 @@ import {
   setStoredUser,
 } from '../../../user-storage';
 
-interface AxiosResponseWithCancel extends AxiosResponse {
+interface AxiosResponseWithCancel<T> extends AxiosResponse<T> {
   cancel: () => void;
 }
 
 // query function
-async function getUser(user: User | null): Promise<AxiosResponseWithCancel> {
+async function getUser(
+  user: User | null,
+): Promise<AxiosResponseWithCancel<User>> {
   const source = axios.CancelToken.source();
 
   if (!user) return null;
-  const axiosResponse: AxiosResponseWithCancel = await axiosInstance.get(
+  const axiosResponse: AxiosResponseWithCancel<User> = await axiosInstance.get(
     `/user/${user.id}`,
     {
       headers: getJWTHeader(user),
@@ -48,7 +50,7 @@ export function useUser(): UseUser {
   // call useQuery to update user data from server
   useQuery(queryKeys.user, () => getUser(user), {
     enabled: !!user,
-    onSuccess: (axiosResponse) => setUser(axiosResponse?.data?.user),
+    onSuccess: (data: User) => setUser(data),
   });
 
   // meant to be called from useAuth

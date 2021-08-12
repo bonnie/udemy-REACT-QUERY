@@ -48,7 +48,7 @@ export function useUser(): UseUser {
   // call useQuery to update user data from server
   useQuery(queryKeys.user, () => getUser(user), {
     enabled: !!user,
-    onSuccess: (axiosResponse) => setUser(axiosResponse?.data?.user),
+    onSuccess: (data: User) => setUser(data),
   });
 
   // meant to be called from useAuth
