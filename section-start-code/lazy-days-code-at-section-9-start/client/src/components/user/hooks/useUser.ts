@@ -18,17 +18,16 @@ interface AxiosResponseWithCancel<T> extends AxiosResponse<T> {
 // query function
 async function getUser(
   user: User | null,
-): Promise<AxiosResponseWithCancel<User>> {
+): Promise<AxiosResponseWithCancel<{ user: User }>> {
   const source = axios.CancelToken.source();
 
   if (!user) return null;
-  const axiosResponse: AxiosResponseWithCancel<User> = await axiosInstance.get(
-    `/user/${user.id}`,
-    {
-      headers: getJWTHeader(user),
-      cancelToken: source.token,
-    },
-  );
+  const axiosResponse: AxiosResponseWithCancel<{
+    user: User;
+  }> = await axiosInstance.get(`/user/${user.id}`, {
+    headers: getJWTHeader(user),
+    cancelToken: source.token,
+  });
 
   axiosResponse.cancel = () => {
     source.cancel();
