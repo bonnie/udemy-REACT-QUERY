@@ -10,6 +10,8 @@
 
 ## Starting the server
 
-### Important: This server requires Node version 14+
+### Important: This server uses the ts-node/esm loader, and _requires_ Node version 14+ It also does NOT work with 16.12.x+.
+
+#### I am working on fixing the discrepencies with newer versions of Node and will update the repo soon.
 
 Run `npm start`. The server will be found at [http://localhost:3030]
