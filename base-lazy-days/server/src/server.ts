@@ -1,4 +1,10 @@
+/* eslint-disable import/first */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('@babel/register')({ extensions: ['.js', '.ts'] });
+
 import cors from 'cors';
 import dotenv from 'dotenv';
 import esMain from 'es-main';
