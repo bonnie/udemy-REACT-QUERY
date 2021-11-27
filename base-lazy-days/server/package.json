@@ -4,7 +4,7 @@
   "author": "Bonnie Schulkin",
   "license": "AGPL-3.0",
   "scripts": {
-    "start": "node src/server.ts",
+    "start": "node src/index.cjs",
     "test": "jest"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
     "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-typescript": "^7.16.0",
