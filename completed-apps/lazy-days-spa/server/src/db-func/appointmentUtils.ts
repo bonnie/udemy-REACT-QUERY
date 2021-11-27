@@ -3,7 +3,7 @@
 import dayjs from 'dayjs';
 
 import { Appointment } from '../../../shared/types';
-import db from './index.js';
+import db from '.';
 
 // utility function to make unpadded month/date numbers into padded
 function padNum(num: number | string): string {
