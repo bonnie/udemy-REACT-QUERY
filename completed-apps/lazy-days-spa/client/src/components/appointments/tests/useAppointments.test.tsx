@@ -13,7 +13,7 @@ test('reserve mutation', async () => {
   // console.log(result.current);
 
   // wait for the appointments to populate
-  await waitFor(() => result.current.appointments !== {});
+  await waitFor(() => Object.keys(result.current.appointments).length > 0);
 
   const filteredAppointmentLength = Object.keys(result.current.appointments)
     .length;
