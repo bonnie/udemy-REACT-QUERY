@@ -3,7 +3,7 @@ import { QueryClient } from 'react-query';
 
 const toast = createStandaloneToast();
 
-export function queryErrorHandler(error: unknown): void {
+function queryErrorHandler(error: unknown): void {
   // error is type unknown because in js, anything can be an error (e.g. throw(5))
   const title =
     error instanceof Error
