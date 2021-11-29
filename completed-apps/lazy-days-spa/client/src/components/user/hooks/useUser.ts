@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { useQuery, useQueryClient } from 'react-query';
 
 import type { User } from '../../../../../shared/types';
@@ -12,19 +12,16 @@ import {
 
 // query function
 async function getUser(user: User | null, signal: AbortSignal): Promise<User> {
-  const source = axios.CancelToken.source();
-
   if (!user) return null;
-  const axiosResponse: AxiosResponse<{ user: User }> = await axiosInstance.get(
+  const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
     `/user/${user.id}`,
     {
       signal, // abortSignal from React Query
       headers: getJWTHeader(user),
-      cancelToken: source.token,
     },
   );
 
-  return axiosResponse.data.user;
+  return data.user;
 }
 
 interface UseUser {
