@@ -6,10 +6,7 @@ const toast = createStandaloneToast();
 function queryErrorHandler(error: unknown): void {
   // error is type unknown because in js, anything can be an error (e.g. throw(5))
   const title =
-    error instanceof Error
-      ? // remove the initial 'Error: ' that accompanies many errors
-        error.toString().replace(/^Error:\s*/, '')
-      : 'error connecting to server';
+    error instanceof Error ? error.message : 'error connecting to server';
 
   // prevent duplicate toasts
   toast.closeAll();
