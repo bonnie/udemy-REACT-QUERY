@@ -1,19 +1,13 @@
-# sundae-server
-### A server for the "Sundaes on Demand" app in the Udemy course "Testing Library for React"
+# Lazy Days Spa Server
+
+### A server for the "Lazy Days Spa" app in the Udemy course "React Query: Server State Management for React"
 
 ## Installing
-1. Clone or fork the course repository found at [https://github.com/bonnie/udemy-react-testing-library-projects]
-2. `cd` into the `sundae-server` directory (where this README is located).
-3. Run `npm install` 
+
+1. Run `npm install`
+2. `cp .env_template .env`
+3. Optional, only necessary if you're going to deploy: update `.env` to contain your own secret string (can just mash the keyboard for a long random string)
 
 ## Starting the server
+
 Run `npm start`. The server will be found at [http://localhost:3030]
-
-## Using the server
-Server routes:
-  - `GET /scoops` and `GET /toppings` return sundae options (array of objects with keys `name` and `imagePath`)
-  - `POST /order` returns a random order number (does not process order)
-  - images via static `/images` directory.
-
-## Testing
-To test, run `npm test`.

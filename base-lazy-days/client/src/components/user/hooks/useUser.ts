@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { useState } from 'react';
 
 import type { User } from '../../../../../shared/types';
 import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
@@ -12,9 +11,12 @@ import {
 
 // async function getUser(user: User | null): Promise<User | null> {
 //   if (!user) return null;
-//   const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(`/user/${user.id}`, {
-//     headers: getJWTHeader(user),
-//   });
+//   const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
+//     `/user/${user.id}`,
+//     {
+//       headers: getJWTHeader(user),
+//     },
+//   );
 //   return data.user;
 // }
 

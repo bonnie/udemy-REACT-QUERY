@@ -1,3 +1,6 @@
+import axios, { AxiosResponse } from 'axios';
+
+import { User } from '../../../shared/types';
 import { axiosInstance } from '../axiosInstance';
 import { useCustomToast } from '../components/app/hooks/useCustomToast';
 import { useUser } from '../components/user/hooks/useUser';
@@ -7,6 +10,10 @@ interface UseAuth {
   signup: (email: string, password: string) => Promise<void>;
   signout: () => void;
 }
+
+type UserResponse = { user: User };
+type ErrorResponse = { message: string };
+type AuthResponseType = UserResponse | ErrorResponse;
 
 export function useAuth(): UseAuth {
   const SERVER_ERROR = 'There was an error contacting the server.';
@@ -19,7 +26,10 @@ export function useAuth(): UseAuth {
     password: string,
   ): Promise<void> {
     try {
-      const { data, status } = await axiosInstance({
+      const {
+        data,
+        status,
+      }: AxiosResponse<AuthResponseType> = await axiosInstance({
         url: urlEndpoint,
         method: 'POST',
         data: { email, password },
@@ -27,11 +37,12 @@ export function useAuth(): UseAuth {
       });
 
       if (status === 400) {
-        toast({ title: data.message, status: 'warning' });
+        const title = 'message' in data ? data.message : 'Unauthorized';
+        toast({ title, status: 'warning' });
         return;
       }
 
-      if (data?.user?.token) {
+      if ('user' in data && 'token' in data.user) {
         toast({
           title: `Logged in as ${data.user.email}`,
           status: 'info',
@@ -41,8 +52,13 @@ export function useAuth(): UseAuth {
         updateUser(data.user);
       }
     } catch (errorResponse) {
+      const title =
+        axios.isAxiosError(errorResponse) &&
+        errorResponse?.response?.data?.message
+          ? errorResponse?.response?.data?.message
+          : SERVER_ERROR;
       toast({
-        title: errorResponse?.response?.data?.message || SERVER_ERROR,
+        title,
         status: 'error',
       });
     }

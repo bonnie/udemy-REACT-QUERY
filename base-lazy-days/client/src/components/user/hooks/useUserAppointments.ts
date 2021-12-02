@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 
 import type { Appointment, User } from '../../../../../shared/types';
 import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
-import { mockUserAppointments } from '../../../mocks/mockData';
 import { queryKeys } from '../../../react-query/constants';
 import { useUser } from './useUser';
 
@@ -19,5 +18,5 @@ import { useUser } from './useUser';
 
 export function useUserAppointments(): Appointment[] {
   // TODO replace with React Query
-  return mockUserAppointments;
+  return [];
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { AxiosResponse } from 'axios';
 
 import type { User } from '../../../../../shared/types';
 import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
@@ -11,9 +11,12 @@ import {
 
 // async function getUser(user: User | null): Promise<User | null> {
 //   if (!user) return null;
-//   const { data } = await axiosInstance.get(`/user/${user.id}`, {
-//     headers: getJWTHeader(user),
-//   });
+//   const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
+//     `/user/${user.id}`,
+//     {
+//       headers: getJWTHeader(user),
+//     },
+//   );
 //   return data.user;
 // }
 
@@ -24,30 +27,17 @@ interface UseUser {
 }
 
 export function useUser(): UseUser {
-  const [user, setUser] = useState<User | null>(getStoredUser());
-
   // TODO: call useQuery to update user data from server
+  const user = null;
 
   // meant to be called from useAuth
   function updateUser(newUser: User): void {
-    // set user in state
-    setUser(newUser);
-
-    // update user in localstorage
-    setStoredUser(newUser);
-
-    // TODO: pre-populate user profile in React Query client
+    // TODO: update the user in the query cache
   }
 
   // meant to be called from useAuth
   function clearUser() {
-    // update state
-    setUser(null);
-
-    // remove from localstorage
-    clearStoredUser();
-
-    // TODO: reset user to null in query client
+    // TODO: reset user to null in query cache
   }
 
   return { user, updateUser, clearUser };

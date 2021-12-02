@@ -39,7 +39,7 @@ export function useUser(): UseUser {
     ({ signal }) => getUser(user, signal),
     {
       // populate initially with user in localStorage
-      initialData: getStoredUser(),
+      initialData: getStoredUser,
 
       // note: onSuccess is called on both successful query function completion
       //     *and* on queryClient.setQueryData

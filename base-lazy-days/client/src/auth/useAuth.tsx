@@ -52,9 +52,11 @@ export function useAuth(): UseAuth {
         updateUser(data.user);
       }
     } catch (errorResponse) {
-      const title = axios.isAxiosError(errorResponse)
-        ? errorResponse.response.data.message
-        : SERVER_ERROR;
+      const title =
+        axios.isAxiosError(errorResponse) &&
+        errorResponse?.response?.data?.message
+          ? errorResponse?.response?.data?.message
+          : SERVER_ERROR;
       toast({
         title,
         status: 'error',
