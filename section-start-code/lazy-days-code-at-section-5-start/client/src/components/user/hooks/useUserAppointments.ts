@@ -19,5 +19,5 @@ import { useUser } from './useUser';
 
 export function useUserAppointments(): Appointment[] {
   // TODO replace with React Query
-  return mockUserAppointments;
+  return [];
 }

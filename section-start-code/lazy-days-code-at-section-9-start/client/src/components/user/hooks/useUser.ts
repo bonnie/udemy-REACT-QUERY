@@ -1,5 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
-import { useState } from 'react';
+import { AxiosResponse } from 'axios';
 import { useQuery, useQueryClient } from 'react-query';
 
 import type { User } from '../../../../../shared/types';
@@ -11,29 +10,18 @@ import {
   setStoredUser,
 } from '../../../user-storage';
 
-interface AxiosResponseWithCancel<T> extends AxiosResponse<T> {
-  cancel: () => void;
-}
-
 // query function
-async function getUser(
-  user: User | null,
-): Promise<AxiosResponseWithCancel<{ user: User }>> {
-  const source = axios.CancelToken.source();
-
+async function getUser(user: User | null, signal: AbortSignal): Promise<User> {
   if (!user) return null;
-  const axiosResponse: AxiosResponseWithCancel<{
-    user: User;
-  }> = await axiosInstance.get(`/user/${user.id}`, {
-    headers: getJWTHeader(user),
-    cancelToken: source.token,
-  });
+  const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
+    `/user/${user.id}`,
+    {
+      signal, // abortSignal from React Query
+      headers: getJWTHeader(user),
+    },
+  );
 
-  axiosResponse.cancel = () => {
-    source.cancel();
-  };
-
-  return axiosResponse;
+  return data.user;
 }
 
 interface UseUser {
@@ -43,36 +31,41 @@ interface UseUser {
 }
 
 export function useUser(): UseUser {
-  const [user, setUser] = useState<User | null>(getStoredUser());
   const queryClient = useQueryClient();
 
   // call useQuery to update user data from server
-  useQuery(queryKeys.user, () => getUser(user), {
-    enabled: !!user,
-    onSuccess: (data: User) => setUser(data),
-  });
+  const { data: user } = useQuery(
+    queryKeys.user,
+    ({ signal }) => getUser(user, signal),
+    {
+      // populate initially with user in localStorage
+      initialData: getStoredUser,
+
+      // note: onSuccess is called on both successful query function completion
+      //     *and* on queryClient.setQueryData
+      // the `received` argument to onSuccess will be:
+      //    - null, if this is called on queryClient.setQueryData in clearUser()
+      //    - User, if this is called from queryClient.setQueryData in updateUser()
+      //         *or* from the getUser query function call
+      onSuccess: (received: null | User) => {
+        if (!received) {
+          clearStoredUser();
+        } else {
+          setStoredUser(received);
+        }
+      },
+    },
+  );
 
   // meant to be called from useAuth
   function updateUser(newUser: User): void {
-    // set user in state
-    setUser(newUser);
-
-    // update user in localstorage
-    setStoredUser(newUser);
-
-    // pre-populate user profile in React Query client
+    // update the user
     queryClient.setQueryData(queryKeys.user, newUser);
   }
 
   // meant to be called from useAuth
   function clearUser() {
-    // update state
-    setUser(null);
-
-    // remove from localstorage
-    clearStoredUser();
-
-    // reset user to null in query client
+    // reset user to null
     queryClient.setQueryData(queryKeys.user, null);
 
     // remove user appointments query

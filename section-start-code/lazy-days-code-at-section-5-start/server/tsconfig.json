@@ -24,5 +24,10 @@
     "noEmit": true,
     "downlevelIteration": true
   },
-  "include": ["src/**/*.ts", "../../shared/types", "node_modules/@types"]
+  "include": [
+    "src/**/*.ts",
+    "../../shared/types",
+    "node_modules/@types",
+    "src/index.js"
+  ]
 }

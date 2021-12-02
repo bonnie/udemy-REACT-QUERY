@@ -2,7 +2,7 @@ import { NextFunction, Request, RequestHandler } from 'express';
 import { ParamsDictionary } from 'express-serve-static-core';
 import { Operation } from 'fast-json-patch';
 
-import db from '../db-func/index.js';
+import db from '../db-func';
 
 export interface idParamsInterface extends ParamsDictionary {
   id: string;
