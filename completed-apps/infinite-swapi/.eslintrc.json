@@ -1,21 +1,10 @@
 {
-  "extends": [
-    "airbnb",
-    "react-app",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["airbnb", "react-app", "plugin:prettier/recommended"],
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ],
-        "paths": [
-          "src"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "paths": ["src"]
       }
     }
   },
@@ -26,11 +15,7 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "testing-library",
-    "simple-import-sort",
-    "prettier"
-  ],
+  "plugins": ["testing-library", "simple-import-sort", "prettier"],
   "env": {
     "browser": true,
     "node": true,
@@ -44,22 +29,14 @@
         "devDependencies": true
       }
     ],
-    "react/prop-types": [
-      "off"
-    ],
+    "react/prop-types": ["off"],
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".tsx",
-          ".jsx"
-        ]
+        "extensions": [".tsx", ".jsx"]
       }
     ],
-    "import/extensions": [
-      "error",
-      "never"
-    ],
+    "import/extensions": ["error", "never"],
     "import/prefer-default-export": 0,
     "import/no-anonymous-default-export": 0,
     "import/no-unresolved": 2,
@@ -73,7 +50,12 @@
     "react/no-array-index-key": "off",
     "react/button-has-type": "off",
     "react/react-in-jsx-scope": "off",
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-curly-newline": "off",
     "jsx-a11y/click-events-have-key-events": "off",

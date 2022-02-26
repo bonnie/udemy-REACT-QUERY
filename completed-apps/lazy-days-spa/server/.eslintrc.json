@@ -26,6 +26,11 @@
     "import/no-unresolved": 0,
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "error",
-    "prettier/prettier": "error"
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   }
 }
