@@ -1,11 +1,11 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
-import { createWrapper } from '../../../test-utils';
+import { createQueryClientWrapper } from '../../../test-utils';
 import { useStaff } from '../hooks/useStaff';
 
 test('filter staff', async () => {
   const { result, waitFor } = renderHook(() => useStaff(), {
-    wrapper: createWrapper(),
+    wrapper: createQueryClientWrapper(),
   });
 
   // to get your bearings

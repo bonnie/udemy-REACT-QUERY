@@ -1,14 +1,10 @@
 /* eslint-disable no-console */
 
-import { render } from '@testing-library/react';
-import {
-  DefaultOptions,
-  QueryClient,
-  QueryClientProvider,
-  setLogger,
-} from 'react-query';
+import { render, RenderResult } from '@testing-library/react';
+import { ReactElement } from 'react';
+import { QueryClient, QueryClientProvider, setLogger } from 'react-query';
 
-import { defaultQueryClientOptions } from '../react-query/queryClient';
+import { generateQueryClient } from '../react-query/queryClient';
 
 // suppress errors written to console
 setLogger({
@@ -19,30 +15,27 @@ setLogger({
   },
 });
 
-const defaultOptions: DefaultOptions = defaultQueryClientOptions;
-if (defaultOptions && defaultOptions.queries)
-  defaultOptions.queries.retry = false;
-
 // make this a function for unique queryClient per test
-const generateQueryClient = () => {
-  return new QueryClient({ defaultOptions });
+const generateTestQueryClient = () => {
+  const client = generateQueryClient();
+  const options = client.getDefaultOptions();
+  options.queries = { ...options.queries, retry: false };
+  return client;
 };
 
 export function renderWithQueryClient(
-  ui: React.ReactElement,
+  ui: ReactElement,
   client?: QueryClient,
-) {
-  const queryClient = client ?? generateQueryClient();
+): RenderResult {
+  const queryClient = client ?? generateTestQueryClient();
   return render(
     <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>,
   );
 }
 
 // from https://tkdodo.eu/blog/testing-react-query#for-custom-hooks
-export const createWrapper = () => {
-  const queryClient = new QueryClient({
-    defaultOptions: defaultQueryClientOptions,
-  });
+export const createQueryClientWrapper = (): React.FC => {
+  const queryClient = generateTestQueryClient();
   return ({ children }) => (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );

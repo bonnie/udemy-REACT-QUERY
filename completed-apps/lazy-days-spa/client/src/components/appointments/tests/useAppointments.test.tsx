@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
-import { createWrapper } from '../../../test-utils';
+import { createQueryClientWrapper } from '../../../test-utils';
 import { useAppointments } from '../hooks/useAppointments';
 import { AppointmentDateMap } from '../types';
 
@@ -12,9 +12,9 @@ const getAppointmentCount = (appointments: AppointmentDateMap) =>
     0,
   );
 
-test('filtered appointments', async () => {
+test('filter appointments by availalibility', async () => {
   const { result, waitFor } = renderHook(() => useAppointments(), {
-    wrapper: createWrapper(),
+    wrapper: createQueryClientWrapper(),
   });
 
   // to get your bearings
@@ -29,8 +29,6 @@ test('filtered appointments', async () => {
   );
 
   // set to filter to all appointments
-  // should show at least one more appointment (the one that was "taken")
-  // might show more depending on what day of the month test is run on!
   act(() => result.current.setShowAll(true));
 
   // wait for the appointments to show more than when filtered
