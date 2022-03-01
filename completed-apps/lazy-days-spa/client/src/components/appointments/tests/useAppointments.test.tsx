@@ -2,8 +2,17 @@ import { act, renderHook } from '@testing-library/react-hooks';
 
 import { createWrapper } from '../../../test-utils';
 import { useAppointments } from '../hooks/useAppointments';
+import { AppointmentDateMap } from '../types';
 
-test('reserve mutation', async () => {
+// a helper function to get the total number of appointments from an AppointmentDateMap object
+const getAppointmentCount = (appointments: AppointmentDateMap) =>
+  Object.values(appointments).reduce(
+    (runningCount, appointmentsOnDate) =>
+      runningCount + appointmentsOnDate.length,
+    0,
+  );
+
+test('filtered appointments', async () => {
   const { result, waitFor } = renderHook(() => useAppointments(), {
     wrapper: createWrapper(),
   });
@@ -13,10 +22,11 @@ test('reserve mutation', async () => {
   // console.log(result.current);
 
   // wait for the appointments to populate
-  await waitFor(() => Object.keys(result.current.appointments).length > 0);
+  await waitFor(() => getAppointmentCount(result.current.appointments) > 0);
 
-  const filteredAppointmentLength = Object.keys(result.current.appointments)
-    .length;
+  const filteredAppointmentLength = getAppointmentCount(
+    result.current.appointments,
+  );
 
   // set to filter to all appointments
   // should show at least one more appointment (the one that was "taken")
@@ -24,9 +34,10 @@ test('reserve mutation', async () => {
   act(() => result.current.setShowAll(true));
 
   // wait for the appointments to show more than when filtered
-  await waitFor(
-    () =>
-      Object.keys(result.current.appointments).length >
-      filteredAppointmentLength,
-  );
+  await waitFor(() => {
+    return (
+      getAppointmentCount(result.current.appointments) >
+      filteredAppointmentLength
+    );
+  });
 });
