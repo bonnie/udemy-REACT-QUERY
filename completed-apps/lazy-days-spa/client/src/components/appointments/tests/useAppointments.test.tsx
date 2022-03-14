@@ -9,7 +9,7 @@ const getAppointmentCount = (appointments: AppointmentDateMap) =>
   Object.values(appointments).reduce(
     (runningCount, appointmentsOnDate) =>
       runningCount + appointmentsOnDate.length,
-    0,
+    0
   );
 
 test('filter appointments by availalibility', async () => {
@@ -25,7 +25,7 @@ test('filter appointments by availalibility', async () => {
   await waitFor(() => getAppointmentCount(result.current.appointments) > 0);
 
   const filteredAppointmentLength = getAppointmentCount(
-    result.current.appointments,
+    result.current.appointments
   );
 
   // set to filter to all appointments

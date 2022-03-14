@@ -22,7 +22,7 @@ export function useStaff(): UseStaff {
   const [filter, setFilter] = useState('all');
   const selectFn = useCallback(
     (unfilteredStaff) => filterByTreatment(unfilteredStaff, filter),
-    [filter],
+    [filter]
   );
 
   const fallback = [];

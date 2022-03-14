@@ -19,7 +19,7 @@ test('Reserve appointment', async () => {
   renderWithQueryClient(
     <MemoryRouter>
       <Calendar />
-    </MemoryRouter>,
+    </MemoryRouter>
   );
 
   // find all the appointments
@@ -44,7 +44,7 @@ test('Cancel appointment', async () => {
   renderWithQueryClient(
     <MemoryRouter>
       <Calendar />
-    </MemoryRouter>,
+    </MemoryRouter>
   );
 
   // find all the cancel buttons

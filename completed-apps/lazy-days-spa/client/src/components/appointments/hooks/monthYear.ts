@@ -13,7 +13,7 @@ export interface MonthYear {
 // for incrementing MonthYear
 export function getUpdatedMonthYear(
   monthYear: MonthYear,
-  monthIncrement: number,
+  monthIncrement: number
 ): dayjs.Dayjs {
   // the clone is necessary to prevent mutation
   return monthYear.startDate.clone().add(monthIncrement, 'months');
@@ -32,7 +32,7 @@ export function getMonthYearDetails(initialDate: dayjs.Dayjs): MonthYear {
 
 export function getNewMonthYear(
   prevData: MonthYear,
-  monthIncrement: number,
+  monthIncrement: number
 ): MonthYear {
   // update the monthYear by the specified increment
   const newMonthYear = getUpdatedMonthYear(prevData, monthIncrement);

@@ -10,7 +10,7 @@ import { appointmentInPast, getAppointmentColor } from './utils';
 // determine whether this appointment can be reserved / un-reserved by logged-in user
 function isClickable(
   user: User | null,
-  appointmentData: AppointmentType,
+  appointmentData: AppointmentType
 ): boolean {
   return !!(
     user?.id &&

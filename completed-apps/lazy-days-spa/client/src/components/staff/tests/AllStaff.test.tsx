@@ -34,7 +34,7 @@ test('handles query error', async () => {
     }),
     rest.get('http://localhost:3030/treatments', (req, res, ctx) => {
       return res(ctx.status(500));
-    }),
+    })
   );
 
   const defaultOptions: DefaultOptions = defaultQueryClientOptions;

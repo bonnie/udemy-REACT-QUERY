@@ -18,7 +18,7 @@ async function getUser(user: User | null, signal: AbortSignal): Promise<User> {
     {
       signal, // abortSignal from React Query
       headers: getJWTHeader(user),
-    },
+    }
   );
 
   return data.user;
@@ -34,9 +34,13 @@ export function useUser(): UseUser {
   const queryClient = useQueryClient();
 
   // call useQuery to update user data from server
-  const { data: user } = useQuery(
+  const { data: user } = useQuery<User>(
     queryKeys.user,
-    ({ signal }) => getUser(user, signal),
+    ({ signal }) => {
+      const storedUser = getStoredUser();
+      const currentUser = user ?? storedUser;
+      return getUser(currentUser, signal);
+    },
     {
       // populate initially with user in localStorage
       initialData: getStoredUser,
@@ -54,7 +58,7 @@ export function useUser(): UseUser {
           setStoredUser(received);
         }
       },
-    },
+    }
   );
 
   // meant to be called from useAuth

@@ -13,7 +13,7 @@ export function appointmentInPast(appointmentData: Appointment): boolean {
 
 export function getAppointmentColor(
   appointmentData: Appointment,
-  userId: number | undefined,
+  userId: number | undefined
 ): [string, string] {
   const taken = !!appointmentData.userId;
 
@@ -38,7 +38,7 @@ export function getAppointmentColor(
 
 export function getAvailableAppointments(
   appointments: AppointmentDateMap,
-  user: User | null,
+  user: User | null
 ): AppointmentDateMap {
   // clone so as not to mutate argument directly
   const filteredAppointments = { ...appointments };
@@ -48,7 +48,7 @@ export function getAvailableAppointments(
     filteredAppointments[date] = filteredAppointments[date].filter(
       (appointment: Appointment) =>
         (!appointment.userId || appointment.userId === user?.id) &&
-        !appointmentInPast(appointment),
+        !appointmentInPast(appointment)
     );
   });
 

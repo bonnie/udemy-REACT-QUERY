@@ -8,7 +8,7 @@ import { useUser } from '../../user/hooks/useUser';
 
 async function setAppointmentUser(
   appointment: Appointment,
-  userId: number | undefined,
+  userId: number | undefined
 ): Promise<void> {
   if (!userId) return;
   const patchOp = appointment.userId ? 'replace' : 'add';
@@ -38,7 +38,7 @@ export function useReserveAppointment(): UseMutateFunction<
           status: 'success',
         });
       },
-    },
+    }
   );
 
   return mutate;

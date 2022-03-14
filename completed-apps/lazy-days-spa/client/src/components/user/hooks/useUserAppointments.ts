@@ -7,7 +7,7 @@ import { useUser } from './useUser';
 
 // query function
 async function getUserAppointments(
-  user: User | null,
+  user: User | null
 ): Promise<Appointment[] | null> {
   if (!user) return null;
   const { data } = await axiosInstance.get(`/user/${user.id}/appointments`, {
@@ -25,7 +25,7 @@ export function useUserAppointments(): Appointment[] {
     () => getUserAppointments(user),
     {
       enabled: !!user,
-    },
+    }
   );
 
   return userAppointments;

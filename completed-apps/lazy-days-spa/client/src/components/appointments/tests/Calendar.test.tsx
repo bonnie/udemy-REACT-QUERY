@@ -13,8 +13,8 @@ test('Appointment query error', async () => {
       'http://localhost:3030/appointments/:month/:year',
       (req, res, ctx) => {
         return res(ctx.status(500));
-      },
-    ),
+      }
+    )
   );
 
   renderWithQueryClient(<Calendar />);
