@@ -36,11 +36,15 @@ export function useUser(): UseUser {
   // call useQuery to update user data from server
   const { data: user } = useQuery<User>(
     queryKeys.user,
-    ({ signal }) => {
-      const storedUser = getStoredUser();
-      const currentUser = user ?? storedUser;
-      return getUser(currentUser, signal);
-    },
+    ({ signal }) => getUser(user, signal),
+    // ALTERNATE query function to maintain user after mutation
+    // (see https://www.udemy.com/course/learn-react-query/learn/#questions/17098438/
+    // for discussion)
+    // ({ signal }) => {
+    //   const storedUser = getStoredUser();
+    //   const currentUser = user ?? storedUser;
+    //   return getUser(currentUser, signal);
+    // },
     {
       // populate initially with user in localStorage
       initialData: getStoredUser,
