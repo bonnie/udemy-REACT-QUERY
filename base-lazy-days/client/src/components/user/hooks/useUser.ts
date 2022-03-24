@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import type { User } from '../../../../../shared/types';
 import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
@@ -30,6 +30,7 @@ interface UseUser {
 
 export function useUser(): UseUser {
   const [user, setUser] = useState<User | null>(getStoredUser());
+  const queryClient = useQueryClient();
 
   // TODO: call useQuery to update user data from server
   useQuery(queryKeys.user, () => getUser(user), {
@@ -40,11 +41,21 @@ export function useUser(): UseUser {
   // meant to be called from useAuth
   function updateUser(newUser: User): void {
     // TODO: update the user in the query cache
+    setUser(newUser);
+    setStoredUser(newUser);
+
+    queryClient.setQueriesData(queryKeys.user, newUser);
   }
 
   // meant to be called from useAuth
   function clearUser() {
     // TODO: reset user to null in query cache
+    setUser(null);
+    clearStoredUser();
+
+    queryClient.setQueriesData(queryKeys.user, null);
+
+    queryClient.removeQueries('user-appointments');
   }
 
   return { user, updateUser, clearUser };
