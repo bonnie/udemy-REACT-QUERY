@@ -11,7 +11,10 @@ import {
 } from '../../../user-storage';
 
 // query function
-async function getUser(user: User | null, signal: AbortSignal): Promise<User> {
+async function getUser(
+  user: User | null,
+  signal: AbortSignal
+): Promise<User | null> {
   if (!user) return null;
   const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
     `/user/${user.id}`,
