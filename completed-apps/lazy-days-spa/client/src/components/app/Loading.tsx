@@ -1,6 +1,6 @@
 import { Spinner, Text } from '@chakra-ui/react';
+import { useIsFetching, useIsMutating } from '@tanstack/react-query';
 import { ReactElement } from 'react';
-import { useIsFetching, useIsMutating } from 'react-query';
 
 export function Loading(): ReactElement {
   const isFetching = useIsFetching();

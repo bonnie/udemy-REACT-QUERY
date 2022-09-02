@@ -1,4 +1,8 @@
-import { UseMutateFunction, useMutation, useQueryClient } from 'react-query';
+import {
+  UseMutateFunction,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 import { Appointment } from '../../../../../shared/types';
 import { axiosInstance } from '../../../axiosInstance';

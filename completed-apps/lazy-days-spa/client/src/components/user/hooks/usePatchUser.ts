@@ -1,5 +1,9 @@
+import {
+  UseMutateFunction,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 import jsonpatch from 'fast-json-patch';
-import { UseMutateFunction, useMutation, useQueryClient } from 'react-query';
 
 import type { User } from '../../../../../shared/types';
 import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
@@ -44,10 +48,12 @@ export function usePatchUser(): UseMutateFunction<
       onMutate: async (newData: User | null) => {
         // cancel any outgoing queries for user data, so old server data
         // doesn't overwrite our optimistic update
-        queryClient.cancelQueries(queryKeys.user);
+        queryClient.cancelQueries([queryKeys.user]);
 
         // snapshot of previous user value
-        const previousUserData: User = queryClient.getQueryData(queryKeys.user);
+        const previousUserData: User = queryClient.getQueryData([
+          queryKeys.user,
+        ]);
 
         // optimistically update the cache with new user value
         updateUser(newData);
@@ -75,7 +81,7 @@ export function usePatchUser(): UseMutateFunction<
       },
       onSettled: () => {
         // invalidate user query to make sure we're in sync with server data
-        queryClient.invalidateQueries(queryKeys.user);
+        queryClient.invalidateQueries([queryKeys.user]);
       },
     }
   );

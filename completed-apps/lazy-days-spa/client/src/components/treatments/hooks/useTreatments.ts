@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import type { Treatment } from '../../../../../shared/types';
 import { axiosInstance } from '../../../axiosInstance';
@@ -12,11 +12,11 @@ async function getTreatments(): Promise<Treatment[]> {
 
 export function useTreatments(): Treatment[] {
   const fallback = [];
-  const { data = fallback } = useQuery(queryKeys.treatments, getTreatments);
+  const { data = fallback } = useQuery([queryKeys.treatments], getTreatments);
   return data;
 }
 
 export function usePrefetchTreatments(): void {
   const queryClient = useQueryClient();
-  queryClient.prefetchQuery(queryKeys.treatments, getTreatments);
+  queryClient.prefetchQuery([queryKeys.treatments], getTreatments);
 }

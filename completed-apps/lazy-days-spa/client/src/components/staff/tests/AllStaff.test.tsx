@@ -2,20 +2,10 @@
 
 import { screen } from '@testing-library/react';
 import { rest } from 'msw';
-import { DefaultOptions, setLogger } from 'react-query';
 
 import { server } from '../../../mocks/server';
-import { defaultQueryClientOptions } from '../../../react-query/queryClient';
 import { renderWithQueryClient } from '../../../test-utils';
 import { AllStaff } from '../AllStaff';
-
-setLogger({
-  log: console.log,
-  warn: console.warn,
-  error: () => {
-    // swallow the errors
-  },
-});
 
 test('renders response from query', async () => {
   renderWithQueryClient(<AllStaff />);
@@ -36,10 +26,6 @@ test('handles query error', async () => {
       return res(ctx.status(500));
     })
   );
-
-  const defaultOptions: DefaultOptions = defaultQueryClientOptions;
-  if (defaultOptions && defaultOptions.queries)
-    defaultOptions.queries.retry = false;
 
   renderWithQueryClient(<AllStaff />);
 

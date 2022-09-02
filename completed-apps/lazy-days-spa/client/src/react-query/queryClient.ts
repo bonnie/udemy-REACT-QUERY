@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import { createStandaloneToast } from '@chakra-ui/react';
-import { QueryClient } from 'react-query';
+import { QueryClient } from '@tanstack/react-query';
 
 const toast = createStandaloneToast();
 
@@ -15,6 +16,14 @@ function queryErrorHandler(error: unknown): void {
 
 export function generateQueryClient(): QueryClient {
   return new QueryClient({
+    // from https://tanstack.com/query/v4/docs/guides/testing#turn-off-network-error-logging
+    logger: {
+      log: console.log,
+      warn: console.warn,
+      // ✅ no more errors on the console for tests
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      error: process.env.NODE_ENV === 'test' ? () => {} : console.error,
+    },
     defaultOptions: {
       queries: {
         onError: queryErrorHandler,
@@ -23,6 +32,7 @@ export function generateQueryClient(): QueryClient {
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
+        retry: !(process.env.NODE_ENV === 'test'), // set retry to false for tests
       },
       mutations: {
         onError: queryErrorHandler,

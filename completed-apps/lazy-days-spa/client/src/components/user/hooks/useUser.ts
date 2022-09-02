@@ -1,5 +1,5 @@
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
-import { useQuery, useQueryClient } from 'react-query';
 
 import type { User } from '../../../../../shared/types';
 import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
@@ -38,7 +38,7 @@ export function useUser(): UseUser {
 
   // call useQuery to update user data from server
   const { data: user } = useQuery<User>(
-    queryKeys.user,
+    [queryKeys.user],
     ({ signal }) => getUser(user, signal),
     // ALTERNATE query function to maintain user after mutation
     // (see https://www.udemy.com/course/learn-react-query/learn/#questions/17098438/
@@ -52,8 +52,6 @@ export function useUser(): UseUser {
       // populate initially with user in localStorage
       initialData: getStoredUser,
 
-      // note: onSuccess is called on both successful query function completion
-      //     *and* on queryClient.setQueryData
       // the `received` argument to onSuccess will be:
       //    - null, if this is called on queryClient.setQueryData in clearUser()
       //    - User, if this is called from queryClient.setQueryData in updateUser()
@@ -71,13 +69,23 @@ export function useUser(): UseUser {
   // meant to be called from useAuth
   function updateUser(newUser: User): void {
     // update the user
-    queryClient.setQueryData(queryKeys.user, newUser);
+    queryClient.setQueryData([queryKeys.user], newUser);
+
+    // With React Query v4, onSuccess is called only for a successful query function,
+    //     not for queryClient.setQueryData. Reference:
+    //     https://tanstack.com/query/v4/docs/guides/migrating-to-react-query-4#onsuccess-is-no-longer-called-from-setquerydata
+    setStoredUser(newUser);
   }
 
   // meant to be called from useAuth
   function clearUser() {
     // reset user to null
-    queryClient.setQueryData(queryKeys.user, null);
+    queryClient.setQueryData([queryKeys.user], null);
+
+    // With React Query v4, onSuccess is called only for a successful query function,
+    //     not for queryClient.setQueryData. Reference:
+    //     https://tanstack.com/query/v4/docs/guides/migrating-to-react-query-4#onsuccess-is-no-longer-called-from-setquerydata
+    clearStoredUser();
 
     // remove user appointments query
     queryClient.removeQueries([queryKeys.appointments, queryKeys.user]);
