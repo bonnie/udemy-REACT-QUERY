@@ -32,7 +32,14 @@ export function InfiniteSpecies() {
   return (
     <>
       {isFetching && <div className="loading">Loading...</div>}
-      <InfiniteScroll loadMore={fetchNextPage} hasMore={hasNextPage}>
+      <InfiniteScroll
+        // add initialLoad={false} to prevent loading two pages on
+        // component mount (see
+        // https://www.udemy.com/course/learn-react-query/learn/#questions/18222646/)
+        initialLoad={false}
+        loadMore={fetchNextPage}
+        hasMore={hasNextPage}
+      >
         {data.pages.map((pageData) => {
           return pageData.results.map((species) => {
             return (
