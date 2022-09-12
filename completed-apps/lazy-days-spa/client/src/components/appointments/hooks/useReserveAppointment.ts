@@ -18,6 +18,14 @@ async function setAppointmentUser(
   });
 }
 
+// Alternate typescript annotation
+// For more details, see
+// https://www.udemy.com/course/learn-react-query/learn/#questions/18259670/
+//
+// type AppointmentMutationFunction = (appointment: Appointment) => void;
+//
+// export function useReserveAppointment(): AppointmentMutationFunction {
+
 export function useReserveAppointment(): UseMutateFunction<
   void,
   unknown,
