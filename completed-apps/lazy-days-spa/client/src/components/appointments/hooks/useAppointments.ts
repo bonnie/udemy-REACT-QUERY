@@ -30,6 +30,13 @@ async function getAppointments(
   return data;
 }
 
+// identity function so select won't show stale data
+// see this Q&A for more details:
+// https://www.udemy.com/course/learn-react-query/learn/#questions/18249892/
+function identity<T>(value: T): T {
+  return value;
+}
+
 // types for hook return object
 interface UseAppointments {
   appointments: AppointmentDateMap;
@@ -102,7 +109,10 @@ export function useAppointments(): UseAppointments {
     [queryKeys.appointments, monthYear.year, monthYear.month],
     () => getAppointments(monthYear.year, monthYear.month),
     {
-      select: showAll ? undefined : selectFn,
+      // can't use `undefined` here; need to use identity function
+      // see this Q&A for more details:
+      // https://www.udemy.com/course/learn-react-query/learn/#questions/18249892/
+      select: showAll ? (data) => identity<AppointmentDateMap>(data) : selectFn,
       ...commonOptions,
       refetchOnMount: true,
       refetchOnReconnect: true,
