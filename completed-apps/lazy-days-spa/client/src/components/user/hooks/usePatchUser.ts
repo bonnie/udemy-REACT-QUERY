@@ -66,7 +66,10 @@ export function usePatchUser(): UseMutateFunction<
         }
       },
       onSuccess: (userData: User | null) => {
-        if (user) {
+        // note: the conditional here should be `userData`, not `user` as shown
+        //   in the video.
+        // see: https://www.udemy.com/course/learn-react-query/learn/#questions/18361988/
+        if (userData) {
           toast({
             title: 'User updated!',
             status: 'success',
