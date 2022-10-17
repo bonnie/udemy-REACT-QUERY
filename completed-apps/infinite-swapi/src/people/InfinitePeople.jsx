@@ -1,5 +1,5 @@
+import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroller";
-import { useInfiniteQuery } from "react-query";
 
 import { Person } from "./Person";
 
@@ -19,7 +19,7 @@ export function InfinitePeople() {
     isError,
     error,
   } = useInfiniteQuery(
-    "sw-people",
+    ["sw-people"],
     ({ pageParam = initialUrl }) => fetchUrl(pageParam),
     {
       getNextPageParam: (lastPage) => lastPage.next || undefined,

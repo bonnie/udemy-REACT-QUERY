@@ -1,5 +1,5 @@
+import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroller";
-import { useInfiniteQuery } from "react-query";
 
 import { Species } from "./Species";
 
@@ -19,7 +19,7 @@ export function InfiniteSpecies() {
     isError,
     error,
   } = useInfiniteQuery(
-    "sw-species",
+    ["sw-species"],
     ({ pageParam = initialUrl }) => fetchUrl(pageParam),
     {
       getNextPageParam: (lastPage) => lastPage.next || undefined,
