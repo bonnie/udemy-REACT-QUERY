@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 async function fetchComments(postId) {
   const response = await fetch(
@@ -32,7 +32,7 @@ export function PostDetail({ post }) {
 
   const deleteMutation = useMutation((postId) => deletePost(postId));
   const updateMutation = useMutation((postId) => updatePost(postId));
-  
+
   // clear messages when a new post is selected
   // reference: https://www.udemy.com/course/learn-react-query/learn/#questions/17213546/
   useEffect(() => {
@@ -41,7 +41,7 @@ export function PostDetail({ post }) {
     // can't include updateMutation and deleteMutation in the dependencies
     // because the function updates them -- so there would be an infinite loop!
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [post.id])
+  }, [post.id]);
 
   if (isLoading) {
     return <h3>Loading!</h3>;
