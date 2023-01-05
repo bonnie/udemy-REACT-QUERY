@@ -9,7 +9,7 @@ interface StaffProps {
 }
 export function Staff({ staffData }: StaffProps): ReactElement {
   const cardContents = (
-    <Text align="center">{staffData.treatmentNames.join(', ')}</Text>
+    <Text textAlign="center">{staffData.treatmentNames.join(', ')}</Text>
   );
 
   return (

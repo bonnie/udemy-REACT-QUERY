@@ -69,7 +69,7 @@ export function UserAppointments(): ReactElement | null {
 
   return (
     <Box>
-      <Heading mt={10} align="center">
+      <Heading mt={10} textAlign="center">
         Your Appointments
       </Heading>
       <Center>
