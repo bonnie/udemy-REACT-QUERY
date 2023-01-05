@@ -26,7 +26,9 @@ export function useStaff(): UseStaff {
   );
 
   const fallback = [];
-  const { data: staff = fallback } = useQuery([queryKeys.staff], getStaff, {
+  const { data: staff = fallback } = useQuery({
+    queryKey: [queryKeys.staff],
+    queryFn: getStaff,
     select: filter !== 'all' ? selectFn : undefined,
   });
 

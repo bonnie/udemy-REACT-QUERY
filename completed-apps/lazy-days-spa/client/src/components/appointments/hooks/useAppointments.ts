@@ -99,18 +99,16 @@ export function useAppointments(): UseAppointments {
   //       monthYear.month
   const fallback = {};
 
-  const { data: appointments = fallback } = useQuery(
-    [queryKeys.appointments, monthYear.year, monthYear.month],
-    () => getAppointments(monthYear.year, monthYear.month),
-    {
-      select: showAll ? undefined : selectFn,
-      ...commonOptions,
-      refetchOnMount: true,
-      refetchOnReconnect: true,
-      refetchOnWindowFocus: true,
-      refetchInterval: 60000, // 60 seconds
-    }
-  );
+  const { data: appointments = fallback } = useQuery({
+    queryKey: [queryKeys.appointments, monthYear.year, monthYear.month],
+    queryFn: () => getAppointments(monthYear.year, monthYear.month),
+    select: showAll ? undefined : selectFn,
+    ...commonOptions,
+    refetchOnMount: true,
+    refetchOnReconnect: true,
+    refetchOnWindowFocus: true,
+    refetchInterval: 60000,
+  });
 
   /** ****************** END 3: useQuery  ******************************* */
 

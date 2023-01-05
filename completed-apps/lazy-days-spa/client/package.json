@@ -9,6 +9,7 @@
     "@chakra-ui/theme-tools": "^1.1.7",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
+    "@tanstack/eslint-plugin-query": "^4.20.10",
     "@tanstack/react-query": "^4.2.3",
     "@tanstack/react-query-devtools": "^4.2.3",
     "@testing-library/jest-dom": "^5.11.10",

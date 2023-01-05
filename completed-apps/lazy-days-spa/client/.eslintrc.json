@@ -6,7 +6,8 @@
     "react-app",
     "react-app/jest",
     "plugin:jsx-a11y/recommended",
-    "prettier"
+    "prettier",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
   ],
   "settings": {
     "import/resolver": {
@@ -30,7 +31,8 @@
     "jsx-a11y",
     "@typescript-eslint",
     "simple-import-sort",
-    "prettier"
+    "prettier",
+    "@tanstack/query"
   ],
   "env": {
     "browser": true,

@@ -37,34 +37,23 @@ export function useUser(): UseUser {
   const queryClient = useQueryClient();
 
   // call useQuery to update user data from server
-  const { data: user } = useQuery<User>(
-    [queryKeys.user],
-    ({ signal }) => getUser(user, signal),
-    // ALTERNATE query function to maintain user after mutation
-    // (see https://www.udemy.com/course/learn-react-query/learn/#questions/17098438/
-    // for discussion)
-    // ({ signal }) => {
-    //   const storedUser = getStoredUser();
-    //   const currentUser = user ?? storedUser;
-    //   return getUser(currentUser, signal);
-    // },
-    {
-      // populate initially with user in localStorage
-      initialData: getStoredUser,
-
-      // the `received` argument to onSuccess will be:
-      //    - null, if this is called on queryClient.setQueryData in clearUser()
-      //    - User, if this is called from queryClient.setQueryData in updateUser()
-      //         *or* from the getUser query function call
-      onSuccess: (received: null | User) => {
-        if (!received) {
-          clearStoredUser();
-        } else {
-          setStoredUser(received);
-        }
-      },
-    }
-  );
+  const { data: user } = useQuery<User>({
+    // disabling exhaustive deps here since user is both the output of the useQuery function
+    //   and a dependency, causing other linting issues.
+    // for more information this aspect of the code, see this Q&A thread:
+    //    https://www.udemy.com/course/learn-react-query/learn/#questions/17531882/
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: [queryKeys.user],
+    queryFn: ({ signal }) => getUser(user, signal),
+    initialData: getStoredUser,
+    onSuccess: (received: null | User) => {
+      if (!received) {
+        clearStoredUser();
+      } else {
+        setStoredUser(received);
+      }
+    },
+  });
 
   // meant to be called from useAuth
   function updateUser(newUser: User): void {
