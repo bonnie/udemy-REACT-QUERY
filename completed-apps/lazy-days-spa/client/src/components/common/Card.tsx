@@ -43,7 +43,7 @@ export function Card({
             src={`${baseImageUrl}/${image.fileName}`}
             alt={itemName}
           />
-          <Text fontSize="xs" align="center">
+          <Text fontSize="xs" textAlign="center">
             Photo by <Link href={image.authorLink}>{image.authorName}</Link>{' '}
             from <Link href={image.platformLink}>{image.platformName}</Link>
           </Text>

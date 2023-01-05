@@ -71,9 +71,10 @@ export function useAppointments(): UseAppointments {
   //   appointments that the logged-in user has reserved (in white)
   const { user } = useUser();
 
-  const selectFn = useCallback((data) => getAvailableAppointments(data, user), [
-    user,
-  ]);
+  const selectFn = useCallback(
+    (data) => getAvailableAppointments(data, user),
+    [user]
+  );
   /** ****************** END 2: filter appointments  ******************** */
   /** ****************** START 3: useQuery  ***************************** */
   // useQuery call for appointments for the current monthYear

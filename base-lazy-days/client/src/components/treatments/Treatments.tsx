@@ -9,7 +9,7 @@ export function Treatments(): ReactElement {
   const treatments = useTreatments();
   return (
     <Box>
-      <Heading mt={10} align="center">
+      <Heading mt={10} textAlign="center">
         Available Treatments
       </Heading>
       <HStack m={10} spacing={8} justify="center">
