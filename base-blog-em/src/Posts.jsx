@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
+import { useQuery } from "react-query";
 
 import { PostDetail } from "./PostDetail";
 const maxPostPage = 10;
@@ -14,8 +16,9 @@ export function Posts() {
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedPost, setSelectedPost] = useState(null);
 
-  // replace with useQuery
-  const data = [];
+  // Query function takes name in string and the function that returns a value
+  const { data, isError, isLoading } = useQuery("posts", fetchPosts);
+  if (isLoading) return <h3>Loading...</h3>;
 
   return (
     <>
