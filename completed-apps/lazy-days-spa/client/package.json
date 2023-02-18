@@ -43,6 +43,7 @@
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-error-overlay": "6.0.9",
     "react-icons": "^4.2.0",
     "react-query": "^3.34.16",
     "react-router": "^5.2.0",

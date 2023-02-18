@@ -17,6 +17,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-error-overlay": "6.0.9",
     "react-query": "^3.16.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.1"
