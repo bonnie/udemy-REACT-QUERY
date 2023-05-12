@@ -4,12 +4,12 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^12.8.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-error-overlay": "6.0.9",
-    "react-query": "^3.13.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-error-overlay": "6.0.11",
+    "react-query": "^3.39.3",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.1"
   },
