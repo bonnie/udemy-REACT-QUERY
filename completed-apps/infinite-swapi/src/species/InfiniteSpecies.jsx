@@ -34,8 +34,12 @@ export function InfiniteSpecies() {
         // add initialLoad={false} to prevent loading two pages on
         // component mount (see
         // https://www.udemy.com/course/learn-react-query/learn/#questions/18222646/)
-        initialLoad={false}
-        loadMore={fetchNextPage}
+        // initialLoad={false}
+        // use overflow: auto instead? https://github.com/danbovey/react-infinite-scroller#double-or-non-stop-calls-to-loadmore
+        loadMore={() => {
+          // https://github.com/danbovey/react-infinite-scroller#but-you-should-just-add-an-isloading-prop
+          if (!isFetching) fetchNextPage();
+        }}
         hasMore={hasNextPage}
       >
         {data.pages.map((pageData) => {

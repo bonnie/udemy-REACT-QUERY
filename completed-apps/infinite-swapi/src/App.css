@@ -3,3 +3,8 @@
   top: 5px;
   right: 5px;
 }
+
+.app {
+  /* https://github.com/danbovey/react-infinite-scroller#double-or-non-stop-calls-to-loadmore */
+  overflow: auto;
+}

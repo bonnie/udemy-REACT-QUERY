@@ -11,7 +11,7 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="App">
+      <div className="app">
         <h1>Infinite SWAPI</h1>
         {/* <InfinitePeople /> */}
         <InfiniteSpecies />
