@@ -1,22 +1,28 @@
 import { useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchPosts, deletePost, updatePost } from "./api";
 
 import { PostDetail } from "./PostDetail";
 
 const maxPostPage = 10;
-
-async function fetchPosts(pageNum) {
-  const response = await fetch(
-    `https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${pageNum}`
-  );
-  return response.json();
-}
 
 export function Posts() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPost, setSelectedPost] = useState(null);
 
   const queryClient = useQueryClient();
+  const deleteMutation = useMutation({
+    mutationFn: (postId) => {
+      updateMutation.reset();
+      deletePost(postId);
+    },
+  });
+  const updateMutation = useMutation({
+    mutationFn: (postId) => {
+      deleteMutation.reset();
+      updatePost(postId);
+    },
+  });
 
   useEffect(() => {
     if (currentPage < maxPostPage) {
@@ -27,14 +33,21 @@ export function Posts() {
     }
   }, [currentPage, queryClient]);
 
-  const { data, isError, error, isLoading } = useQuery(
-    ["posts", currentPage],
-    () => fetchPosts(currentPage),
-    {
-      staleTime: 2000,
-      keepPreviousData: true,
-    }
-  );
+  const handleClick = (post) => {
+    // clear messages
+    updateMutation.reset();
+    deleteMutation.reset();
+    setSelectedPost(post);
+  };
+
+  const { data, isError, error, isLoading } = useQuery({
+    queryKey: ["posts", currentPage],
+    queryFn: () => {
+      return fetchPosts(currentPage);
+    },
+    staleTime: 2000,
+    keepPreviousData: true,
+  });
   if (isLoading) return <h3>Loading...</h3>;
   if (isError)
     return (
@@ -51,7 +64,7 @@ export function Posts() {
           <li
             key={post.id}
             className="post-title"
-            onClick={() => setSelectedPost(post)}
+            onClick={() => handleClick(post)}
           >
             {post.title}
           </li>
@@ -77,7 +90,13 @@ export function Posts() {
         </button>
       </div>
       <hr />
-      {selectedPost && <PostDetail post={selectedPost} />}
+      {selectedPost && (
+        <PostDetail
+          post={selectedPost}
+          updateMutation={updateMutation}
+          deleteMutation={deleteMutation}
+        />
+      )}
     </>
   );
 }
