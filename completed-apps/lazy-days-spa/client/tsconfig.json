@@ -27,5 +27,10 @@
     "downlevelIteration": true,
     "strict": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "node_modules/@types"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "node_modules/@types",
+    "src/setupTests.ts"
+  ]
 }

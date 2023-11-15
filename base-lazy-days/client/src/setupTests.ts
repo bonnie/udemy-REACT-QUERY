@@ -2,7 +2,13 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import "@testing-library/jest-dom";
+import "@testing-library/jest-dom/vitest";
+
+// https://www.npmjs.com/package/@testing-library/jest-dom#with-another-jest-compatible-expect
+import * as matchers from "@testing-library/jest-dom/matchers";
+import { expect } from "vitest";
+
+expect.extend(matchers);
 
 // import { server } from './mocks/server.js';
 
