@@ -10,20 +10,37 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
     "@tanstack/react-query": "^5.8.3",
+    "dayjs": "^1.11.10",
+    "msw": "^2.0.6",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
+    "react-router-dom": "^6.18.0",
+    "vitest": "^0.34.6"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.8.3",
     "@tanstack/react-query-devtools": "^5.8.3",
+    "@testing-library/react": "^14.1.0",
+    "@types/node": "^20.9.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
     "@vitejs/plugin-react": "^4.0.3",
-    "eslint": "^8.45.0",
+    "eslint": "^8.53.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-testing-library": "^6.1.2",
+    "eslint-plugin-vitest": "^0.3.9",
+    "install": "^0.13.0",
+    "npm": "^10.2.3",
+    "typescript": "^5.2.2",
     "vite": "^4.4.5"
   }
 }

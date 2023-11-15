@@ -10,4 +10,10 @@ export default defineConfig({
     // exit if port 3000 is in use (to avoid CORS errors)
     strict: true,
   },
+  test: {
+    // https://github.com/vitest-dev/vitest/blob/main/examples/react-testing-lib/vite.config.ts
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./src/setupTests.js",
+  },
 });

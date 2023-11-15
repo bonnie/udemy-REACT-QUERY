@@ -32,7 +32,6 @@ export function Posts() {
     () => fetchPosts(currentPage),
     {
       staleTime: 2000,
-      keepPreviousData: true,
     }
   );
   if (isLoading) return <h3>Loading...</h3>;
