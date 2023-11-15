@@ -1,5 +1,6 @@
-// import { createStandaloneToast } from '@chakra-ui/react';
-// import { theme } from '../theme';
+// import { QueryCache, QueryClient } from "@tanstack/react-query";
+
+// import { toast } from "../components/app/toast";
 
 // const toast = createStandaloneToast({ theme });
 
@@ -7,9 +8,6 @@
 //   // error is type unknown because in js, anything can be an error (e.g. throw(5))
 //   const title =
 //     error instanceof Error ? error.message : 'error connecting to server';
-
-//   // prevent duplicate toasts
-//   toast.closeAll();
 //   toast({ title, status: 'error', variant: 'subtle', isClosable: true });
 // }
 
