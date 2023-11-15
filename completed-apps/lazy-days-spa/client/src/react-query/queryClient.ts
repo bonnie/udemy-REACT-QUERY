@@ -1,4 +1,4 @@
-import { QueryCache, QueryClient } from "@tanstack/react-query";
+import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
 
 import { toast } from "../components/app/toast";
 
@@ -11,6 +11,9 @@ function queryErrorHandler(error: unknown): void {
 
 export const queryClient = new QueryClient({
   queryCache: new QueryCache({
+    onError: queryErrorHandler,
+  }),
+  mutationCache: new MutationCache({
     onError: queryErrorHandler,
   }),
 });
