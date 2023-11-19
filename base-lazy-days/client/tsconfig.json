@@ -9,7 +9,7 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/*"],
+      "@/*": ["src/*"],
       "@shared/*": ["../shared/*"]
     },
     "esModuleInterop": true,

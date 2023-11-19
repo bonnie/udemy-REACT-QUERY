@@ -1,7 +1,7 @@
-import { axiosInstance } from "@src/axiosInstance";
-import { useCustomToast } from "@src/components/app/hooks/useCustomToast";
-import { useUser } from "@src/components/user/hooks/useUser";
-import { queryKeys } from "@src/react-query/constants";
+import { axiosInstance } from "@/axiosInstance";
+import { useCustomToast } from "@/components/app/hooks/useCustomToast";
+import { useUser } from "@/components/user/hooks/useUser";
+import { queryKeys } from "@/react-query/constants";
 import { Appointment } from "@shared/types";
 
 // for when we need functions for useMutation

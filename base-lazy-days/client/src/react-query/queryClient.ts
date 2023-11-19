@@ -1,4 +1,4 @@
-// import { toast } from "@src/components/app/toast";
+// import { toast } from "@/components/app/toast";
 
 // function queryErrorHandler(error: unknown): void {
 //     // error is type unknown because in js, anything can be an error (e.g. throw(5))

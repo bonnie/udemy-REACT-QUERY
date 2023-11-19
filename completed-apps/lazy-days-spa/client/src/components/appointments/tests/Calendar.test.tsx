@@ -1,10 +1,10 @@
 import { screen, waitFor } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 
-import { server } from "@src/mocks/server";
-import { renderWithQueryClient } from "@src/test-utils";
-
 import { Calendar } from "../Calendar";
+
+import { server } from "@/mocks/server";
+import { renderWithQueryClient } from "@/test-utils";
 
 test("Appointment query error", async () => {
   // (re)set handler to return a 500 error for appointments

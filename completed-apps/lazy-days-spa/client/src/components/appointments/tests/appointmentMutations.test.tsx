@@ -5,10 +5,10 @@ import {
 } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
-import { mockUser } from "@src/mocks/mockData";
-import { renderWithQueryClient } from "@src/test-utils";
-
 import { Calendar } from "../Calendar";
+
+import { mockUser } from "@/mocks/mockData";
+import { renderWithQueryClient } from "@/test-utils";
 
 // mocking useUser to mimic a logged-in user
 vi.mock("../../user/hooks/useUser", () => ({

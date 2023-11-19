@@ -1,9 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 
-import { axiosInstance } from "@src/axiosInstance";
-import { useCustomToast } from "@src/components/app/hooks/useCustomToast";
-import { useUser } from "@src/components/user/hooks/useUser";
 import { User } from "@shared/types";
+
+import { axiosInstance } from "@/axiosInstance";
+import { useCustomToast } from "@/components/app/hooks/useCustomToast";
+import { useUser } from "@/components/user/hooks/useUser";
 
 interface UseAuth {
   signin: (email: string, password: string) => Promise<void>;

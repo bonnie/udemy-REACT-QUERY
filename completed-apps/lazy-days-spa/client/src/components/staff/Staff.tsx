@@ -1,7 +1,8 @@
 import { Text } from "@chakra-ui/react";
 
-import { Card } from "@src/components/common/Card";
 import type { Staff as StaffType } from "@shared/types";
+
+import { Card } from "@/components/common/Card";
 
 interface StaffProps {
   staffData: StaffType;

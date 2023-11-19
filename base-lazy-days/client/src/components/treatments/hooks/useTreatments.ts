@@ -1,6 +1,6 @@
 import type { Treatment } from "@shared/types";
-import { axiosInstance } from "@src/axiosInstance";
-import { queryKeys } from "@src/react-query/constants";
+import { axiosInstance } from "@/axiosInstance";
+import { queryKeys } from "@/react-query/constants";
 import { useCustomToast } from "../../app/hooks/useCustomToast";
 
 // for when we need a query function for useQuery

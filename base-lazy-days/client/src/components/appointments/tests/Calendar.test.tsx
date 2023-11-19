@@ -1,9 +1,9 @@
 import { screen } from "@testing-library/react";
 
 // import { http, HttpResponse } from "msw";
-// import { server } from '@src/mocks/server';
-// import { defaultQueryClientOptions } from '@src/react-query/queryClient';
-// import { renderWithClient } from '@src/test-utils';
+// import { server } from '@/mocks/server';
+// import { defaultQueryClientOptions } from '@/react-query/queryClient';
+// import { renderWithClient } from '@/test-utils';
 import { Calendar } from "../Calendar";
 
 // mocking useUser to mimic a logged-in user

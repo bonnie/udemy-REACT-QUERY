@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import { Calendar } from "@src/components/appointments/Calendar";
-import { AllStaff } from "@src/components/staff/AllStaff";
-import { Treatments } from "@src/components/treatments/Treatments";
-import { Signin } from "@src/components/user/Signin";
-import { UserProfile } from "@src/components/user/UserProfile";
-
 import { Home } from "./Home";
+
+import { Calendar } from "@/components/appointments/Calendar";
+import { AllStaff } from "@/components/staff/AllStaff";
+import { Treatments } from "@/components/treatments/Treatments";
+import { Signin } from "@/components/user/Signin";
+import { UserProfile } from "@/components/user/UserProfile";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Home /> },

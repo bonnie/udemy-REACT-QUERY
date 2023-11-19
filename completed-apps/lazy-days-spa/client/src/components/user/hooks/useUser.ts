@@ -1,13 +1,14 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 
-import { axiosInstance, getJWTHeader } from "@src/axiosInstance";
-import { queryKeys } from "@src/react-query/constants";
+import type { User } from "@shared/types";
+
+import { axiosInstance, getJWTHeader } from "@/axiosInstance";
+import { queryKeys } from "@/react-query/constants";
 import {
   generateUserAppointmentsKey,
   generateUserKey,
-} from "@src/react-query/key-factories";
-import type { User } from "@shared/types";
+} from "@/react-query/key-factories";
 
 // query function
 async function getUser(user: User, signal: AbortSignal) {

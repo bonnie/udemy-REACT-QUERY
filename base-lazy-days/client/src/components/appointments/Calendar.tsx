@@ -9,7 +9,7 @@ import {
 import dayjs from "dayjs";
 import { TiArrowLeftThick, TiArrowRightThick } from "react-icons/ti";
 
-import { UserAppointments } from "@src/components/user/UserAppointments";
+import { UserAppointments } from "@/components/user/UserAppointments";
 
 import { DateBox } from "./DateBox";
 import { useAppointments } from "./hooks/useAppointments";

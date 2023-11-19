@@ -8,13 +8,13 @@ import {
   useState,
 } from "react";
 
-import { axiosInstance } from "@src/axiosInstance";
-import { useUser } from "@src/components/user/hooks/useUser";
-import { queryKeys } from "@src/react-query/constants";
-
 import { AppointmentDateMap } from "../types";
 import { getAvailableAppointments } from "../utils";
 import { getMonthYearDetails, getNewMonthYear, MonthYear } from "./monthYear";
+
+import { axiosInstance } from "@/axiosInstance";
+import { useUser } from "@/components/user/hooks/useUser";
+import { queryKeys } from "@/react-query/constants";
 
 // common options for both useQuery and prefetchQuery
 const commonOptions = {

@@ -13,11 +13,12 @@ import dayjs from "dayjs";
 import { ImCancelCircle } from "react-icons/im";
 import { Link } from "react-router-dom";
 
-import { useCancelAppointment } from "@src/components/appointments/hooks/useCancelAppointment";
 import type { Appointment } from "@shared/types";
 
 import { useUser } from "./hooks/useUser";
 import { useUserAppointments } from "./hooks/useUserAppointments";
+
+import { useCancelAppointment } from "@/components/appointments/hooks/useCancelAppointment";
 
 interface AppointmentsTableProps {
   userAppointments: Appointment[];

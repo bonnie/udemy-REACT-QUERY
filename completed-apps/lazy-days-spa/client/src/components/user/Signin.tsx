@@ -13,9 +13,9 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAuth } from "@src/auth/useAuth";
-
 import { useUser } from "./hooks/useUser";
+
+import { useAuth } from "@/auth/useAuth";
 
 export function Signin() {
   const [email, setEmail] = useState("test");

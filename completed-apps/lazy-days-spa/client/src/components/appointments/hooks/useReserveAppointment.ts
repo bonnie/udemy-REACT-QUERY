@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Appointment } from "@shared/types";
-import { axiosInstance } from "@src/axiosInstance";
-import { queryKeys } from "@src/react-query/constants";
 
-import { useCustomToast } from "@src/components/app/hooks/useCustomToast";
-import { useUser } from "@src/components/user/hooks/useUser";
+import { axiosInstance } from "@/axiosInstance";
+import { useCustomToast } from "@/components/app/hooks/useCustomToast";
+import { useUser } from "@/components/user/hooks/useUser";
+import { queryKeys } from "@/react-query/constants";
 
 async function setAppointmentUser(
   appointment: Appointment,

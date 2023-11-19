@@ -6,7 +6,7 @@ import { ReactElement } from "react";
 import {
   generateQueryClient,
   queryClientConfig,
-} from "@src/react-query/queryClient";
+} from "@/react-query/queryClient";
 
 // make this a function for unique queryClient per test
 const generateTestQueryClient = () => {

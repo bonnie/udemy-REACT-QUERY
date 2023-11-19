@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { axiosInstance, getJWTHeader } from "@src/axiosInstance";
-import { generateUserAppointmentsKey } from "@src/react-query/key-factories";
 import type { Appointment, User } from "@shared/types";
 
 import { useUser } from "./useUser";
+
+import { axiosInstance, getJWTHeader } from "@/axiosInstance";
+import { generateUserAppointmentsKey } from "@/react-query/key-factories";
 
 // query function
 async function getUserAppointments(

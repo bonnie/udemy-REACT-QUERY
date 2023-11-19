@@ -1,7 +1,7 @@
 import { Box, HStack, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
 
-import { useUser } from "@src/components/user/hooks/useUser";
+import { useUser } from "@/components/user/hooks/useUser";
 import { Appointment as AppointmentType, User } from "@shared/types";
 
 import { useReserveAppointment } from "./hooks/useReserveAppointment";

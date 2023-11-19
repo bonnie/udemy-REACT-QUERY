@@ -1,10 +1,11 @@
 import { Dispatch, SetStateAction, useState } from "react";
 
-import { axiosInstance } from "@src/axiosInstance";
-import { queryKeys } from "@src/react-query/constants";
 import type { Staff } from "@shared/types";
 
 import { filterByTreatment } from "../utils";
+
+import { axiosInstance } from "@/axiosInstance";
+import { queryKeys } from "@/react-query/constants";
 
 // for when we need a query function for useQuery
 // async function getStaff(): Promise<Staff[]> {

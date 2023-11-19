@@ -4,8 +4,8 @@ import { GiFlowerPot } from "react-icons/gi";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { useAuth } from "@src/auth/useAuth";
-import { useUser } from "@src/components/user/hooks/useUser";
+import { useAuth } from "@/auth/useAuth";
+import { useUser } from "@/components/user/hooks/useUser";
 
 const Links = ["Treatments", "Staff", "Calendar"];
 

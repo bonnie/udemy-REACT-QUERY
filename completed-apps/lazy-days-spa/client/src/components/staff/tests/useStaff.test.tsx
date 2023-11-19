@@ -1,8 +1,8 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
 
-import { createQueryClientWrapper } from "@src/test-utils";
-
 import { useStaff } from "../hooks/useStaff";
+
+import { createQueryClientWrapper } from "@/test-utils";
 
 test("filter staff", async () => {
   const { result } = renderHook(() => useStaff(), {
