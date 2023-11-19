@@ -27,7 +27,7 @@ async function patchUserOnServer(
     `/user/${originalData.id}`,
     { patch },
     {
-      headers: getJWTHeader(originalData),
+      headers: getJWTHeader(originalData.token),
     }
   );
   return data.user;

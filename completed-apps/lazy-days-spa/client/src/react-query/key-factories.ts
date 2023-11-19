@@ -3,8 +3,8 @@ import { User } from "@shared/types";
 import { queryKeys } from "./constants";
 
 // use user instead of user.id to avoid react query dependencies linting error
-export const generateUserKey = (user: User) => {
-  return [queryKeys.user, user.id];
+export const generateUserKey = (userId: number, userToken: string) => {
+  return [queryKeys.user, userId, userToken];
 };
 
 // use user instead of user.id to avoid react query dependencies linting error

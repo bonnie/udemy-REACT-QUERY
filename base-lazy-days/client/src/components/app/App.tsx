@@ -1,17 +1,36 @@
-import { RouterProvider } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import { Home } from "./Home";
 import { Loading } from "./Loading";
 import { Navbar } from "./Navbar";
-import { router } from "./router";
 import { ToastContainer } from "./toast";
+
+import { Calendar } from "@/components/appointments/Calendar";
+import { AllStaff } from "@/components/staff/AllStaff";
+import { Treatments } from "@/components/treatments/Treatments";
+import { Signin } from "@/components/user/Signin";
+import { UserProfile } from "@/components/user/UserProfile";
+import { theme } from "@/theme";
 
 export function App() {
   return (
-    <>
-      <Navbar />
+    <ChakraProvider theme={theme}>
       <Loading />
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Staff" element={<AllStaff />} />
+          <Route path="/Calendar" element={<Calendar />} />
+          <Route path="/Treatments" element={<Treatments />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/user/:id" element={<UserProfile />} />
+        </Routes>
+      </BrowserRouter>
       <ToastContainer />
-    </>
+      <ReactQueryDevtools />
+    </ChakraProvider>
   );
 }

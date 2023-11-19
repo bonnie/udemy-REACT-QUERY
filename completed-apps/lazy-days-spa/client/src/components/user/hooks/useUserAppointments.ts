@@ -13,7 +13,7 @@ async function getUserAppointments(
 ): Promise<Appointment[] | null> {
   if (!user) return null;
   const { data } = await axiosInstance.get(`/user/${user.id}/appointments`, {
-    headers: getJWTHeader(user),
+    headers: getJWTHeader(user.token),
   });
   return data.appointments;
 }

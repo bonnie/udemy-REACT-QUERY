@@ -11,15 +11,15 @@ import {
 } from "@/react-query/key-factories";
 
 // query function
-async function getUser(user: User, signal: AbortSignal) {
-  if (!user) {
-    return null;
-  }
+async function getUser(userId: number, userToken: string, signal: AbortSignal) {
+  // if (!userId) {
+  //   return null;
+  // }
   const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
-    `/user/${user.id}`,
+    `/user/${userId}`,
     {
       signal, // abortSignal from React Query
-      headers: getJWTHeader(user),
+      headers: getJWTHeader(userToken),
     }
   );
 
@@ -60,6 +60,7 @@ export function useUser(): UseUser {
     //  [
     //    // first and only tuple
     //    [
+    //      // tuple contents
     //      [BASE_USER_KEY, userID], user
     //    ]
     //  ]
@@ -67,11 +68,17 @@ export function useUser(): UseUser {
     cachedUser = cachedUsers[0][1] as User;
   }
 
+  const cachedUserId = cachedUser?.id;
+  const cachedUserToken = cachedUser?.token;
+  const cachedUserKey = generateUserKey(cachedUserId, cachedUserToken);
+
   // call useQuery to update user data from server
   const { data: user } = useQuery({
-    enabled: !!cachedUser,
-    queryKey: generateUserKey(cachedUser),
-    queryFn: ({ signal }) => getUser(cachedUser, signal),
+    // https://tanstack.com/query/v4/docs/react/guides/dependent-queries#usequery-dependent-query
+    enabled: !!cachedUserId,
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: cachedUserKey,
+    queryFn: ({ signal }) => getUser(cachedUserId, cachedUserToken, signal),
 
     // populate initially with user in localStorage
     initialData: cachedUser,
@@ -80,13 +87,15 @@ export function useUser(): UseUser {
   // meant to be called from useAuth
   function updateUserData(newUser: User): void {
     // update the user
-    queryClient.setQueryData(generateUserKey(cachedUser), newUser);
+    queryClient.setQueryData(cachedUserKey, newUser);
   }
 
   // meant to be called from useAuth
   function clearUserData() {
     // reset user to null
-    queryClient.removeQueries({ queryKey: generateUserKey(cachedUser) });
+    queryClient.removeQueries({
+      queryKey: cachedUserKey,
+    });
 
     // remove user appointments query
     queryClient.removeQueries({
