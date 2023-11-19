@@ -1,7 +1,7 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { json } from 'express';
-import jwt from 'express-jwt';
+import { expressjwt as jwt } from 'express-jwt';
 
 import { User as UserType } from '../../shared/types';
 import { createAppointments } from './db-func/appointmentUtils';

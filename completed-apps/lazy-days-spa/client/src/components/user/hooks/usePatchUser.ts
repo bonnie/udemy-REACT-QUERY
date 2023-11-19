@@ -32,61 +32,56 @@ async function patchUserOnServer(
   return data.user;
 }
 
-export function usePatchUser(): UseMutateFunction<
-  User,
-  unknown,
-  User,
-  unknown
-> {
-  const { user, updateUser } = useUser();
+export function usePatchUser() {
+  const { user, updateUserData } = useUser();
   const toast = useCustomToast();
   const queryClient = useQueryClient();
 
-  const { mutate: patchUser } = useMutation(
-    (newUserData: User) => patchUserOnServer(newUserData, user),
-    {
-      // onMutate returns context that is passed to onError
-      onMutate: async (newData: User | null) => {
-        // cancel any outgoing queries for user data, so old server data
-        // doesn't overwrite our optimistic update
-        queryClient.cancelQueries(queryKeys.user);
+  // const { mutate: patchUser } = useMutation(
+  //   (newUserData: User) => patchUserOnServer(newUserData, user),
+  //   {
+  //     // onMutate returns context that is passed to onError
+  //     onMutate: async (newData: User | null) => {
+  //       // cancel any outgoing queries for user data, so old server data
+  //       // doesn't overwrite our optimistic update
+  //       queryClient.cancelQueries(queryKeys.user);
 
-        // snapshot of previous user value
-        const previousUserData: User = queryClient.getQueryData(queryKeys.user);
+  //       // snapshot of previous user value
+  //       const previousUserData: User = queryClient.getQueryData(queryKeys.user);
 
-        // optimistically update the cache with new user value
-        updateUser(newData);
+  //       // optimistically update the cache with new user value
+  //       updateUser(newData);
 
-        // return context object with snapshotted value
-        return { previousUserData };
-      },
-      onError: (error, newData, context) => {
-        // roll back cache to saved value
-        if (context.previousUserData) {
-          updateUser(context.previousUserData);
-          toast({
-            title: "Update failed; restoring previous values",
-            status: "warning",
-          });
-        }
-      },
-      onSuccess: (userData: User | null) => {
-        // note: the conditional here should be `userData`, not `user` as shown
-        //   in the video.
-        // see: https://www.udemy.com/course/learn-react-query/learn/#questions/18361988/
-        if (userData) {
-          toast({
-            title: "User updated!",
-            status: "success",
-          });
-        }
-      },
-      onSettled: () => {
-        // invalidate user query to make sure we're in sync with server data
-        queryClient.invalidateQueries(queryKeys.user);
-      },
-    }
-  );
+  //       // return context object with snapshotted value
+  //       return { previousUserData };
+  //     },
+  //     onError: (error, newData, context) => {
+  //       // roll back cache to saved value
+  //       if (context.previousUserData) {
+  //         updateUser(context.previousUserData);
+  //         toast({
+  //           title: "Update failed; restoring previous values",
+  //           status: "warning",
+  //         });
+  //       }
+  //     },
+  //     onSuccess: (userData: User | null) => {
+  //       // note: the conditional here should be `userData`, not `user` as shown
+  //       //   in the video.
+  //       // see: https://www.udemy.com/course/learn-react-query/learn/#questions/18361988/
+  //       if (userData) {
+  //         toast({
+  //           title: "User updated!",
+  //           status: "success",
+  //         });
+  //       }
+  //     },
+  //     onSettled: () => {
+  //       // invalidate user query to make sure we're in sync with server data
+  //       queryClient.invalidateQueries(queryKeys.user);
+  //     },
+  //   }
+  // );
 
-  return patchUser;
+  // return patchUser;
 }

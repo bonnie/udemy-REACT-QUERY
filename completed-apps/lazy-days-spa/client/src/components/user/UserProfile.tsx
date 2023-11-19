@@ -47,7 +47,7 @@ export function UserProfile() {
               phone: user?.phone ?? "",
             }}
             onSubmit={(values: FormValues) => {
-              patchUser({ ...user, ...values });
+              // patchUser({ ...user, ...values });
             }}
           >
             <Form>
