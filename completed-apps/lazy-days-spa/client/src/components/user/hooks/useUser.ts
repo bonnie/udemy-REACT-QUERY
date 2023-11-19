@@ -99,7 +99,7 @@ export function useUser(): UseUser {
 
     // remove user appointments query
     queryClient.removeQueries({
-      queryKey: generateUserAppointmentsKey(cachedUser),
+      queryKey: generateUserAppointmentsKey(cachedUserId, cachedUserToken),
     });
   }
 
