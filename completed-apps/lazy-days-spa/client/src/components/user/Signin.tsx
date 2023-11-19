@@ -13,7 +13,8 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAuth } from "../../auth/useAuth";
+import { useAuth } from "@src/auth/useAuth";
+
 import { useUser } from "./hooks/useUser";
 
 export function Signin() {

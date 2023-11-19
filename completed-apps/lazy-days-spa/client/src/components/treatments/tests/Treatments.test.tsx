@@ -1,6 +1,7 @@
 import { screen } from "@testing-library/react";
 
-import { renderWithQueryClient } from "../../../test-utils";
+import { renderWithQueryClient } from "@src/test-utils";
+
 import { Treatments } from "../Treatments";
 
 test("renders response from query", async () => {

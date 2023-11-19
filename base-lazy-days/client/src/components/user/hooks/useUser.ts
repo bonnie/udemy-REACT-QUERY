@@ -1,13 +1,13 @@
-import { AxiosResponse } from 'axios';
+import { AxiosResponse } from "axios";
 
-import type { User } from '../../../../../shared/types';
-import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
-import { queryKeys } from '../../../react-query/constants';
+import type { User } from "@shared/types";
+import { axiosInstance, getJWTHeader } from "../../../axiosInstance";
+import { queryKeys } from "@src/react-query/constants";
 import {
   clearStoredUser,
   getStoredUser,
   setStoredUser,
-} from '../../../user-storage';
+} from "../../../user-storage";
 
 // async function getUser(user: User | null): Promise<User | null> {
 //   if (!user) return null;

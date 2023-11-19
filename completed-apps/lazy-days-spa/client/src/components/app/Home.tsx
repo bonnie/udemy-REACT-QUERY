@@ -1,7 +1,7 @@
 import { Icon, Stack, Text } from "@chakra-ui/react";
 import { GiFlowerPot } from "react-icons/gi";
 
-import { BackgroundImage } from "../common/BackgroundImage";
+import { BackgroundImage } from "@src/components/common/BackgroundImage";
 
 export function Home() {
   return (

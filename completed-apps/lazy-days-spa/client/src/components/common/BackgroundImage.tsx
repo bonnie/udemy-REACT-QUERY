@@ -1,6 +1,6 @@
 import { Image } from "@chakra-ui/react";
 
-import splashImg from "../../images/splash.jpg";
+import splashImg from "@src/images/splash.jpg";
 
 export function BackgroundImage() {
   return (

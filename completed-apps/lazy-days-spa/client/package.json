@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
+    "@tanstack/query-sync-storage-persister": "^5.8.3",
     "@tanstack/react-query": "^5.8.3",
+    "@tanstack/react-query-persist-client": "^5.8.4",
     "axios": "^1.6.2",
     "dayjs": "^1.11.10",
     "fast-json-patch": "^3.1.1",

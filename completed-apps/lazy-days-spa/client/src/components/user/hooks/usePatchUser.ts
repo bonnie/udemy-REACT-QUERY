@@ -5,10 +5,11 @@ import {
 } from "@tanstack/react-query";
 import jsonpatch from "fast-json-patch";
 
-import type { User } from "../../../../../shared/types";
-import { axiosInstance, getJWTHeader } from "../../../axiosInstance";
-import { queryKeys } from "../../../react-query/constants";
-import { useCustomToast } from "../../app/hooks/useCustomToast";
+import { axiosInstance, getJWTHeader } from "@src/axiosInstance";
+import { useCustomToast } from "@src/components/app/hooks/useCustomToast";
+import { queryKeys } from "@src/react-query/constants";
+import type { User } from "@shared/types";
+
 import { useUser } from "./useUser";
 
 // for when we need a server function

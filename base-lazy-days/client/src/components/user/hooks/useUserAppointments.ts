@@ -1,9 +1,9 @@
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
-import type { Appointment, User } from '../../../../../shared/types';
-import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
-import { queryKeys } from '../../../react-query/constants';
-import { useUser } from './useUser';
+import type { Appointment, User } from "@shared/types";
+import { axiosInstance, getJWTHeader } from "../../../axiosInstance";
+import { queryKeys } from "@src/react-query/constants";
+import { useUser } from "./useUser";
 
 // for when we need a query function for useQuery
 // async function getUserAppointments(

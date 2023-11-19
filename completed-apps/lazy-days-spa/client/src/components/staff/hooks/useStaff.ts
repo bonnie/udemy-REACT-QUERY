@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
 
-import type { Staff } from "../../../../../shared/types";
-import { axiosInstance } from "../../../axiosInstance";
-import { queryKeys } from "../../../react-query/constants";
+import { axiosInstance } from "@src/axiosInstance";
+import { queryKeys } from "@src/react-query/constants";
+import type { Staff } from "@shared/types";
+
 import { filterByTreatment } from "../utils";
 
 async function getStaff(): Promise<Staff[]> {

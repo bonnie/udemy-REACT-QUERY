@@ -1,9 +1,10 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from "axios";
 
-import { User } from '../../../shared/types';
-import { axiosInstance } from '../axiosInstance';
-import { useCustomToast } from '../components/app/hooks/useCustomToast';
-import { useUser } from '../components/user/hooks/useUser';
+import { User } from "@shared/types";
+
+import { axiosInstance } from "../axiosInstance";
+import { useCustomToast } from "../components/app/hooks/useCustomToast";
+import { useUser } from "../components/user/hooks/useUser";
 
 interface UseAuth {
   signin: (email: string, password: string) => Promise<void>;
@@ -16,34 +17,34 @@ type ErrorResponse = { message: string };
 type AuthResponseType = UserResponse | ErrorResponse;
 
 export function useAuth(): UseAuth {
-  const SERVER_ERROR = 'There was an error contacting the server.';
+  const SERVER_ERROR = "There was an error contacting the server.";
   const toast = useCustomToast();
   const { clearUser, updateUser } = useUser();
 
   async function authServerCall(
     urlEndpoint: string,
     email: string,
-    password: string,
+    password: string
   ): Promise<void> {
     try {
       const { data, status }: AxiosResponse<AuthResponseType> =
         await axiosInstance({
           url: urlEndpoint,
-          method: 'POST',
+          method: "POST",
           data: { email, password },
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
         });
 
       if (status === 400) {
-        const title = 'message' in data ? data.message : 'Unauthorized';
-        toast({ title, status: 'warning' });
+        const title = "message" in data ? data.message : "Unauthorized";
+        toast({ title, status: "warning" });
         return;
       }
 
-      if ('user' in data && 'token' in data.user) {
+      if ("user" in data && "token" in data.user) {
         toast({
           title: `Logged in as ${data.user.email}`,
-          status: 'info',
+          status: "info",
         });
 
         // update stored user data
@@ -57,24 +58,24 @@ export function useAuth(): UseAuth {
           : SERVER_ERROR;
       toast({
         title,
-        status: 'error',
+        status: "error",
       });
     }
   }
 
   async function signin(email: string, password: string): Promise<void> {
-    authServerCall('/signin', email, password);
+    authServerCall("/signin", email, password);
   }
   async function signup(email: string, password: string): Promise<void> {
-    authServerCall('/user', email, password);
+    authServerCall("/user", email, password);
   }
 
   function signout(): void {
     // clear user from stored user data
     clearUser();
     toast({
-      title: 'Logged out!',
-      status: 'info',
+      title: "Logged out!",
+      status: "info",
     });
   }
 

@@ -1,8 +1,9 @@
 import { screen } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 
-import { server } from "../../../mocks/server";
-import { renderWithQueryClient } from "../../../test-utils";
+import { server } from "@src/mocks/server";
+import { renderWithQueryClient } from "@src/test-utils";
+
 import { AllStaff } from "../AllStaff";
 
 test("renders response from query", async () => {

@@ -1,8 +1,9 @@
 import { screen, waitFor } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 
-import { server } from "../../../mocks/server";
-import { renderWithQueryClient } from "../../../test-utils";
+import { server } from "@src/mocks/server";
+import { renderWithQueryClient } from "@src/test-utils";
+
 import { Calendar } from "../Calendar";
 
 test("Appointment query error", async () => {
