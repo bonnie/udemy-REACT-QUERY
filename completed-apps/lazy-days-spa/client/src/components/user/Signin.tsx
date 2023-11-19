@@ -11,21 +11,21 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../auth/useAuth";
 import { useUser } from "./hooks/useUser";
 
-// eslint-disable-next-line max-lines-per-function
 export function Signin() {
   const [email, setEmail] = useState("test");
   const [password, setPassword] = useState("test");
   const [dirty, setDirty] = useState({ email: false, password: false });
   const auth = useAuth();
   const { user } = useUser();
+  const navigate = useNavigate();
 
   if (user) {
-    return <Redirect to={`/user/${user.id}`} />;
+    navigate(`/user/${user.id}`);
   }
 
   return (

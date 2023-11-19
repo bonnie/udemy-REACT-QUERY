@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import {
   Box,
   Checkbox,
@@ -10,7 +9,8 @@ import {
 import dayjs from "dayjs";
 import { TiArrowLeftThick, TiArrowRightThick } from "react-icons/ti";
 
-import { UserAppointments } from "../user/UserAppointments";
+import { UserAppointments } from "@src/components/user/UserAppointments";
+
 import { DateBox } from "./DateBox";
 import { useAppointments } from "./hooks/useAppointments";
 

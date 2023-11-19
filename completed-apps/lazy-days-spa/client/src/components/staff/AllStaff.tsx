@@ -5,7 +5,6 @@ import { useStaff } from "./hooks/useStaff";
 import { Staff } from "./Staff";
 
 export function AllStaff() {
-  // replace with data from React Query
   const { staff, filter, setFilter } = useStaff();
   const treatments = useTreatments();
 

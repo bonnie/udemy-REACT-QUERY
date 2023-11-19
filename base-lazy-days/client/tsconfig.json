@@ -7,7 +7,11 @@
     "target": "es5",
     "module": "esnext",
     "moduleResolution": "node",
-    "baseUrl": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@shared/*": ["../shared/*"]
+    },
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

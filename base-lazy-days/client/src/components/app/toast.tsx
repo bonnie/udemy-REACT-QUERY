@@ -1,6 +1,6 @@
 import { createStandaloneToast } from "@chakra-ui/react";
 
-import { theme } from "../../theme";
+import { theme } from "@src/theme";
 
 const { toast, ToastContainer } = createStandaloneToast({ theme });
 

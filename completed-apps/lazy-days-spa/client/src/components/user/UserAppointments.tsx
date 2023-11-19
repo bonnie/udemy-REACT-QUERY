@@ -8,24 +8,21 @@ import {
   Td,
   Text,
   Tr,
-} from '@chakra-ui/react';
-import dayjs from 'dayjs';
-import { ReactElement } from 'react';
-import { ImCancelCircle } from 'react-icons/im';
-import { Link, Redirect } from 'react-router-dom';
+} from "@chakra-ui/react";
+import dayjs from "dayjs";
+import { ImCancelCircle } from "react-icons/im";
+import { Link } from "react-router-dom";
 
-import type { Appointment } from '../../../../shared/types';
-import { useCancelAppointment } from '../appointments/hooks/useCancelAppointment';
-import { useUser } from './hooks/useUser';
-import { useUserAppointments } from './hooks/useUserAppointments';
+import type { Appointment } from "../../../../shared/types";
+import { useCancelAppointment } from "../appointments/hooks/useCancelAppointment";
+import { useUser } from "./hooks/useUser";
+import { useUserAppointments } from "./hooks/useUserAppointments";
 
 interface AppointmentsTableProps {
   userAppointments: Appointment[];
 }
 
-function AppointmentsTable({
-  userAppointments,
-}: AppointmentsTableProps) {
+function AppointmentsTable({ userAppointments }: AppointmentsTableProps) {
   const cancelAppointment = useCancelAppointment();
 
   return (
@@ -34,10 +31,10 @@ function AppointmentsTable({
         {userAppointments.map((appointment) => (
           <Tr key={appointment.id}>
             <Td>
-              <Text>{dayjs(appointment.dateTime).format('MMM D')}</Text>
+              <Text>{dayjs(appointment.dateTime).format("MMM D")}</Text>
             </Td>
             <Td>
-              <Text>{dayjs(appointment.dateTime).format('h a')}</Text>
+              <Text>{dayjs(appointment.dateTime).format("h a")}</Text>
             </Td>
             <Td>
               <Text>{appointment.treatmentName}</Text>
@@ -58,7 +55,7 @@ function AppointmentsTable({
   );
 }
 
-export function UserAppointments() | null {
+export function UserAppointments() {
   const { user } = useUser();
   const userAppointments = useUserAppointments();
 

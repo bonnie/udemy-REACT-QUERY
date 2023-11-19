@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 
-import type { Treatment as TreatmentType } from "../../../../shared/types";
-import { Card } from "../common/Card";
+import { Card } from "@src/components/common/Card";
+import type { Treatment as TreatmentType } from "@shared/types";
 
 interface TreatmentProps {
   treatmentData: TreatmentType;

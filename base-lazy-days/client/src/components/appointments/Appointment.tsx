@@ -1,8 +1,9 @@
 import { Box, HStack, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
 
-import { Appointment as AppointmentType, User } from "../../../../shared/types";
-import { useUser } from "../user/hooks/useUser";
+import { useUser } from "@src/components/user/hooks/useUser";
+import { Appointment as AppointmentType, User } from "@shared/types";
+
 import { useReserveAppointment } from "./hooks/useReserveAppointment";
 import { appointmentInPast, getAppointmentColor } from "./utils";
 

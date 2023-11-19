@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import {
   Box,
   Button,
@@ -10,7 +9,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
-import { Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { usePatchUser } from "./hooks/usePatchUser";
 import { useUser } from "./hooks/useUser";
@@ -19,9 +18,10 @@ import { UserAppointments } from "./UserAppointments";
 export function UserProfile() {
   const { user } = useUser();
   const patchUser = usePatchUser();
+  const navigate = useNavigate();
 
   if (!user) {
-    return <Redirect to="/signin" />;
+    navigate("/signin");
   }
 
   const formElements = ["name", "address", "phone"];

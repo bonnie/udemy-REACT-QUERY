@@ -9,8 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
-import type { Image as ImageType } from "../../../../shared/types";
-import { baseImageUrl } from "../../axiosInstance/constants";
+import { baseImageUrl } from "@src/axiosInstance/constants";
+import type { Image as ImageType } from "@shared/types";
 
 interface CardProps {
   itemName: string;
