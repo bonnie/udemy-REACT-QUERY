@@ -13,15 +13,15 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAuth } from "@/auth/useAuth";
-
 import { useUser } from "./hooks/useUser";
+
+import { useAuthActions } from "@/auth/useAuthActions";
 
 export function Signin() {
   const [email, setEmail] = useState("test");
   const [password, setPassword] = useState("test");
   const [dirty, setDirty] = useState({ email: false, password: false });
-  const auth = useAuth();
+  const auth = useAuthActions();
   const { user } = useUser();
   const navigate = useNavigate();
 

@@ -1,22 +1,26 @@
 import { AxiosResponse } from "axios";
 
 import type { User } from "@shared/types";
+
 import { axiosInstance, getJWTHeader } from "../../../axiosInstance";
-import { queryKeys } from "@/react-query/constants";
 import {
   clearStoredUser,
   getStoredUser,
   setStoredUser,
 } from "../../../user-storage";
 
-// async function getUser(user: User | null): Promise<User | null> {
-//   if (!user) return null;
+import { queryKeys } from "@/react-query/constants";
+
+// query function
+// async function getUser(userId: number, userToken: string, signal: AbortSignal) {
 //   const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
-//     `/user/${user.id}`,
+//     `/user/${userId}`,
 //     {
-//       headers: getJWTHeader(user),
-//     },
+//       signal, // abortSignal from React Query
+//       headers: getJWTHeader(userToken),
+//     }
 //   );
+
 //   return data.user;
 // }
 
