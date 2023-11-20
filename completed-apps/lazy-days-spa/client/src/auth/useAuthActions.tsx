@@ -2,6 +2,8 @@ import axios, { AxiosResponse } from "axios";
 
 import { User } from "@shared/types";
 
+import { useLoginData } from "./AuthContext";
+
 import { axiosInstance } from "@/axiosInstance";
 import { useCustomToast } from "@/components/app/hooks/useCustomToast";
 import { useUser } from "@/components/user/hooks/useUser";
@@ -16,8 +18,9 @@ type UserResponse = { user: User };
 type ErrorResponse = { message: string };
 type AuthResponseType = UserResponse | ErrorResponse;
 
-export function useAuth(): UseAuth {
+export function useAuthActions(): UseAuth {
   const { updateUserData, clearUserData } = useUser();
+  const { setLoginData, clearLoginData } = useLoginData();
 
   const SERVER_ERROR = "There was an error contacting the server.";
   const toast = useCustomToast();
@@ -50,6 +53,7 @@ export function useAuth(): UseAuth {
 
         // update stored user data
         updateUserData(data.user);
+        setLoginData({ userId: data.user.id, userToken: data.user.token });
       }
     } catch (errorResponse) {
       const title =
@@ -74,6 +78,7 @@ export function useAuth(): UseAuth {
   function signout(): void {
     // clear user from stored user data
     clearUserData();
+    clearLoginData();
     toast({
       title: "Logged out!",
       status: "info",

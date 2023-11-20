@@ -4,7 +4,8 @@ import { GiFlowerPot } from "react-icons/gi";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { useAuth } from "@/auth/useAuth";
+import { useAuthActions } from "../../auth/useAuthActions";
+
 import { useUser } from "@/components/user/hooks/useUser";
 
 const Links = ["Treatments", "Staff", "Calendar"];
@@ -28,7 +29,7 @@ const NavLink = ({ to, children }: { to: string; children: ReactNode }) => (
 
 export function Navbar() {
   const { user } = useUser();
-  const { signout } = useAuth();
+  const { signout } = useAuthActions();
   const navigate = useNavigate();
 
   return (
