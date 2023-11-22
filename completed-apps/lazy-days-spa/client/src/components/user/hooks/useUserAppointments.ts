@@ -2,8 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import type { Appointment } from "@shared/types";
 
-import { useUser } from "./useUser";
-
+import { useLoginData } from "@/auth/AuthContext";
 import { axiosInstance, getJWTHeader } from "@/axiosInstance";
 import { generateUserAppointmentsKey } from "@/react-query/key-factories";
 
@@ -19,9 +18,11 @@ async function getUserAppointments(
 }
 
 export function useUserAppointments(): Appointment[] {
-  const { user } = useUser();
-  const userId = user?.id;
-  const userToken = user?.token;
+  const { loginData } = useLoginData();
+
+  // can't destructure since loginData might be null
+  const userId = loginData?.userId;
+  const userToken = loginData?.userToken;
 
   const fallback: Appointment[] = [];
   const { data: userAppointments = fallback } = useQuery({

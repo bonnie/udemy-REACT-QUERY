@@ -8,10 +8,14 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
+import { useMutationState } from "@tanstack/react-query";
 import { Field, Form, Formik } from "formik";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { usePatchUser } from "./hooks/usePatchUser";
+import { User } from "@shared/types";
+
+import { PATCH_USER_MUTATION_KEY, usePatchUser } from "./hooks/usePatchUser";
 import { useUser } from "./hooks/useUser";
 import { UserAppointments } from "./UserAppointments";
 
@@ -20,9 +24,22 @@ export function UserProfile() {
   const patchUser = usePatchUser();
   const navigate = useNavigate();
 
-  if (!user) {
-    navigate("/signin");
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate("/signin");
+    }
+  }, [user, navigate]);
+
+  // https://tanstack.com/query/v5/docs/react/guides/optimistic-updates#if-the-mutation-and-the-query-dont-live-in-the-same-component
+  const pendingData = useMutationState<User>({
+    filters: { mutationKey: [PATCH_USER_MUTATION_KEY], status: "pending" },
+    select: (mutation) => {
+      return mutation.state.variables as User;
+    },
+  });
+
+  console.log("======> PENDING DATA", pendingData);
+  const pendingUser = pendingData ? pendingData[0] : null;
 
   const formElements = ["name", "address", "phone"];
   interface FormValues {
@@ -42,12 +59,12 @@ export function UserProfile() {
           <Formik
             enableReinitialize
             initialValues={{
-              name: user?.name ?? "",
-              address: user?.address ?? "",
-              phone: user?.phone ?? "",
+              name: pendingUser ? pendingUser.name : user?.name ?? "",
+              address: pendingUser ? pendingUser.address : user?.address ?? "",
+              phone: pendingUser ? pendingUser.phone : user?.phone ?? "",
             }}
             onSubmit={(values: FormValues) => {
-              // patchUser({ ...user, ...values });
+              patchUser({ ...user, ...values });
             }}
           >
             <Form>

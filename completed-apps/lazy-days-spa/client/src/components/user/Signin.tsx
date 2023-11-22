@@ -10,7 +10,7 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAuthActions } from "@/auth/useAuthActions";
@@ -24,9 +24,11 @@ export function Signin() {
   const { user } = useUser();
   const navigate = useNavigate();
 
-  if (user) {
-    navigate(`/user/${user.id}`);
-  }
+  useEffect(() => {
+    if (user) {
+      navigate(`/user/${user.id}`);
+    }
+  }, [user, navigate]);
 
   return (
     <>

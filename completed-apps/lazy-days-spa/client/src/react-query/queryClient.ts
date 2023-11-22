@@ -7,11 +7,20 @@ import {
 
 import { toast } from "@/components/app/toast";
 
-function queryErrorHandler(error: unknown): void {
-  // error is type unknown because in js, anything can be an error (e.g. throw(5))
-  const title =
-    error instanceof Error ? error.message : "error connecting to server";
-  toast({ title, status: "error", variant: "subtle", isClosable: true });
+function errorHandler(type: "query" | "mutation", errorMsg: string) {
+  // https://chakra-ui.com/docs/components/toast#preventing-duplicate-toast
+  // one message per page load, not one message per query
+  // the user doesn't care that there were three failed queries on the staff page
+  //    (staff, treatments, user)
+  const id = "react-query-toast";
+
+  if (!toast.isActive(id)) {
+    const action = type === "query" ? "load" : "update";
+    const title = `could not ${action} data: ${
+      errorMsg ?? "error connecting to server"
+    }`;
+    toast({ id, title, status: "error", variant: "subtle", isClosable: true });
+  }
 }
 
 export const queryClientConfig: QueryClientConfig = {
@@ -27,10 +36,13 @@ export const queryClientConfig: QueryClientConfig = {
     },
   },
   queryCache: new QueryCache({
-    onError: queryErrorHandler,
+    onError: (error) => errorHandler("query", error?.message),
+
+    // onError: (error, query) =>
+    //   errorHandler("query", error?.message, query.queryKey[0] as string),
   }),
   mutationCache: new MutationCache({
-    onError: queryErrorHandler,
+    onError: (error) => errorHandler("mutation", error?.message),
   }),
 };
 

@@ -9,6 +9,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { usePatchUser } from "./hooks/usePatchUser";
@@ -20,9 +21,11 @@ export function UserProfile() {
   const patchUser = usePatchUser();
   const navigate = useNavigate();
 
-  if (!user) {
-    navigate("/signin");
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate("/signin");
+    }
+  }, [user, navigate]);
 
   const formElements = ["name", "address", "phone"];
   interface FormValues {
