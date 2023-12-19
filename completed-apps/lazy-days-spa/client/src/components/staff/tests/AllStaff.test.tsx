@@ -4,10 +4,10 @@ import { http, HttpResponse } from "msw";
 import { AllStaff } from "../AllStaff";
 
 import { server } from "@/mocks/server";
-import { renderWithQueryClient } from "@/test-utils";
+import { renderWithProviders } from "@/test-utils";
 
 test("renders response from query", async () => {
-  renderWithQueryClient(<AllStaff />);
+  renderWithProviders(<AllStaff />);
 
   const staffNames = await screen.findAllByRole("heading", {
     name: /divya|sandra|michael|mateo/i,
@@ -17,7 +17,7 @@ test("renders response from query", async () => {
 
 test("handles query error", async () => {
   // (re)set handler to return a 500 error for staff and treatments
-  server.resetHandlers(
+  server.use(
     http.get("http://localhost:3030/staff", () => {
       return new HttpResponse(null, { status: 500 });
     }),
@@ -26,9 +26,9 @@ test("handles query error", async () => {
     })
   );
 
-  renderWithQueryClient(<AllStaff />);
+  renderWithProviders(<AllStaff />);
 
   // check for the toast alert
-  const alertToast = await screen.findByRole("alert");
+  const alertToast = await screen.findByRole("status");
   expect(alertToast).toHaveTextContent("Request failed with status code 500");
 });

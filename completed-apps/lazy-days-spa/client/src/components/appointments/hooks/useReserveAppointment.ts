@@ -14,6 +14,7 @@ async function setAppointmentUser(
   if (!userId) return;
   const patchOp = appointment.userId ? "replace" : "add";
   const patchData = [{ op: patchOp, path: "/userId", value: userId }];
+
   await axiosInstance.patch(`/appointment/${appointment.id}`, {
     data: patchData,
   });

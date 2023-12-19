@@ -12,10 +12,12 @@ expect.extend(matchers);
 
 import { server } from "./mocks/server.js";
 
-// mocking useLoginData to mimic a logged-in user
+// mock useLoginData to mimic a logged-in user
 vi.mock("./auth/AuthContext", () => ({
   __esModule: true,
+  // for the hook return value
   useLoginData: () => ({ userId: 1 }),
+  // for the provider default export
   default: ({ children }) => children,
 }));
 

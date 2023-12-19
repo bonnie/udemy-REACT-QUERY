@@ -58,8 +58,8 @@ function AppointmentsTable({ userAppointments }: AppointmentsTableProps) {
 }
 
 export function UserAppointments() {
-  const { loginData } = useLoginData();
-  const { userId } = loginData;
+  const { userId } = useLoginData();
+
   const userAppointments = useUserAppointments();
 
   if (!userId) {
