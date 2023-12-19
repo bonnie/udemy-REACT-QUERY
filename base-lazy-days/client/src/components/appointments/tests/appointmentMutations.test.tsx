@@ -5,15 +5,13 @@ import {
 } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
-import { mockUser } from "@/mocks/mockData";
-
 // import { renderWithQueryClient } from '@/test-utils';
 import { Calendar } from "../Calendar";
 
-// mocking useUser to mimic a logged-in user
-vi.mock("../../user/hooks/useUser", () => ({
+// mocking useLoginData to mimic a logged-in user
+vi.mock("../../../auth/AuthContext", () => ({
   __esModule: true,
-  useUser: () => ({ user: mockUser }),
+  useLoginData: () => ({ userId: 1 }),
 }));
 
 test("Reserve appointment", async () => {

@@ -1,4 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -13,14 +14,17 @@ import { AllStaff } from "@/components/staff/AllStaff";
 import { Treatments } from "@/components/treatments/Treatments";
 import { Signin } from "@/components/user/Signin";
 import { UserProfile } from "@/components/user/UserProfile";
-import { PersistQueryClientProvider } from "@/react-query/PersistQueryClientProvider";
+import { generateQueryClient } from "@/react-query/queryClient";
 import { theme } from "@/theme";
+
+// create
+const queryClient = generateQueryClient();
 
 export function App() {
   return (
     <ChakraProvider theme={theme}>
-      <AuthContextProvider>
-        <PersistQueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthContextProvider>
           <Loading />
           <BrowserRouter>
             <Navbar />
@@ -35,8 +39,8 @@ export function App() {
           </BrowserRouter>
           <ToastContainer />
           <ReactQueryDevtools />
-        </PersistQueryClientProvider>
-      </AuthContextProvider>
+        </AuthContextProvider>
+      </QueryClientProvider>
     </ChakraProvider>
   );
 }

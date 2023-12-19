@@ -27,8 +27,7 @@ export const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
     queries: {
       staleTime: 600000, // 10 minutes
-      // important for persistQueryClient
-      // also, default gcTime is 5 minutes, and it doesn't make sense for stale time
+      // default gcTime is 5 minutes, and it doesn't make sense for stale time
       //   to exceed gcTime
       gcTime: 1800000, // 30 minutes
       refetchOnWindowFocus: false,
@@ -46,7 +45,9 @@ export const queryClientConfig: QueryClientConfig = {
   }),
 };
 
-export function generateQueryClient(config: QueryClientConfig) {
+export function generateQueryClient(
+  config: QueryClientConfig = queryClientConfig
+) {
   return new QueryClient(config);
 }
 

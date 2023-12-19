@@ -13,8 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useUser } from "./hooks/useUser";
-
+import { useLoginData } from "@/auth/AuthContext";
 import { useAuthActions } from "@/auth/useAuthActions";
 
 export function Signin() {
@@ -22,14 +21,15 @@ export function Signin() {
   const [password, setPassword] = useState("test");
   const [dirty, setDirty] = useState({ email: false, password: false });
   const auth = useAuthActions();
-  const { user } = useUser();
+  const { userId } = useLoginData();
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      navigate(`/user/${user.id}`);
+    if (userId) {
+      navigate(`/user/${userId}`);
     }
-  }, [user, navigate]);
+  }, [userId, navigate]);
 
   return (
     <>

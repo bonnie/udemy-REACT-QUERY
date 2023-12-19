@@ -1,13 +1,13 @@
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction, useState } from "react";
 
-import { axiosInstance } from "@/axiosInstance";
-import { useUser } from "@/components/user/hooks/useUser";
-import { queryKeys } from "@/react-query/constants";
-
 import { AppointmentDateMap } from "../types";
 import { getAvailableAppointments } from "../utils";
 import { getMonthYearDetails, getNewMonthYear, MonthYear } from "./monthYear";
+
+import { useLoginData } from "@/auth/AuthContext";
+import { axiosInstance } from "@/axiosInstance";
+import { queryKeys } from "@/react-query/constants";
 
 // for useQuery call
 async function getAppointments(
@@ -57,7 +57,7 @@ export function useAppointments(): UseAppointments {
   // We will need imported function getAvailableAppointments here
   // We need the user to pass to getAvailableAppointments so we can show
   //   appointments that the logged-in user has reserved (in white)
-  const { user } = useUser();
+  const { userId } = useLoginData();
 
   /** ****************** END 2: filter appointments  ******************** */
   /** ****************** START 3: useQuery  ***************************** */

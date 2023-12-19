@@ -18,11 +18,7 @@ async function getUserAppointments(
 }
 
 export function useUserAppointments(): Appointment[] {
-  const { loginData } = useLoginData();
-
-  // can't destructure since loginData might be null
-  const userId = loginData?.userId;
-  const userToken = loginData?.userToken;
+  const { userId, userToken } = useLoginData();
 
   const fallback: Appointment[] = [];
   const { data: userAppointments = fallback } = useQuery({

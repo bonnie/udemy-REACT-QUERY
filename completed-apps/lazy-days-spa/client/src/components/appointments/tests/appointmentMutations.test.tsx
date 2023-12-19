@@ -7,14 +7,7 @@ import { MemoryRouter } from "react-router-dom";
 
 import { Calendar } from "../Calendar";
 
-import { mockUser } from "@/mocks/mockData";
 import { renderWithQueryClient } from "@/test-utils";
-
-// mocking useUser to mimic a logged-in user
-vi.mock("../../user/hooks/useUser", () => ({
-  __esModule: true,
-  useUser: () => ({ user: mockUser }),
-}));
 
 test("Reserve appointment", async () => {
   renderWithQueryClient(

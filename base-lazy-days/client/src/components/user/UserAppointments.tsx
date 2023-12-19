@@ -16,8 +16,9 @@ import { Link } from "react-router-dom";
 import type { Appointment } from "@shared/types";
 
 import { useCancelAppointment } from "../appointments/hooks/useCancelAppointment";
-import { useUser } from "./hooks/useUser";
 import { useUserAppointments } from "./hooks/useUserAppointments";
+
+import { useLoginData } from "@/auth/AuthContext";
 
 interface AppointmentsTableProps {
   userAppointments: Appointment[];
@@ -57,10 +58,11 @@ function AppointmentsTable({ userAppointments }: AppointmentsTableProps) {
 }
 
 export function UserAppointments() {
-  const { user } = useUser();
+  const { userId } = useLoginData();
+
   const userAppointments = useUserAppointments();
 
-  if (!user) {
+  if (!userId) {
     // don't render if there's no user
     return null;
   }

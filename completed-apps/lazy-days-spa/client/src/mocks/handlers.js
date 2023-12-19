@@ -20,6 +20,9 @@ export const handlers = [
   http.get("http://localhost:3030/user/:id/appointments", () => {
     return HttpResponse.json({ appointments: mockUserAppointments });
   }),
+  http.options("http://localhost:3030/user/:id/appointments", () => {
+    return HttpResponse(null, { status: 200 });
+  }),
   http.patch("http://localhost:3030/appointment/:id", () => {
     return HttpResponse(null, { status: 200 });
   }),

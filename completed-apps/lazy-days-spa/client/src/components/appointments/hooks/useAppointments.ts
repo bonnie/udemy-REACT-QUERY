@@ -12,8 +12,8 @@ import { AppointmentDateMap } from "../types";
 import { getAvailableAppointments } from "../utils";
 import { getMonthYearDetails, getNewMonthYear, MonthYear } from "./monthYear";
 
+import { useLoginData } from "@/auth/AuthContext";
 import { axiosInstance } from "@/axiosInstance";
-import { useUser } from "@/components/user/hooks/useUser";
 import { queryKeys } from "@/react-query/constants";
 
 // common options for both useQuery and prefetchQuery
@@ -77,11 +77,11 @@ export function useAppointments(): UseAppointments {
   // We will need imported function getAvailableAppointments here
   // We need the user to pass to getAvailableAppointments so we can show
   //   appointments that the logged-in user has reserved (in white)
-  const { user } = useUser();
+  const { userId } = useLoginData();
 
   const selectFn = useCallback(
-    (data: AppointmentDateMap) => getAvailableAppointments(data, user),
-    [user]
+    (data: AppointmentDateMap) => getAvailableAppointments(data, userId),
+    [userId]
   );
   /** ****************** END 2: filter appointments  ******************** */
   /** ****************** START 3: useQuery  ***************************** */

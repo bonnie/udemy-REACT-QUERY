@@ -1,21 +1,21 @@
 import { Box, HStack, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
 
-import { Appointment as AppointmentType, User } from "@shared/types";
+import { Appointment as AppointmentType } from "@shared/types";
 
 import { useReserveAppointment } from "./hooks/useReserveAppointment";
 import { appointmentInPast, getAppointmentColor } from "./utils";
 
-import { useUser } from "@/components/user/hooks/useUser";
+import { useLoginData } from "@/auth/AuthContext";
 
 // determine whether this appointment can be reserved / un-reserved by logged-in user
 function isClickable(
-  user: User | null,
+  userId: number | null,
   appointmentData: AppointmentType
 ): boolean {
   return !!(
-    user?.id &&
-    (!appointmentData.userId || appointmentData.userId === user?.id) &&
+    userId &&
+    (!appointmentData.userId || appointmentData.userId === userId) &&
     !appointmentInPast(appointmentData)
   );
 }
@@ -25,17 +25,18 @@ interface AppointmentProps {
 }
 
 export function Appointment({ appointmentData }: AppointmentProps) {
-  const { user } = useUser();
-  const reserveAppointment = useReserveAppointment();
-  const [textColor, bgColor] = getAppointmentColor(appointmentData, user?.id);
+  const { userId } = useLoginData();
 
-  const clickable = isClickable(user, appointmentData);
+  const reserveAppointment = useReserveAppointment();
+  const [textColor, bgColor] = getAppointmentColor(appointmentData, userId);
+
+  const clickable = isClickable(userId, appointmentData);
   let onAppointmentClick: undefined | (() => void);
   let hoverCss = {};
 
   // turn the lozenge into a button if it's clickable
   if (clickable) {
-    onAppointmentClick = user
+    onAppointmentClick = userId
       ? () => reserveAppointment(appointmentData)
       : undefined;
     hoverCss = {

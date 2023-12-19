@@ -1,4 +1,5 @@
 // https://tanstack.com/query/latest/docs/react/guides/testing
+import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, RenderResult } from "@testing-library/react";
 import { ReactElement } from "react";
@@ -12,7 +13,6 @@ import {
 const generateTestQueryClient = () => {
   const testConfig = queryClientConfig;
   testConfig.defaultOptions.queries.retry = false;
-  testConfig.defaultOptions.mutations.retry = false;
   return generateQueryClient(testConfig);
 };
 
@@ -22,7 +22,9 @@ export function renderWithQueryClient(
 ): RenderResult {
   const queryClient = client ?? generateTestQueryClient();
   return render(
-    <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
+    <ChakraProvider>
+      <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
+    </ChakraProvider>
   );
 }
 

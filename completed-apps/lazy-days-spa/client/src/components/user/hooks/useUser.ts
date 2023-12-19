@@ -29,11 +29,7 @@ interface UseUser {
 
 export function useUser(): UseUser {
   const queryClient = useQueryClient();
-  const { loginData } = useLoginData();
-
-  // can't destructure since loginData might be null
-  const userId = loginData?.userId;
-  const userToken = loginData?.userToken;
+  const { userId, userToken } = useLoginData();
 
   // call useQuery to update user data from server
   const { data: user } = useQuery({
@@ -41,6 +37,10 @@ export function useUser(): UseUser {
     enabled: !!userId,
     queryKey: generateUserKey(userId, userToken),
     queryFn: ({ signal }) => getUser(userId, userToken, signal),
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
   });
 
   // meant to be called from useAuth
