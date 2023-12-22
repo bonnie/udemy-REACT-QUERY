@@ -5,7 +5,7 @@ function App() {
   return (
     // provide React Query client to App
     <div className="App">
-      <h1>Blog Posts</h1>
+      <h1>Blog &apos;em Ipsum</h1>
       <Posts />
     </div>
   );
