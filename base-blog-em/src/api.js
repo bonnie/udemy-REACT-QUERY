@@ -1,4 +1,4 @@
-export async function fetchPosts(pageNum) {
+export async function fetchPosts(pageNum = 1) {
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${pageNum}`
   );
