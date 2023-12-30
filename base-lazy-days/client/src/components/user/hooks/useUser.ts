@@ -3,11 +3,6 @@ import { AxiosResponse } from "axios";
 import type { User } from "@shared/types";
 
 import { axiosInstance, getJWTHeader } from "../../../axiosInstance";
-import {
-  clearStoredUser,
-  getStoredUser,
-  setStoredUser,
-} from "../../../user-storage";
 
 import { useLoginData } from "@/auth/AuthContext";
 import { queryKeys } from "@/react-query/constants";
