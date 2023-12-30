@@ -37,7 +37,7 @@ export function InfiniteSpecies() {
         // When we run the app for the first time, `data.pages` will actually contain two objects.
         // I assume this is because we already called `useInfiniteQuery` ourselves first then
         // `react-infinite-scroller` invokes the `fetchNextPage` function.
-        initialLoad={false}
+        // initialLoad={false}
         loadMore={() => {
           // https://github.com/danbovey/react-infinite-scroller#but-you-should-just-add-an-isloading-prop
           if (!isFetching) fetchNextPage();
