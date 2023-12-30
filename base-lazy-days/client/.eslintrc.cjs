@@ -1,4 +1,4 @@
-const vitest = require("eslint-plugin-vitest");
+// const vitest = require("eslint-plugin-vitest");
 
 module.exports = {
   root: true,
@@ -16,11 +16,11 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
-    "plugin:@tanstack/eslint-plugin-query/recommended",
-    "plugin:vitest/recommended",
-    "plugin:testing-library/react",
-    "plugin:jsx-a11y/recommended",
     "plugin:@typescript-eslint/recommended",
+    // "plugin:@tanstack/eslint-plugin-query/recommended",
+    // "plugin:vitest/recommended",
+    // "plugin:testing-library/react",
+    // "plugin:jsx-a11y/recommended",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
@@ -58,10 +58,10 @@ module.exports = {
     "import/order": "off",
 
     // eliminate distracting red squiggles while writing tests
-    "vitest/expect-expect": "off",
+    // "vitest/expect-expect": "off",
   },
   // don't flag vitest globals like `describe` and `test`
   globals: {
-    ...vitest.environments.env.globals,
+    // ...vitest.environments.env.globals,
   },
 };
