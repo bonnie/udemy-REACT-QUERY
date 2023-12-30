@@ -1,6 +1,7 @@
 import jsonpatch from "fast-json-patch";
 
 import type { User } from "@shared/types";
+
 import { axiosInstance, getJWTHeader } from "../../../axiosInstance";
 import { useUser } from "./useUser";
 
