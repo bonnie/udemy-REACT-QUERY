@@ -1,5 +1,4 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { Home } from "./Home";
@@ -32,7 +31,6 @@ export function App() {
           </Routes>
         </BrowserRouter>
         <ToastContainer />
-        <ReactQueryDevtools />
       </AuthContextProvider>
     </ChakraProvider>
   );
