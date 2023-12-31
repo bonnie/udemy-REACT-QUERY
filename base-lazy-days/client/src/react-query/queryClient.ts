@@ -1,5 +1,3 @@
-import { QueryClient } from "@tanstack/react-query";
-
 import { toast } from "@/components/app/toast";
 
 // function errorHandler(errorMsg: string) {
@@ -17,5 +15,3 @@ import { toast } from "@/components/app/toast";
 //     toast({ id, title, status: "error", variant: "subtle", isClosable: true });
 //   }
 // }
-
-export const queryClient = new QueryClient();
