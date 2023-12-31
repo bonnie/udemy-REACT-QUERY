@@ -7,24 +7,18 @@ import { filterByTreatment } from "../utils";
 import { axiosInstance } from "@/axiosInstance";
 import { queryKeys } from "@/react-query/constants";
 
-// for when we need a query function for useQuery
+// query function for useQuery
 // async function getStaff(): Promise<Staff[]> {
 //   const { data } = await axiosInstance.get('/staff');
 //   return data;
 // }
 
-interface UseStaff {
-  staff: Staff[];
-  filter: string;
-  setFilter: Dispatch<SetStateAction<string>>;
-}
-
-export function useStaff(): UseStaff {
+export function useStaff() {
   // for filtering staff by treatment
   const [filter, setFilter] = useState("all");
 
   // TODO: get data from server via useQuery
-  const staff = [];
+  const staff: Staff[] = [];
 
   return { staff, filter, setFilter };
 }
