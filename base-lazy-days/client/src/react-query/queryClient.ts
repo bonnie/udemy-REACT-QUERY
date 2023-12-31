@@ -1,6 +1,6 @@
 // import { toast } from "@/components/app/toast";
 
-// function errorHandler(type: "query" | "mutation", errorMsg: string) {
+// function errorHandler() {
 //     // https://chakra-ui.com/docs/components/toast#preventing-duplicate-toast
 //     // one message per page load, not one message per query
 //     // the user doesn't care that there were three failed queries on the staff page
@@ -8,7 +8,7 @@
 //     const id = "react-query-toast";
 
 //     if (!toast.isActive(id)) {
-//       const action = type === "query" ? "load" : "update";
+//       const action = "fetch";
 //       const title = `could not ${action} data: ${
 //         errorMsg ?? "error connecting to server"
 //       }`;
