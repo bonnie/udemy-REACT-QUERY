@@ -12,8 +12,7 @@ import { queryKeys } from "@/react-query/constants";
 //   });
 // }
 
-// TODO: update return type
-export function useCancelAppointment(): (appointment: Appointment) => void {
+export function useCancelAppointment() {
   const toast = useCustomToast();
 
   // TODO: replace with mutate function

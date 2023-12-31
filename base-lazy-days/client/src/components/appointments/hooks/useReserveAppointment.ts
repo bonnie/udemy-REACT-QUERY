@@ -18,10 +18,7 @@ import { queryKeys } from "@/react-query/constants";
 //   });
 // }
 
-// TODO: update type for React Query mutate function
-type AppointmentMutationFunction = (appointment: Appointment) => void;
-
-export function useReserveAppointment(): AppointmentMutationFunction {
+export function useReserveAppointment() {
   const { userId } = useLoginData();
 
   const toast = useCustomToast();

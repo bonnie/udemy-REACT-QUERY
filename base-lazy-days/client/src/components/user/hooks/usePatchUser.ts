@@ -25,8 +25,7 @@ import { useUser } from "./useUser";
 //   return data.user;
 //  }
 
-// TODO: update type to UseMutateFunction type
-export function usePatchUser(): (newData: User | null) => void {
+export function usePatchUser() {
   const { user, updateUser } = useUser();
 
   // TODO: replace with mutate function

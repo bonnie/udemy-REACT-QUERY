@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 
 import { AppointmentDateMap } from "../types";
 import { getAvailableAppointments } from "../utils";
-import { getMonthYearDetails, getNewMonthYear, MonthYear } from "./monthYear";
+import { getMonthYearDetails, getNewMonthYear } from "./monthYear";
 
 import { useLoginData } from "@/auth/AuthContext";
 import { axiosInstance } from "@/axiosInstance";
@@ -18,15 +18,6 @@ async function getAppointments(
   return data;
 }
 
-// types for hook return object
-interface UseAppointments {
-  appointments: AppointmentDateMap;
-  monthYear: MonthYear;
-  updateMonthYear: (monthIncrement: number) => void;
-  showAll: boolean;
-  setShowAll: Dispatch<SetStateAction<boolean>>;
-}
-
 // The purpose of this hook:
 //   1. track the current month/year (aka monthYear) selected by the user
 //     1a. provide a way to update state
@@ -35,7 +26,7 @@ interface UseAppointments {
 //     2b. prefetch the appointments for adjacent monthYears
 //   3. track the state of the filter (all appointments / available appointments)
 //     3a. return the only the applicable appointments for the current monthYear
-export function useAppointments(): UseAppointments {
+export function useAppointments() {
   /** ****************** START 1: monthYear state *********************** */
   // get the monthYear for the current date (for default monthYear state)
   const currentMonthYear = getMonthYearDetails(dayjs());
@@ -70,7 +61,7 @@ export function useAppointments(): UseAppointments {
   //
   //    2. The getAppointments query function needs monthYear.year and
   //       monthYear.month
-  const appointments = {};
+  const appointments: AppointmentDateMap = {};
 
   /** ****************** END 3: useQuery  ******************************* */
 
