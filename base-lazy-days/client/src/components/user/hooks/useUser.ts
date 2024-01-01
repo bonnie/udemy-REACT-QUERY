@@ -2,17 +2,15 @@ import { AxiosResponse } from "axios";
 
 import type { User } from "@shared/types";
 
-import { axiosInstance, getJWTHeader } from "../../../axiosInstance";
-
 import { useLoginData } from "@/auth/AuthContext";
+import { axiosInstance, getJWTHeader } from "@/axiosInstance";
 import { queryKeys } from "@/react-query/constants";
 
 // query function
-// async function getUser(userId: number, userToken: string, signal: AbortSignal) {
+// async function getUser(userId: number, userToken: string) {
 //   const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
 //     `/user/${userId}`,
 //     {
-//       signal, // abortSignal from React Query
 //       headers: getJWTHeader(userToken),
 //     }
 //   );
