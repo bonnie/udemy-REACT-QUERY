@@ -18,14 +18,14 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useLoginData = () => {
-  const authId = useContext(AuthContext);
-  if (!authId) {
+  const authValue = useContext(AuthContext);
+  if (!authValue) {
     throw new Error(
       "Error! AuthContext called from outside the AuthContextProvider"
     );
   }
 
-  return authId;
+  return authValue;
 };
 
 export const AuthContextProvider = ({
