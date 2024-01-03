@@ -22,6 +22,8 @@
     "react-router-dom": "^6.18.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.2.0",
+    "@testing-library/react": "^14.1.2",
     "@types/node": "^20.9.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
@@ -34,10 +36,14 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-testing-library": "^6.2.0",
+    "eslint-plugin-vitest": "^0.3.20",
     "install": "^0.13.0",
     "jsdom": "^23.0.1",
+    "msw": "^2.0.11",
     "npm": "^10.2.3",
     "typescript": "^5.2.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vitest": "^1.1.1"
   }
 }
