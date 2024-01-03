@@ -1,9 +1,10 @@
 import { screen } from "@testing-library/react";
 
+import { AllStaff } from "../AllStaff";
+
 // import { http, HttpResponse } from "msw";
 // import { server } from '@/mocks/server';
-// import { renderWithClient } from '@/test-utils';
-import { AllStaff } from "../AllStaff";
+// import { renderWithQueryClient } from "@/test-utils";
 
 test("renders response from query", () => {
   // write test here
