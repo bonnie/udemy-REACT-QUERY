@@ -1,7 +1,5 @@
 import { render } from "@testing-library/react";
 
-// import { defaultQueryClientOptions } from '@/react-query/queryClient';
-
 // from https://tkdodo.eu/blog/testing-react-query#for-custom-hooks
 // export const createQueryClientWrapper = () => {
 //   const queryClient = generateQueryClient();
