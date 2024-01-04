@@ -1,11 +1,7 @@
-import {
-  fireEvent,
-  screen,
-  waitForElementToBeRemoved,
-} from "@testing-library/react";
-
 // import { renderWithQueryClient } from '@/test-utils';
 import { Calendar } from "../Calendar";
+
+// import { fireEvent, screen, waitForElementToBeRemoved } from "@/test-utils";
 
 test("Reserve appointment", async () => {
   // TODO: render the calendar
