@@ -7,7 +7,7 @@ import { Calendar } from "../Calendar";
 
 test("Reserve appointment error", () => {
   // (re)set handler to return a 500 error for appointments
-  // server.resetHandlers(
+  // server.use(
   //   http.get("http://localhost:3030/appointments/:month/:year", () => {
   //     return new HttpResponse(null, { status: 500 });
   //   })

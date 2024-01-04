@@ -12,7 +12,7 @@ test("renders response from query", () => {
 
 test("handles query error", async () => {
   // (re)set handler to return a 500 error for staff and treatments
-  // server.resetHandlers(
+  // server.use(
   // http.get("http://localhost:3030/staff", () => {
   //   return new HttpResponse(null, { status: 500 });
   // }),

@@ -12,6 +12,7 @@ import { MemoryRouter } from "react-router-dom";
 //   );
 // };
 
+// reference: https://testing-library.com/docs/react-testing-library/setup#custom-render
 function customRender(ui: ReactElement) {
   return RtlRender(
     <ChakraProvider>
