@@ -1,0 +1,17 @@
+.title {
+  color: blue;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.loading {
+  color: purple;
+  font-style: italic;
+}
+
+.success {
+  color: green;
+}

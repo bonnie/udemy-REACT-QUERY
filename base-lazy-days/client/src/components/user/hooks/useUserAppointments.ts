@@ -1,17 +1,16 @@
-import dayjs from 'dayjs';
+import type { Appointment } from "@shared/types";
 
-import type { Appointment, User } from '../../../../../shared/types';
-import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
-import { queryKeys } from '../../../react-query/constants';
-import { useUser } from './useUser';
+import { axiosInstance, getJWTHeader } from "../../../axiosInstance";
+
+import { useLoginData } from "@/auth/AuthContext";
 
 // for when we need a query function for useQuery
 // async function getUserAppointments(
-//   user: User | null,
+//   userId: number,
+//   userToken: string
 // ): Promise<Appointment[] | null> {
-//   if (!user) return null;
-//   const { data } = await axiosInstance.get(`/user/${user.id}/appointments`, {
-//     headers: getJWTHeader(user),
+//   const { data } = await axiosInstance.get(`/user/${userId}/appointments`, {
+//     headers: getJWTHeader(userToken),
 //   });
 //   return data.appointments;
 // }

@@ -6,22 +6,19 @@ import {
   Link,
   Stack,
   Text,
-} from '@chakra-ui/react';
-import { ReactElement, ReactNode } from 'react';
+} from "@chakra-ui/react";
+import { ReactNode } from "react";
 
-import type { Image as ImageType } from '../../../../shared/types';
-import { baseImageUrl } from '../../axiosInstance/constants';
+import type { Image as ImageType } from "@shared/types";
+
+import { baseImageUrl } from "@/axiosInstance/constants";
 
 interface CardProps {
   itemName: string;
   image: ImageType;
   cardContents: ReactNode;
 }
-export function Card({
-  itemName,
-  image,
-  cardContents,
-}: CardProps): ReactElement {
+export function Card({ itemName, image, cardContents }: CardProps) {
   return (
     <Center py={12}>
       <Box
@@ -43,13 +40,13 @@ export function Card({
             src={`${baseImageUrl}/${image.fileName}`}
             alt={itemName}
           />
-          <Text fontSize="xs" align="center">
-            Photo by <Link href={image.authorLink}>{image.authorName}</Link>{' '}
+          <Text fontSize="xs" textAlign="center">
+            Photo by <Link href={image.authorLink}>{image.authorName}</Link>{" "}
             from <Link href={image.platformLink}>{image.platformName}</Link>
           </Text>
         </Box>
         <Stack pt={10}>
-          <Heading align="center" fontSize="2xl">
+          <Heading textAlign="center" fontSize="2xl">
             {itemName}
           </Heading>
           {cardContents}

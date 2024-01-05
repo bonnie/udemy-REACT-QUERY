@@ -1,8 +1,8 @@
-import { Box, Stack, Text } from '@chakra-ui/react';
-import { ReactElement } from 'react';
+import { Box, Stack, Text } from "@chakra-ui/react";
 
-import type { Appointment as AppointmentType } from '../../../../shared/types';
-import { Appointment } from './Appointment';
+import type { Appointment as AppointmentType } from "@shared/types";
+
+import { Appointment } from "./Appointment";
 
 interface DateBoxProps {
   date: number;
@@ -11,11 +11,7 @@ interface DateBoxProps {
 }
 DateBox.defaultProps = { gridColumn: null, appointments: [] };
 
-export function DateBox({
-  date,
-  gridColumn,
-  appointments = [],
-}: DateBoxProps): ReactElement {
+export function DateBox({ date, gridColumn, appointments = [] }: DateBoxProps) {
   return (
     <Box
       w="100%"

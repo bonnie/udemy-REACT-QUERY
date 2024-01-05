@@ -55,7 +55,7 @@ export async function createAppointments(): Promise<void> {
   const year = dayjs().year();
 
   // do this for three months; dayjs 0-indexes its months, hence starting at 1
-  for (let monthsFromNow = 1; monthsFromNow < 4; monthsFromNow++) {
+  for (let monthsFromNow = 1; monthsFromNow < 5; monthsFromNow++) {
     // make sure month is two digits;
     const monthString = padNum(month + monthsFromNow);
     const startDate = dayjs(`${year}${monthString}01`);
@@ -154,6 +154,16 @@ export async function createAppointments(): Promise<void> {
         default:
           break;
       }
+    }
+  }
+  // add a few for user 1
+  for (let i = 0; i < allAppointments.length; i++) {
+    if (i % 45 === 0) {
+      let randNum = Math.floor(Math.random() * 14) - 7;
+      if (randNum < 0) randNum = 0;
+      if (randNum > allAppointments.length - 1)
+        randNum = allAppointments.length - 1;
+      allAppointments[i + randNum].userId = 1;
     }
   }
   await db.writeAppointments(allAppointments);

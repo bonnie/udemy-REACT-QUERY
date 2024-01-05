@@ -9,24 +9,27 @@ import {
   HStack,
   Input,
   Stack,
-} from '@chakra-ui/react';
-import { ReactElement, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { useAuth } from '../../auth/useAuth';
-import { useUser } from './hooks/useUser';
+import { useLoginData } from "@/auth/AuthContext";
+import { useAuthActions } from "@/auth/useAuthActions";
 
-// eslint-disable-next-line max-lines-per-function
-export function Signin(): ReactElement {
-  const [email, setEmail] = useState('test');
-  const [password, setPassword] = useState('test');
+export function Signin() {
+  const [email, setEmail] = useState("test");
+  const [password, setPassword] = useState("test");
   const [dirty, setDirty] = useState({ email: false, password: false });
-  const auth = useAuth();
-  const { user } = useUser();
+  const auth = useAuthActions();
+  const { userId } = useLoginData();
 
-  if (user) {
-    return <Redirect to={`/user/${user.id}`} />;
-  }
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userId) {
+      navigate(`/user/${userId}`);
+    }
+  }, [userId, navigate]);
 
   return (
     <>

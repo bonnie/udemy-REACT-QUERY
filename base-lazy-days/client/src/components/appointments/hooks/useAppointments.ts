@@ -1,30 +1,21 @@
-// @ts-nocheck
-import dayjs from 'dayjs';
-import { Dispatch, SetStateAction, useState } from 'react';
+import dayjs from "dayjs";
+import { useState } from "react";
 
-import { axiosInstance } from '../../../axiosInstance';
-import { queryKeys } from '../../../react-query/constants';
-import { useUser } from '../../user/hooks/useUser';
-import { AppointmentDateMap } from '../types';
-import { getAvailableAppointments } from '../utils';
-import { getMonthYearDetails, getNewMonthYear, MonthYear } from './monthYear';
+import { AppointmentDateMap } from "../types";
+import { getAvailableAppointments } from "../utils";
+import { getMonthYearDetails, getNewMonthYear } from "./monthYear";
+
+import { useLoginData } from "@/auth/AuthContext";
+import { axiosInstance } from "@/axiosInstance";
+import { queryKeys } from "@/react-query/constants";
 
 // for useQuery call
 async function getAppointments(
   year: string,
-  month: string,
+  month: string
 ): Promise<AppointmentDateMap> {
   const { data } = await axiosInstance.get(`/appointments/${year}/${month}`);
   return data;
-}
-
-// types for hook return object
-interface UseAppointments {
-  appointments: AppointmentDateMap;
-  monthYear: MonthYear;
-  updateMonthYear: (monthIncrement: number) => void;
-  showAll: boolean;
-  setShowAll: Dispatch<SetStateAction<boolean>>;
 }
 
 // The purpose of this hook:
@@ -35,7 +26,7 @@ interface UseAppointments {
 //     2b. prefetch the appointments for adjacent monthYears
 //   3. track the state of the filter (all appointments / available appointments)
 //     3a. return the only the applicable appointments for the current monthYear
-export function useAppointments(): UseAppointments {
+export function useAppointments() {
   /** ****************** START 1: monthYear state *********************** */
   // get the monthYear for the current date (for default monthYear state)
   const currentMonthYear = getMonthYearDetails(dayjs());
@@ -57,7 +48,7 @@ export function useAppointments(): UseAppointments {
   // We will need imported function getAvailableAppointments here
   // We need the user to pass to getAvailableAppointments so we can show
   //   appointments that the logged-in user has reserved (in white)
-  const { user } = useUser();
+  const { userId } = useLoginData();
 
   /** ****************** END 2: filter appointments  ******************** */
   /** ****************** START 3: useQuery  ***************************** */
@@ -70,7 +61,7 @@ export function useAppointments(): UseAppointments {
   //
   //    2. The getAppointments query function needs monthYear.year and
   //       monthYear.month
-  const appointments = {};
+  const appointments: AppointmentDateMap = {};
 
   /** ****************** END 3: useQuery  ******************************* */
 

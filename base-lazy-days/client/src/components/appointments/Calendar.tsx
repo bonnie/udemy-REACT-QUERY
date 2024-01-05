@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import {
   Box,
   Checkbox,
@@ -6,16 +5,16 @@ import {
   Heading,
   HStack,
   IconButton,
-} from '@chakra-ui/react';
-import dayjs from 'dayjs';
-import { ReactElement } from 'react';
-import { TiArrowLeftThick, TiArrowRightThick } from 'react-icons/ti';
+} from "@chakra-ui/react";
+import dayjs from "dayjs";
+import { TiArrowLeftThick, TiArrowRightThick } from "react-icons/ti";
 
-import { UserAppointments } from '../user/UserAppointments';
-import { DateBox } from './DateBox';
-import { useAppointments } from './hooks/useAppointments';
+import { DateBox } from "./DateBox";
+import { useAppointments } from "./hooks/useAppointments";
 
-export function Calendar(): ReactElement {
+import { UserAppointments } from "@/components/user/UserAppointments";
+
+export function Calendar() {
   const currentDate = dayjs();
 
   const { appointments, monthYear, updateMonthYear, showAll, setShowAll } =
@@ -44,7 +43,7 @@ export function Calendar(): ReactElement {
           position="absolute"
           right="10px"
           checked={!showAll}
-          defaultIsChecked
+          defaultChecked
           onChange={() => setShowAll((prevValue) => !prevValue)}
         >
           Only show available
@@ -61,7 +60,7 @@ export function Calendar(): ReactElement {
         {[...Array(monthYear.lastDate)].map((_, i) =>
           i > 0 ? (
             <DateBox key={i} date={i + 1} appointments={appointments[i + 1]} />
-          ) : null,
+          ) : null
         )}
       </Grid>
       <UserAppointments />

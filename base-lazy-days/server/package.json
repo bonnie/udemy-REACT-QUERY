@@ -5,7 +5,7 @@
   "license": "AGPL-3.0",
   "scripts": {
     "start": "node src/index.cjs",
-    "test": "jest"
+    "dev": "npm start"
   },
   "dependencies": {
     "@babel/runtime": "^7.16.3",
@@ -17,9 +17,9 @@
     "dotenv": "^8.2.0",
     "es-main": "^1.0.2",
     "express": "^4.16.3",
-    "express-jwt": "^6.0.0",
+    "express-jwt": "^8.4.1",
     "fast-json-patch": "^3.0.0-1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.2",
     "pbkdf2": "^3.1.1"
   },
   "devDependencies": {

@@ -1,12 +1,14 @@
-import { Box, Button, Flex, HStack, Icon, Link } from '@chakra-ui/react';
-import { ReactElement, ReactNode } from 'react';
-import { GiFlowerPot } from 'react-icons/gi';
-import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { Box, Button, Flex, HStack, Icon, Link } from "@chakra-ui/react";
+import { ReactNode } from "react";
+import { GiFlowerPot } from "react-icons/gi";
+import { Link as RouterLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { useAuth } from '../../auth/useAuth';
-import { useUser } from '../user/hooks/useUser';
+import { useLoginData } from "@/auth/AuthContext";
+import { useAuthActions } from "@/auth/useAuthActions";
+import { useUser } from "@/components/user/hooks/useUser";
 
-const Links = ['Treatments', 'Staff', 'Calendar'];
+const Links = ["Treatments", "Staff", "Calendar"];
 
 const NavLink = ({ to, children }: { to: string; children: ReactNode }) => (
   <Link
@@ -16,8 +18,8 @@ const NavLink = ({ to, children }: { to: string; children: ReactNode }) => (
     rounded="md"
     color="olive.200"
     _hover={{
-      textDecoration: 'none',
-      color: 'olive.500',
+      textDecoration: "none",
+      color: "olive.500",
     }}
     to={to}
   >
@@ -25,10 +27,13 @@ const NavLink = ({ to, children }: { to: string; children: ReactNode }) => (
   </Link>
 );
 
-export function Navbar(): ReactElement {
+export function Navbar() {
+  // use login data for signin / signout button, for
+  //   base app that doesn't retrieve user data from the server yet
+  const { userId } = useLoginData();
   const { user } = useUser();
-  const { signout } = useAuth();
-  const history = useHistory();
+  const { signout } = useAuthActions();
+  const navigate = useNavigate();
 
   return (
     <Box bg="gray.900" px={4}>
@@ -46,13 +51,13 @@ export function Navbar(): ReactElement {
           </HStack>
         </HStack>
         <HStack>
-          {user ? (
+          {userId ? (
             <>
-              <NavLink to={`/user/${user.id}`}>{user.email}</NavLink>
+              {user && <NavLink to={`/user/${user.id}`}>{user.email}</NavLink>}
               <Button onClick={() => signout()}>Sign out</Button>
             </>
           ) : (
-            <Button onClick={() => history.push('signin')}>Sign in</Button>
+            <Button onClick={() => navigate("/signin")}>Sign in</Button>
           )}
         </HStack>
       </Flex>

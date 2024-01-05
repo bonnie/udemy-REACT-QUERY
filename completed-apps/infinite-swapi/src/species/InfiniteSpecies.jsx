@@ -1,5 +1,5 @@
 import InfiniteScroll from "react-infinite-scroller";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { Species } from "./Species";
 
@@ -18,13 +18,11 @@ export function InfiniteSpecies() {
     isFetching,
     isError,
     error,
-  } = useInfiniteQuery(
-    "sw-species",
-    ({ pageParam = initialUrl }) => fetchUrl(pageParam),
-    {
-      getNextPageParam: (lastPage) => lastPage.next || undefined,
-    }
-  );
+  } = useInfiniteQuery({
+    queryKey: ["sw-species"],
+    queryFn: ({ pageParam = initialUrl }) => fetchUrl(pageParam),
+    getNextPageParam: (lastPage) => lastPage.next || undefined,
+  });
 
   if (isLoading) return <div className="loading">Loading...</div>;
   if (isError) return <div>Error! {error.toString()}</div>;
@@ -33,11 +31,9 @@ export function InfiniteSpecies() {
     <>
       {isFetching && <div className="loading">Loading...</div>}
       <InfiniteScroll
-        // add initialLoad={false} to prevent loading two pages on
-        // component mount (see
-        // https://www.udemy.com/course/learn-react-query/learn/#questions/18222646/)
-        initialLoad={false}
-        loadMore={fetchNextPage}
+        loadMore={() => {
+          if (!isFetching) fetchNextPage();
+        }}
         hasMore={hasNextPage}
       >
         {data.pages.map((pageData) => {

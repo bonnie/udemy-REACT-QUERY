@@ -1,31 +1,30 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
+import { fetchPosts, deletePost, updatePost } from "./api";
 import { PostDetail } from "./PostDetail";
 const maxPostPage = 10;
-
-async function fetchPosts() {
-  const response = await fetch(
-    "https://jsonplaceholder.typicode.com/posts?_limit=10&_page=0"
-  );
-  return response.json();
-}
 
 export function Posts() {
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedPost, setSelectedPost] = useState(null);
 
-  // replace with useQuery
-  const { data, isError, error, isLoading } = useQuery("posts", fetchPosts);
-
-  if (isLoading) return <h3>Loading...</h3>;
-  if (isError)
+  const { data, isError, error, isLoading } = useQuery({
+    queryKey: ["posts"],
+    queryFn: fetchPosts,
+    staleTime: 2000, // 2 seconds
+  });
+  if (isLoading) {
+    return <h3>Loading...</h3>;
+  }
+  if (isError) {
     return (
       <>
         <h3>Oops, something went wrong</h3>
         <p>{error.toString()}</p>
       </>
     );
+  }
 
   return (
     <>

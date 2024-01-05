@@ -1,20 +1,21 @@
-import { Box, HStack, Text } from '@chakra-ui/react';
-import dayjs from 'dayjs';
-import { ReactElement } from 'react';
+import { Box, HStack, Text } from "@chakra-ui/react";
+import dayjs from "dayjs";
 
-import { Appointment as AppointmentType, User } from '../../../../shared/types';
-import { useUser } from '../user/hooks/useUser';
-import { useReserveAppointment } from './hooks/useReserveAppointment';
-import { appointmentInPast, getAppointmentColor } from './utils';
+import { Appointment as AppointmentType } from "@shared/types";
+
+import { useReserveAppointment } from "./hooks/useReserveAppointment";
+import { appointmentInPast, getAppointmentColor } from "./utils";
+
+import { useLoginData } from "@/auth/AuthContext";
 
 // determine whether this appointment can be reserved / un-reserved by logged-in user
 function isClickable(
-  user: User | null,
-  appointmentData: AppointmentType,
+  userId: number | null,
+  appointmentData: AppointmentType
 ): boolean {
   return !!(
-    user?.id &&
-    (!appointmentData.userId || appointmentData.userId === user?.id) &&
+    userId &&
+    (!appointmentData.userId || appointmentData.userId === userId) &&
     !appointmentInPast(appointmentData)
   );
 }
@@ -23,37 +24,36 @@ interface AppointmentProps {
   appointmentData: AppointmentType;
 }
 
-export function Appointment({
-  appointmentData,
-}: AppointmentProps): ReactElement {
-  const { user } = useUser();
-  const reserveAppointment = useReserveAppointment();
-  const [textColor, bgColor] = getAppointmentColor(appointmentData, user?.id);
+export function Appointment({ appointmentData }: AppointmentProps) {
+  const { userId } = useLoginData();
 
-  const clickable = isClickable(user, appointmentData);
+  const reserveAppointment = useReserveAppointment();
+  const [textColor, bgColor] = getAppointmentColor(appointmentData, userId);
+
+  const clickable = isClickable(userId, appointmentData);
   let onAppointmentClick: undefined | (() => void);
   let hoverCss = {};
 
   // turn the lozenge into a button if it's clickable
   if (clickable) {
-    onAppointmentClick = user
+    onAppointmentClick = userId
       ? () => reserveAppointment(appointmentData)
       : undefined;
     hoverCss = {
-      transform: 'translateY(-1px)',
-      boxShadow: 'md',
-      cursor: 'pointer',
+      transform: "translateY(-1px)",
+      boxShadow: "md",
+      cursor: "pointer",
     };
   }
 
-  const appointmentHour = dayjs(appointmentData.dateTime).format('h a');
+  const appointmentHour = dayjs(appointmentData.dateTime).format("h a");
   return (
     <Box
       borderRadius="lg"
       px={2}
       bgColor={bgColor}
       color={textColor}
-      as={clickable ? 'button' : 'div'}
+      as={clickable ? "button" : "div"}
       onClick={onAppointmentClick}
       _hover={hoverCss}
     >

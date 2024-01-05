@@ -1,8 +1,9 @@
-import { Appointment } from '../../../../../shared/types';
-import { axiosInstance } from '../../../axiosInstance';
-import { queryKeys } from '../../../react-query/constants';
-import { useCustomToast } from '../../app/hooks/useCustomToast';
-import { useUser } from '../../user/hooks/useUser';
+import { Appointment } from "@shared/types";
+
+import { useLoginData } from "@/auth/AuthContext";
+import { axiosInstance } from "@/axiosInstance";
+import { useCustomToast } from "@/components/app/hooks/useCustomToast";
+import { queryKeys } from "@/react-query/constants";
 
 // for when we need functions for useMutation
 // async function setAppointmentUser(
@@ -21,7 +22,8 @@ import { useUser } from '../../user/hooks/useUser';
 type AppointmentMutationFunction = (appointment: Appointment) => void;
 
 export function useReserveAppointment(): AppointmentMutationFunction {
-  const { user } = useUser();
+  const { userId } = useLoginData();
+
   const toast = useCustomToast();
 
   // TODO: replace with mutate function

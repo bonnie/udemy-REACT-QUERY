@@ -156,5 +156,15 @@ export async function createAppointments(): Promise<void> {
       }
     }
   }
+  // add a few for user 1
+  for (let i = 0; i < allAppointments.length; i++) {
+    if (i % 45 === 0) {
+      let randNum = Math.floor(Math.random() * 14) - 7;
+      if (randNum < 0) randNum = 0;
+      if (randNum > allAppointments.length - 1)
+        randNum = allAppointments.length - 1;
+      allAppointments[i + randNum].userId = 1;
+    }
+  }
   await db.writeAppointments(allAppointments);
 }

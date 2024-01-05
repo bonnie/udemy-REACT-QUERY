@@ -1,10 +1,9 @@
-import { Box, Heading, HStack } from '@chakra-ui/react';
-import { ReactElement } from 'react';
+import { Box, Heading, HStack } from "@chakra-ui/react";
 
-import { useTreatments } from './hooks/useTreatments';
-import { Treatment } from './Treatment';
+import { useTreatments } from "./hooks/useTreatments";
+import { Treatment } from "./Treatment";
 
-export function Treatments(): ReactElement {
+export function Treatments() {
   // replace with data from React Query
   const treatments = useTreatments();
   return (

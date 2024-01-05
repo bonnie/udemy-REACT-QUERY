@@ -1,80 +1,51 @@
-import { createStandaloneToast } from '@chakra-ui/react';
-import { QueryClient } from 'react-query';
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientConfig,
+} from "@tanstack/react-query";
 
-const toast = createStandaloneToast();
+import { toast } from "@/components/app/toast";
 
-function queryErrorHandler(error: unknown): void {
-  // error is type unknown because in js, anything can be an error (e.g. throw(5))
-  const title =
-    error instanceof Error ? error.message : 'error connecting to server';
-
-  // prevent duplicate toasts
-  toast.closeAll();
-  toast({ title, status: 'error', variant: 'subtle', isClosable: true });
+function createTitle(errorMsg: string, actionType: "query" | "mutation") {
+  const action = actionType === "query" ? "fetch" : "update";
+  return `could not ${action} data: ${
+    errorMsg ?? "error connecting to server"
+  }`;
 }
 
-export function generateQueryClient(): QueryClient {
-  return new QueryClient({
-    defaultOptions: {
-      queries: {
-        onError: queryErrorHandler,
-        staleTime: 600000, // 10 minutes
-        cacheTime: 900000, // default cacheTime is 5 minutes; doesn't make sense for staleTime to exceed cacheTime
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
-      },
-      mutations: {
-        onError: queryErrorHandler,
-      },
+function errorHandler(title: string) {
+  // https://chakra-ui.com/docs/components/toast#preventing-duplicate-toast
+  // one message per page load, not one message per query
+  // the user doesn't care that there were three failed queries on the staff page
+  //    (staff, treatments, user)
+  const id = "react-query-toast";
+
+  if (!toast.isActive(id)) {
+    toast({ id, title, status: "error", variant: "subtle", isClosable: true });
+  }
+}
+
+export const queryClientOptions: QueryClientConfig = {
+  defaultOptions: {
+    queries: {
+      staleTime: 600000, // 10 minutes
+      gcTime: 900000, // 15 minutes
+      refetchOnWindowFocus: false,
     },
-  });
-}
+  },
+  queryCache: new QueryCache({
+    onError: (error) => {
+      const title = createTitle(error.message, "query");
+      errorHandler(title);
+    },
+  }),
+  mutationCache: new MutationCache({
+    onError: (error) => {
+      const title = createTitle(error.message, "mutation");
+      errorHandler(title);
+    },
+  }),
+};
 
-export const queryClient = generateQueryClient();
-
-// //////////////////////////////////////////////////////////
-// START: alternative way to specify global error handler
-// for details, see
-// https://www.udemy.com/course/learn-react-query/learn/lecture/33911646#overview
-
-// import { createStandaloneToast } from '@chakra-ui/react';
-// import { QueryCache, QueryClient } from 'react-query';
-
-// import { theme } from '../theme';
-
-// const toast = createStandaloneToast({ theme });
-
-// function queryErrorHandler(error: unknown): void {
-//   // error is type unknown because in js, anything can be an error (e.g. throw(5))
-//   const title =
-//     error instanceof Error ? error.message : 'error connecting to server';
-
-//   toast({ title, status: 'error', variant: 'subtle', isClosable: true });
-// }
-
-// export function generateQueryClient(): QueryClient {
-//   return new QueryClient({
-//     // from https://tkdodo.eu/blog/react-query-error-handling#the-global-callbacks
-//     queryCache: new QueryCache({
-//       onError: queryErrorHandler,
-//     }),
-//     defaultOptions: {
-//       queries: {
-//         staleTime: 600000, // 10 minutes
-//         cacheTime: 900000, // default cacheTime is 5 minutes; doesn't make sense for staleTime to exceed cacheTime
-//         refetchOnMount: false,
-//         refetchOnWindowFocus: false,
-//         refetchOnReconnect: false,
-//       },
-//       mutations: {
-//         onError: queryErrorHandler,
-//       },
-//     },
-//   });
-// }
-
-// export const queryClient = generateQueryClient();
-
-// END: alternative way to specify global error handler
-// //////////////////////////////////////////////////////////
+export const queryClient = new QueryClient(queryClientOptions);

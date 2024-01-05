@@ -1,32 +1,31 @@
-import { useQuery } from 'react-query';
+import { useQuery } from "@tanstack/react-query";
 
-import type { Appointment, User } from '../../../../../shared/types';
-import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
-import { queryKeys } from '../../../react-query/constants';
-import { useUser } from './useUser';
+import type { Appointment } from "@shared/types";
+
+import { useLoginData } from "@/auth/AuthContext";
+import { axiosInstance, getJWTHeader } from "@/axiosInstance";
+import { generateUserAppointmentsKey } from "@/react-query/key-factories";
 
 // query function
 async function getUserAppointments(
-  user: User | null
+  userId: number,
+  userToken: string
 ): Promise<Appointment[] | null> {
-  if (!user) return null;
-  const { data } = await axiosInstance.get(`/user/${user.id}/appointments`, {
-    headers: getJWTHeader(user),
+  const { data } = await axiosInstance.get(`/user/${userId}/appointments`, {
+    headers: getJWTHeader(userToken),
   });
   return data.appointments;
 }
 
 export function useUserAppointments(): Appointment[] {
-  const { user } = useUser();
+  const { userId, userToken } = useLoginData();
 
   const fallback: Appointment[] = [];
-  const { data: userAppointments = fallback } = useQuery(
-    [queryKeys.appointments, queryKeys.user, user?.id],
-    () => getUserAppointments(user),
-    {
-      enabled: !!user,
-    }
-  );
+  const { data: userAppointments = fallback } = useQuery({
+    enabled: !!userId,
+    queryKey: generateUserAppointmentsKey(userId, userToken),
+    queryFn: () => getUserAppointments(userId, userToken),
+  });
 
   return userAppointments;
 }

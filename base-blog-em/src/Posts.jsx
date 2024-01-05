@@ -1,14 +1,8 @@
 import { useState } from "react";
 
+import { fetchPosts, deletePost, updatePost } from "./api";
 import { PostDetail } from "./PostDetail";
 const maxPostPage = 10;
-
-async function fetchPosts() {
-  const response = await fetch(
-    "https://jsonplaceholder.typicode.com/posts?_limit=10&_page=0"
-  );
-  return response.json();
-}
 
 export function Posts() {
   const [currentPage, setCurrentPage] = useState(0);

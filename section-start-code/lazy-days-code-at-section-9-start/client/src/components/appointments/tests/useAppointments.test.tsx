@@ -1,8 +1,10 @@
-// import { act, renderHook } from '@testing-library/react-hooks';
+// import { act, renderHook, waitFor } from "@testing-library/react";
 
-// import { createWrapper } from '../../../test-utils';
-import { useAppointments } from '../hooks/useAppointments';
+import { useAppointments } from "../hooks/useAppointments";
+import { AppointmentDateMap } from "../types";
 
-test('filter appointments by availability', async () => {
+// import { createQueryClientWrapper } from "@/test-utils";
+
+test("filter appointments by availability", async () => {
   // test goes here
 });

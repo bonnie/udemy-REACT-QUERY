@@ -1,15 +1,8 @@
-# Blog-em Ipsum
+# React + Vite
 
-### A React App for the Udemy course "React Query: Server State Management for React"
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Installation
+Currently, two official plugins are available:
 
-Run `npm install`
-
-## Running the App
-
-Run `npm start`. The app will be found at [http://localhost:3000]
-
-## Server
-
-This app uses the [JSON Placeholder](https://jsonplaceholder.typicode.com/) server.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh

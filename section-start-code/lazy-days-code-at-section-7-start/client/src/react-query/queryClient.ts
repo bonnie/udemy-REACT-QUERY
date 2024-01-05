@@ -1,30 +1,34 @@
-import { createStandaloneToast } from '@chakra-ui/react';
-import { QueryClient } from 'react-query';
+import { QueryCache, QueryClient } from "@tanstack/react-query";
 
-import { theme } from '../theme';
+import { toast } from "@/components/app/toast";
 
-const toast = createStandaloneToast({ theme });
+function errorHandler(errorMsg: string) {
+  // https://chakra-ui.com/docs/components/toast#preventing-duplicate-toast
+  // one message per page load, not one message per query
+  // the user doesn't care that there were three failed queries on the staff page
+  //    (staff, treatments, user)
+  const id = "react-query-toast";
 
-function queryErrorHandler(error: unknown): void {
-  // error is type unknown because in js, anything can be an error (e.g. throw(5))
-  const id = 'react-query-error';
-  const title =
-    error instanceof Error ? error.message : 'error connecting to server';
-
-  // prevent duplicate toasts
-  toast.closeAll();
-  toast({ id, title, status: 'error', variant: 'subtle', isClosable: true });
+  if (!toast.isActive(id)) {
+    const action = "fetch";
+    const title = `could not ${action} data: ${
+      errorMsg ?? "error connecting to server"
+    }`;
+    toast({ id, title, status: "error", variant: "subtle", isClosable: true });
+  }
 }
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      onError: queryErrorHandler,
       staleTime: 600000, // 10 minutes
-      cacheTime: 900000, // 15 minutes
-      refetchOnMount: false,
-      refetchOnReconnect: false,
+      gcTime: 900000, // 15 minutes
       refetchOnWindowFocus: false,
     },
   },
+  queryCache: new QueryCache({
+    onError: (error) => {
+      errorHandler(error.message);
+    },
+  }),
 });

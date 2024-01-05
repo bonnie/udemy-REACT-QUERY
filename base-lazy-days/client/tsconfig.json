@@ -1,19 +1,29 @@
 {
   "compilerOptions": {
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
     "target": "es5",
     "module": "esnext",
     "moduleResolution": "node",
-    "baseUrl": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@shared/*": ["../shared/*"]
+    },
     "esModuleInterop": true,
-    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false,
     "strictNullChecks": false,
     "jsx": "react-jsx",
-    "typeRoots": ["node_modules/@types"],
-    "types": ["node", "jest"],
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules",
+      "node_modules/@testing-library",
+      "node_modules/@testing-library/jest-dom"
+    ],
+    "types": ["node", "vitest/globals", "jest-dom"],
     "lib": ["dom", "dom.iterable", "esnext", "es2018"],
     "allowJs": true,
     "skipLibCheck": true,

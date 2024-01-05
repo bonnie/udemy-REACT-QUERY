@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useState, useEffect } from "react";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
+import { fetchPosts, deletePost, updatePost } from "./api";
 import { PostDetail } from "./PostDetail";
-
 const maxPostPage = 10;
-
-async function fetchPosts(pageNum) {
-  const response = await fetch(
-    `https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${pageNum}`
-  );
-  return response.json();
-}
 
 export function Posts() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,31 +11,40 @@ export function Posts() {
 
   const queryClient = useQueryClient();
 
+  const deleteMutation = useMutation({
+    mutationFn: (postId) => deletePost(postId),
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: (postId) => updatePost(postId),
+  });
+
   useEffect(() => {
     if (currentPage < maxPostPage) {
       const nextPage = currentPage + 1;
-      queryClient.prefetchQuery(["posts", nextPage], () =>
-        fetchPosts(nextPage)
-      );
+      queryClient.prefetchQuery({
+        queryKey: ["posts", nextPage],
+        queryFn: () => fetchPosts(nextPage),
+      });
     }
   }, [currentPage, queryClient]);
 
-  const { data, isError, error, isLoading } = useQuery(
-    ["posts", currentPage],
-    () => fetchPosts(currentPage),
-    {
-      staleTime: 2000,
-      keepPreviousData: true,
-    }
-  );
-  if (isLoading) return <h3>Loading...</h3>;
-  if (isError)
+  const { data, isError, error, isLoading } = useQuery({
+    queryKey: ["posts", currentPage],
+    queryFn: () => fetchPosts(currentPage),
+    staleTime: 2000, // 2 seconds
+  });
+  if (isLoading) {
+    return <h3>Loading...</h3>;
+  }
+  if (isError) {
     return (
       <>
         <h3>Oops, something went wrong</h3>
         <p>{error.toString()}</p>
       </>
     );
+  }
 
   return (
     <>
@@ -51,7 +53,11 @@ export function Posts() {
           <li
             key={post.id}
             className="post-title"
-            onClick={() => setSelectedPost(post)}
+            onClick={() => {
+              deleteMutation.reset();
+              updateMutation.reset();
+              setSelectedPost(post);
+            }}
           >
             {post.title}
           </li>
@@ -77,7 +83,13 @@ export function Posts() {
         </button>
       </div>
       <hr />
-      {selectedPost && <PostDetail post={selectedPost} />}
+      {selectedPost && (
+        <PostDetail
+          post={selectedPost}
+          deleteMutation={deleteMutation}
+          updateMutation={updateMutation}
+        />
+      )}
     </>
   );
 }

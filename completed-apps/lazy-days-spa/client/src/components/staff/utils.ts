@@ -1,4 +1,4 @@
-import type { Staff } from '../../../../shared/types';
+import type { Staff } from "@shared/types";
 
 export function filterByTreatment(
   staff: Staff[],

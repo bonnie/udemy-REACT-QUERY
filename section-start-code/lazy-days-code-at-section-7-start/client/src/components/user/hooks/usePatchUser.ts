@@ -1,8 +1,9 @@
-import jsonpatch from 'fast-json-patch';
+import jsonpatch from "fast-json-patch";
 
-import type { User } from '../../../../../shared/types';
-import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
-import { useUser } from './useUser';
+import type { User } from "@shared/types";
+
+import { axiosInstance, getJWTHeader } from "../../../axiosInstance";
+import { useUser } from "./useUser";
 
 // for when we need a server function
 // async function patchUserOnServer(
@@ -18,14 +19,13 @@ import { useUser } from './useUser';
 //     `/user/${originalData.id}`,
 //     { patch },
 //     {
-//       headers: getJWTHeader(originalData),
+//       headers: getJWTHeader(originalData.token),
 //     },
 //   );
 //   return data.user;
 //  }
 
-// TODO: update type to UseMutateFunction type
-export function usePatchUser(): (newData: User | null) => void {
+export function usePatchUser() {
   const { user, updateUser } = useUser();
 
   // TODO: replace with mutate function

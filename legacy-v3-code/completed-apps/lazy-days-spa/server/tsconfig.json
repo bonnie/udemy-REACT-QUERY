@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "typeRoots": ["node_modules/@types"],
+    "types": ["node"],
+    "lib": ["esnext", "es2018"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "downlevelIteration": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "../../shared/types",
+    "node_modules/@types",
+    "src/index.js"
+  ]
+}

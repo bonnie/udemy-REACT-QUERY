@@ -1,11 +1,15 @@
-import jsonpatch from 'fast-json-patch';
-import { UseMutateFunction, useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import jsonpatch from "fast-json-patch";
 
-import type { User } from '../../../../../shared/types';
-import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
-import { queryKeys } from '../../../react-query/constants';
-import { useCustomToast } from '../../app/hooks/useCustomToast';
-import { useUser } from './useUser';
+import type { User } from "@shared/types";
+
+import { axiosInstance, getJWTHeader } from "../../../axiosInstance";
+import { useUser } from "./useUser";
+
+import { toast } from "@/components/app/toast";
+import { queryKeys } from "@/react-query/constants";
+
+export const MUTATION_KEY = "patch-user";
 
 // for when we need a server function
 async function patchUserOnServer(
@@ -21,67 +25,28 @@ async function patchUserOnServer(
     `/user/${originalData.id}`,
     { patch },
     {
-      headers: getJWTHeader(originalData),
+      headers: getJWTHeader(originalData.token),
     }
   );
   return data.user;
 }
 
-export function usePatchUser(): UseMutateFunction<
-  User,
-  unknown,
-  User,
-  unknown
-> {
-  const { user, updateUser } = useUser();
-  const toast = useCustomToast();
+export function usePatchUser() {
+  const { user } = useUser();
   const queryClient = useQueryClient();
 
-  const { mutate: patchUser } = useMutation(
-    (newUserData: User) => patchUserOnServer(newUserData, user),
-    {
-      // onMutate returns context that is passed to onError
-      onMutate: async (newData: User | null) => {
-        // cancel any outgoing queries for user data, so old server data
-        // doesn't overwrite our optimistic update
-        queryClient.cancelQueries(queryKeys.user);
-
-        // snapshot of previous user value
-        const previousUserData: User = queryClient.getQueryData(queryKeys.user);
-
-        // optimistically update the cache with new user value
-        updateUser(newData);
-
-        // return context object with snapshotted value
-        return { previousUserData };
-      },
-      onError: (error, newData, context) => {
-        // roll back cache to saved value
-        if (context.previousUserData) {
-          updateUser(context.previousUserData);
-          toast({
-            title: 'Update failed; restoring previous values',
-            status: 'warning',
-          });
-        }
-      },
-      onSuccess: (userData: User | null) => {
-        // note: the conditional here should be `userData`, not `user` as shown
-        //   in the video.
-        // see: https://www.udemy.com/course/learn-react-query/learn/#questions/18361988/
-        if (userData) {
-          toast({
-            title: 'User updated!',
-            status: 'success',
-          });
-        }
-      },
-      onSettled: () => {
-        // invalidate user query to make sure we're in sync with server data
-        queryClient.invalidateQueries(queryKeys.user);
-      },
-    }
-  );
+  const { mutate: patchUser } = useMutation({
+    mutationKey: [MUTATION_KEY],
+    mutationFn: (newData: User) => patchUserOnServer(newData, user),
+    onSuccess: () => {
+      toast({ title: "user updated!", status: "success" });
+    },
+    onSettled: () => {
+      // return promise to maintain 'inProgress' status until query invalidation
+      //    is complete
+      return queryClient.invalidateQueries({ queryKey: [queryKeys.user] });
+    },
+  });
 
   return patchUser;
 }
