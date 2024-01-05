@@ -1,0 +1,47 @@
+{
+  "name": "base-lazy-days",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@tanstack/react-query": "^5.15.5",
+    "@tanstack/react-query-devtools": "^5.15.5",
+    "axios": "^1.6.2",
+    "dayjs": "^1.11.10",
+    "fast-json-patch": "^3.1.1",
+    "formik": "^2.4.5",
+    "msw": "^2.0.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
+    "react-router-dom": "^6.18.0"
+  },
+  "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.14.6",
+    "@types/node": "^20.9.0",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.53.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "install": "^0.13.0",
+    "jsdom": "^23.0.1",
+    "npm": "^10.2.3",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.5"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@shared/*": ["../shared/*"]
+    },
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictNullChecks": false,
+    "jsx": "react-jsx",
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules",
+      "node_modules/@testing-library"
+    ],
+    "types": ["node", "vitest/globals", "jest-dom"],
+    "lib": ["dom", "dom.iterable", "esnext", "es2018"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "downlevelIteration": true,
+    "strict": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "node_modules/@types"]
+}

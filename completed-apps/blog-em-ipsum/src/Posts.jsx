@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+
 import { fetchPosts, deletePost, updatePost } from "./api";
-
 import { PostDetail } from "./PostDetail";
-
 const maxPostPage = 10;
 
 export function Posts() {
@@ -11,17 +10,13 @@ export function Posts() {
   const [selectedPost, setSelectedPost] = useState(null);
 
   const queryClient = useQueryClient();
+
   const deleteMutation = useMutation({
-    mutationFn: (postId) => {
-      updateMutation.reset();
-      deletePost(postId);
-    },
+    mutationFn: (postId) => deletePost(postId),
   });
+
   const updateMutation = useMutation({
-    mutationFn: (postId) => {
-      deleteMutation.reset();
-      updatePost(postId);
-    },
+    mutationFn: (postId) => updatePost(postId),
   });
 
   useEffect(() => {
@@ -29,35 +24,27 @@ export function Posts() {
       const nextPage = currentPage + 1;
       queryClient.prefetchQuery({
         queryKey: ["posts", nextPage],
-        queryFn: () => {
-          return fetchPosts(nextPage);
-        },
+        queryFn: () => fetchPosts(nextPage),
       });
     }
   }, [currentPage, queryClient]);
 
-  const handleClick = (post) => {
-    // clear messages
-    updateMutation.reset();
-    deleteMutation.reset();
-    setSelectedPost(post);
-  };
-
   const { data, isError, error, isLoading } = useQuery({
     queryKey: ["posts", currentPage],
-    queryFn: () => {
-      return fetchPosts(currentPage);
-    },
-    staleTime: 2000,
+    queryFn: () => fetchPosts(currentPage),
+    staleTime: 2000, // 2 seconds
   });
-  if (isLoading) return <h3>Loading...</h3>;
-  if (isError)
+  if (isLoading) {
+    return <h3>Loading...</h3>;
+  }
+  if (isError) {
     return (
       <>
         <h3>Oops, something went wrong</h3>
         <p>{error.toString()}</p>
       </>
     );
+  }
 
   return (
     <>
@@ -66,7 +53,11 @@ export function Posts() {
           <li
             key={post.id}
             className="post-title"
-            onClick={() => handleClick(post)}
+            onClick={() => {
+              deleteMutation.reset();
+              updateMutation.reset();
+              setSelectedPost(post);
+            }}
           >
             {post.title}
           </li>
@@ -95,8 +86,8 @@ export function Posts() {
       {selectedPost && (
         <PostDetail
           post={selectedPost}
-          updateMutation={updateMutation}
           deleteMutation={deleteMutation}
+          updateMutation={updateMutation}
         />
       )}
     </>

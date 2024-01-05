@@ -31,15 +31,7 @@ export function InfiniteSpecies() {
     <>
       {isFetching && <div className="loading">Loading...</div>}
       <InfiniteScroll
-        // add initialLoad={false} to prevent loading two pages on
-        // component mount
-        // from https://www.udemy.com/course/learn-react-query/learn/lecture/26581282#questions/18222646/:
-        // When we run the app for the first time, `data.pages` will actually contain two objects.
-        // I assume this is because we already called `useInfiniteQuery` ourselves first then
-        // `react-infinite-scroller` invokes the `fetchNextPage` function.
-        // initialLoad={false}
         loadMore={() => {
-          // https://github.com/danbovey/react-infinite-scroller#but-you-should-just-add-an-isloading-prop
           if (!isFetching) fetchNextPage();
         }}
         hasMore={hasNextPage}
