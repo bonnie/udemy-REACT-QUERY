@@ -1,6 +1,7 @@
 import { Box, Stack, Text } from "@chakra-ui/react";
 
 import type { Appointment as AppointmentType } from "@shared/types";
+
 import { Appointment } from "./Appointment";
 
 interface DateBoxProps {

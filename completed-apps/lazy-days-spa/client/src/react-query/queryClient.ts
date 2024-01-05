@@ -7,7 +7,14 @@ import {
 
 import { toast } from "@/components/app/toast";
 
-function errorHandler(type: "query" | "mutation", errorMsg: string) {
+function createTitle(errorMsg: string, actionType: "query" | "mutation") {
+  const action = actionType === "query" ? "fetch" : "update";
+  return `could not ${action} data: ${
+    errorMsg ?? "error connecting to server"
+  }`;
+}
+
+function errorHandler(title: string) {
   // https://chakra-ui.com/docs/components/toast#preventing-duplicate-toast
   // one message per page load, not one message per query
   // the user doesn't care that there were three failed queries on the staff page
@@ -15,40 +22,30 @@ function errorHandler(type: "query" | "mutation", errorMsg: string) {
   const id = "react-query-toast";
 
   if (!toast.isActive(id)) {
-    const action = type === "query" ? "load" : "update";
-    const title = `could not ${action} data: ${
-      errorMsg ?? "error connecting to server"
-    }`;
     toast({ id, title, status: "error", variant: "subtle", isClosable: true });
   }
 }
 
-export const queryClientConfig: QueryClientConfig = {
+export const queryClientOptions: QueryClientConfig = {
   defaultOptions: {
     queries: {
       staleTime: 600000, // 10 minutes
-      // default gcTime is 5 minutes, and it doesn't make sense for stale time
-      //   to exceed gcTime
-      gcTime: 1800000, // 30 minutes
+      gcTime: 900000, // 15 minutes
       refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
     },
   },
   queryCache: new QueryCache({
-    onError: (error) => errorHandler("query", error?.message),
-
-    // onError: (error, query) =>
-    //   errorHandler("query", error?.message, query.queryKey[0] as string),
+    onError: (error) => {
+      const title = createTitle(error.message, "query");
+      errorHandler(title);
+    },
   }),
   mutationCache: new MutationCache({
-    onError: (error) => errorHandler("mutation", error?.message),
+    onError: (error) => {
+      const title = createTitle(error.message, "mutation");
+      errorHandler(title);
+    },
   }),
 };
 
-export function generateQueryClient(
-  config: QueryClientConfig = queryClientConfig
-) {
-  return new QueryClient(config);
-}
-
-export const queryClient = generateQueryClient(queryClientConfig);
+export const queryClient = new QueryClient(queryClientOptions);

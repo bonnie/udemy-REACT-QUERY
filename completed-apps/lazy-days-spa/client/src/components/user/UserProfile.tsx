@@ -15,30 +15,35 @@ import { useNavigate } from "react-router-dom";
 
 import { User } from "@shared/types";
 
-import { PATCH_USER_MUTATION_KEY, usePatchUser } from "./hooks/usePatchUser";
+import { MUTATION_KEY, usePatchUser } from "./hooks/usePatchUser";
 import { useUser } from "./hooks/useUser";
 import { UserAppointments } from "./UserAppointments";
 
+import { useLoginData } from "@/auth/AuthContext";
+
 export function UserProfile() {
+  const { userId } = useLoginData();
   const { user } = useUser();
   const patchUser = usePatchUser();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
+    // use login data for redirect, for base app that doesn't
+    //   retrieve user data from the server yet
+    if (!userId) {
       navigate("/signin");
     }
-  }, [user, navigate]);
+  }, [userId, navigate]);
 
-  // https://tanstack.com/query/v5/docs/react/guides/optimistic-updates#if-the-mutation-and-the-query-dont-live-in-the-same-component
-  const pendingData = useMutationState<User>({
-    filters: { mutationKey: [PATCH_USER_MUTATION_KEY], status: "pending" },
+  const pendingData = useMutationState({
+    filters: { mutationKey: [MUTATION_KEY], status: "pending" },
     select: (mutation) => {
       return mutation.state.variables as User;
     },
   });
 
-  console.log("======> PENDING DATA", pendingData);
+  // take the first item in the pendingData array
+  //   we know there will be only one mutation that matches the filter
   const pendingUser = pendingData ? pendingData[0] : null;
 
   const formElements = ["name", "address", "phone"];
@@ -53,15 +58,17 @@ export function UserProfile() {
       <Stack spacing={8} mx="auto" w="xl" py={12} px={6}>
         <UserAppointments />
         <Stack textAlign="center">
-          <Heading>Your information</Heading>
+          <Heading>
+            Information for {pendingUser ? pendingUser.name : user?.name}
+          </Heading>
         </Stack>
         <Box rounded="lg" bg="white" boxShadow="lg" p={8}>
           <Formik
             enableReinitialize
             initialValues={{
-              name: pendingUser ? pendingUser.name : user?.name ?? "",
-              address: pendingUser ? pendingUser.address : user?.address ?? "",
-              phone: pendingUser ? pendingUser.phone : user?.phone ?? "",
+              name: user?.name ?? "",
+              address: user?.address ?? "",
+              phone: user?.phone ?? "",
             }}
             onSubmit={(values: FormValues) => {
               patchUser({ ...user, ...values });

@@ -14,7 +14,6 @@ async function removeAppointmentUser(appointment: Appointment): Promise<void> {
   });
 }
 
-// TODO: update return type
 export function useCancelAppointment() {
   const queryClient = useQueryClient();
   const toast = useCustomToast();

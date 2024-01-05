@@ -15,10 +15,10 @@ import { Link } from "react-router-dom";
 
 import type { Appointment } from "@shared/types";
 
+import { useCancelAppointment } from "../appointments/hooks/useCancelAppointment";
 import { useUserAppointments } from "./hooks/useUserAppointments";
 
 import { useLoginData } from "@/auth/AuthContext";
-import { useCancelAppointment } from "@/components/appointments/hooks/useCancelAppointment";
 
 interface AppointmentsTableProps {
   userAppointments: Appointment[];

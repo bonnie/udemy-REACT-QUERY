@@ -9,11 +9,10 @@ import { queryKeys } from "@/react-query/constants";
 import { generateUserKey } from "@/react-query/key-factories";
 
 // query function
-async function getUser(userId: number, userToken: string, signal: AbortSignal) {
+async function getUser(userId: number, userToken: string) {
   const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
     `/user/${userId}`,
     {
-      signal, // abortSignal from React Query
       headers: getJWTHeader(userToken),
     }
   );
@@ -21,31 +20,22 @@ async function getUser(userId: number, userToken: string, signal: AbortSignal) {
   return data.user;
 }
 
-interface UseUser {
-  user: User | null;
-  updateUserData: (user: User) => void;
-  clearUserData: () => void;
-}
-
-export function useUser(): UseUser {
+export function useUser() {
   const queryClient = useQueryClient();
+
+  // get details on the userId
   const { userId, userToken } = useLoginData();
 
   // call useQuery to update user data from server
   const { data: user } = useQuery({
-    // https://tanstack.com/query/v4/docs/react/guides/dependent-queries#usequery-dependent-query
     enabled: !!userId,
     queryKey: generateUserKey(userId, userToken),
-    queryFn: ({ signal }) => getUser(userId, userToken, signal),
+    queryFn: () => getUser(userId, userToken),
     staleTime: Infinity,
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
   });
 
   // meant to be called from useAuth
-  function updateUserData(newUser: User): void {
-    // update the user in the cache
+  function updateUser(newUser: User): void {
     queryClient.setQueryData(
       generateUserKey(newUser.id, newUser.token),
       newUser
@@ -53,11 +43,9 @@ export function useUser(): UseUser {
   }
 
   // meant to be called from useAuth
-  function clearUserData() {
-    // remove user data
-    queryClient.removeQueries({
-      queryKey: [queryKeys.user],
-    });
+  function clearUser() {
+    // remove user profile data
+    queryClient.removeQueries({ queryKey: [queryKeys.user] });
 
     // remove user appointments data
     queryClient.removeQueries({
@@ -65,5 +53,5 @@ export function useUser(): UseUser {
     });
   }
 
-  return { user, updateUserData, clearUserData };
+  return { user, updateUser, clearUser };
 }

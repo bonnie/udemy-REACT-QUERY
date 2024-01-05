@@ -1,31 +1,31 @@
-// https://tanstack.com/query/latest/docs/react/guides/testing
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, RenderResult } from "@testing-library/react";
-import { ReactElement } from "react";
+import { render as RtlRender } from "@testing-library/react";
+import { PropsWithChildren, ReactElement } from "react";
 import { MemoryRouter } from "react-router-dom";
 
-import {
-  generateQueryClient,
-  queryClientConfig,
-} from "@/react-query/queryClient";
+import { queryClientOptions } from "@/react-query/queryClient";
 
-// make this a function to use within tests if you want to pre-populate cache
-export const generateTestQueryClient = () => {
-  const testConfig = queryClientConfig;
-  testConfig.defaultOptions.queries.retry = false;
-  return generateQueryClient(testConfig);
+// ** FOR TESTING CUSTOM HOOKS ** //
+// from https://tkdodo.eu/blog/testing-react-query#for-custom-hooks
+export const createQueryClientWrapper = () => {
+  const queryClient = generateQueryClient();
+  return ({ children }: PropsWithChildren) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
 };
 
-const defaultClient = generateTestQueryClient();
+// make a function to generate a unique query client for each test
+const generateQueryClient = () => {
+  queryClientOptions.defaultOptions.queries.retry = false;
+  return new QueryClient(queryClientOptions);
+};
 
-export function renderWithProviders(
-  ui: ReactElement,
-  client?: QueryClient
-): RenderResult {
-  defaultClient.clear();
-  const queryClient = client ?? defaultClient;
-  return render(
+// reference: https://testing-library.com/docs/react-testing-library/setup#custom-render
+function customRender(ui: ReactElement, client?: QueryClient) {
+  const queryClient = client ?? generateQueryClient();
+
+  return RtlRender(
     <ChakraProvider>
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>{ui}</MemoryRouter>
@@ -34,10 +34,9 @@ export function renderWithProviders(
   );
 }
 
-// from https://tkdodo.eu/blog/testing-react-query#for-custom-hooks
-export const createQueryClientWrapper = () => {
-  const queryClient = generateTestQueryClient();
-  return ({ children }: React.PropsWithChildren<object>) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
-};
+// re-export everything
+// eslint-disable-next-line react-refresh/only-export-components
+export * from "@testing-library/react";
+
+// override render method
+export { customRender as render };

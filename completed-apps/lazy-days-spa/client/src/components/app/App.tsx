@@ -14,11 +14,8 @@ import { AllStaff } from "@/components/staff/AllStaff";
 import { Treatments } from "@/components/treatments/Treatments";
 import { Signin } from "@/components/user/Signin";
 import { UserProfile } from "@/components/user/UserProfile";
-import { generateQueryClient } from "@/react-query/queryClient";
+import { queryClient } from "@/react-query/queryClient";
 import { theme } from "@/theme";
-
-// create
-const queryClient = generateQueryClient();
 
 export function App() {
   return (
@@ -38,8 +35,8 @@ export function App() {
             </Routes>
           </BrowserRouter>
           <ToastContainer />
-          <ReactQueryDevtools />
         </AuthContextProvider>
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </ChakraProvider>
   );

@@ -1,0 +1,36 @@
+{
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"]
+      }
+    }
+  },
+  "extends": [
+    "airbnb-base",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "simple-import-sort", "prettier"],
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "max-lines-per-function": ["warn", 40],
+    "import/extensions": ["error", "never"],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "sort-imports": "off",
+    "import/order": "off",
+    "import/prefer-default-export": 0,
+    "import/no-unresolved": 0,
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  }
+}

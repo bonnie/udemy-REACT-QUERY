@@ -1,50 +1,28 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { AppointmentDateMap } from "../types";
 import { getAvailableAppointments } from "../utils";
-import { getMonthYearDetails, getNewMonthYear, MonthYear } from "./monthYear";
+import { getMonthYearDetails, getNewMonthYear } from "./monthYear";
 
 import { useLoginData } from "@/auth/AuthContext";
 import { axiosInstance } from "@/axiosInstance";
 import { queryKeys } from "@/react-query/constants";
 
-// common options for both useQuery and prefetchQuery
+// for useQuery and prefetchQuery
 const commonOptions = {
   staleTime: 0,
-  cacheTime: 300000, // 5 minutes
+  gcTime: 30000, // 5 minutes
 };
 
-// query function for useQuery call
+// for useQuery call
 async function getAppointments(
   year: string,
   month: string
 ): Promise<AppointmentDateMap> {
   const { data } = await axiosInstance.get(`/appointments/${year}/${month}`);
   return data;
-}
-
-// identity function so select won't show stale data
-// see this Q&A for more details:
-// https://www.udemy.com/course/learn-react-query/learn/#questions/18249892/
-function identity<T>(value: T): T {
-  return value;
-}
-
-// types for hook return object
-interface UseAppointments {
-  appointments: AppointmentDateMap;
-  monthYear: MonthYear;
-  updateMonthYear: (monthIncrement: number) => void;
-  showAll: boolean;
-  setShowAll: Dispatch<SetStateAction<boolean>>;
 }
 
 // The purpose of this hook:
@@ -55,7 +33,7 @@ interface UseAppointments {
 //     2b. prefetch the appointments for adjacent monthYears
 //   3. track the state of the filter (all appointments / available appointments)
 //     3a. return the only the applicable appointments for the current monthYear
-export function useAppointments(): UseAppointments {
+export function useAppointments() {
   /** ****************** START 1: monthYear state *********************** */
   // get the monthYear for the current date (for default monthYear state)
   const currentMonthYear = getMonthYearDetails(dayjs());
@@ -80,9 +58,13 @@ export function useAppointments(): UseAppointments {
   const { userId } = useLoginData();
 
   const selectFn = useCallback(
-    (data: AppointmentDateMap) => getAvailableAppointments(data, userId),
+    (data: AppointmentDateMap, showAll: boolean) => {
+      if (showAll) return data;
+      return getAvailableAppointments(data, userId);
+    },
     [userId]
   );
+
   /** ****************** END 2: filter appointments  ******************** */
   /** ****************** START 3: useQuery  ***************************** */
   // useQuery call for appointments for the current monthYear
@@ -109,20 +91,15 @@ export function useAppointments(): UseAppointments {
   //
   //    2. The getAppointments query function needs monthYear.year and
   //       monthYear.month
-  const fallback = {};
+  const fallback: AppointmentDateMap = {};
 
   const { data: appointments = fallback } = useQuery({
     queryKey: [queryKeys.appointments, monthYear.year, monthYear.month],
     queryFn: () => getAppointments(monthYear.year, monthYear.month),
-    // can't use `undefined` here; need to use identity function
-    // see this Q&A for more details:
-    // https://www.udemy.com/course/learn-react-query/learn/#questions/18249892/
-    select: showAll ? (data) => identity<AppointmentDateMap>(data) : selectFn,
-    ...commonOptions,
-    refetchOnMount: true,
-    refetchOnReconnect: true,
+    select: (data) => selectFn(data, showAll),
     refetchOnWindowFocus: true,
-    refetchInterval: 60000, // 60 seconds
+    refetchInterval: 60000, // every minute
+    ...commonOptions,
   });
 
   /** ****************** END 3: useQuery  ******************************* */

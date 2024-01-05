@@ -1,0 +1,49 @@
+{
+  "name": "lazy-days-spa-server",
+  "version": "1.0.0",
+  "author": "Bonnie Schulkin",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "start": "node src/index.cjs",
+    "dev": "npm start"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.3",
+    "body-parser": "^1.18.2",
+    "core-js": "^3.8.1",
+    "cors": "^2.8.4",
+    "crypto": "^1.0.1",
+    "dayjs": "^1.10.4",
+    "dotenv": "^8.2.0",
+    "es-main": "^1.0.2",
+    "express": "^4.16.3",
+    "express-jwt": "^8.4.1",
+    "fast-json-patch": "^3.0.0-1",
+    "jsonwebtoken": "^9.0.2",
+    "pbkdf2": "^3.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-typescript": "^7.16.0",
+    "@babel/register": "^7.16.0",
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.11",
+    "@types/express-jwt": "^6.0.1",
+    "@types/node": "^14.14.37",
+    "@types/pbkdf2": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "prettier": "^2.2.1",
+    "source-map-loader": "^3.0.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.5.2"
+  },
+  "type": "module"
+}

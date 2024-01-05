@@ -4,8 +4,8 @@ import { GiFlowerPot } from "react-icons/gi";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { useAuthActions } from "../../auth/useAuthActions";
-
+import { useLoginData } from "@/auth/AuthContext";
+import { useAuthActions } from "@/auth/useAuthActions";
 import { useUser } from "@/components/user/hooks/useUser";
 
 const Links = ["Treatments", "Staff", "Calendar"];
@@ -28,6 +28,9 @@ const NavLink = ({ to, children }: { to: string; children: ReactNode }) => (
 );
 
 export function Navbar() {
+  // use login data for signin / signout button, for
+  //   base app that doesn't retrieve user data from the server yet
+  const { userId } = useLoginData();
   const { user } = useUser();
   const { signout } = useAuthActions();
   const navigate = useNavigate();
@@ -48,9 +51,9 @@ export function Navbar() {
           </HStack>
         </HStack>
         <HStack>
-          {user ? (
+          {userId ? (
             <>
-              <NavLink to={`/user/${user.id}`}>{user.email}</NavLink>
+              {user && <NavLink to={`/user/${user.id}`}>{user.email}</NavLink>}
               <Button onClick={() => signout()}>Sign out</Button>
             </>
           ) : (

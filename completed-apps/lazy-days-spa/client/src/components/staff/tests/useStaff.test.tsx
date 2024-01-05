@@ -9,15 +9,12 @@ test("filter staff", async () => {
     wrapper: createQueryClientWrapper(),
   });
 
-  // to get your bearings
-  // console.log(result);
-
   // wait for the staff to populate
-  await waitFor(() => result.current.staff.length === 4);
+  await waitFor(() => expect(result.current.staff).toHaveLength(4));
 
   // set to filter for only staff who give massage
-  act(() => result.current.setFilter("massage"));
+  act(() => result.current.setFilter("facial"));
 
   // wait for the staff list to display only 3
-  await waitFor(() => result.current.staff.length === 3);
+  await waitFor(() => expect(result.current.staff).toHaveLength(3));
 });
