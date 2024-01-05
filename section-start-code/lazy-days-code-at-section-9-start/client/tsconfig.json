@@ -20,7 +20,8 @@
     "typeRoots": [
       "node_modules/@types",
       "node_modules",
-      "node_modules/@testing-library"
+      "node_modules/@testing-library",
+      "node_modules/@testing-library/jest-dom"
     ],
     "types": ["node", "vitest/globals", "jest-dom"],
     "lib": ["dom", "dom.iterable", "esnext", "es2018"],

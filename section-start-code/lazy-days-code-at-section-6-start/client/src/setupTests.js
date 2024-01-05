@@ -8,9 +8,11 @@ import "@testing-library/jest-dom/vitest";
 import * as matchers from "@testing-library/jest-dom/matchers";
 import { expect } from "vitest";
 
-expect.extend(matchers);
+// for msw
+import { server } from "./mocks/server.js";
 
-// import { server } from "./mocks/server.js";
+// add jest-dom matchers
+expect.extend(matchers);
 
 // mock useLoginData to mimic a logged-in user
 vi.mock("./auth/AuthContext", () => ({
@@ -21,12 +23,13 @@ vi.mock("./auth/AuthContext", () => ({
   default: ({ children }) => children,
 }));
 
-// // Establish API mocking before all tests.
-// beforeAll(() => server.listen());
+// msw setup and teardown below
+// Establish API mocking before all tests.
+beforeAll(() => server.listen());
 
-// // Reset any request handlers that we may add during the tests,
-// // so they don't affect other tests.
-// afterEach(() => server.resetHandlers());
+// Reset any request handlers that we may add during the tests,
+// so they don't affect other tests.
+afterEach(() => server.resetHandlers());
 
-// // Clean up after the tests are finished.
-// afterAll(() => server.close());
+// Clean up after the tests are finished.
+afterAll(() => server.close());

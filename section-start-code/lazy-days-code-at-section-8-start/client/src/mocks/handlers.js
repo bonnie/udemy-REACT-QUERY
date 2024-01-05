@@ -21,6 +21,6 @@ export const handlers = [
     return HttpResponse.json({ appointments: mockUserAppointments });
   }),
   http.patch("http://localhost:3030/appointment/:id", () => {
-    return HttpResponse(null, { status: 200 });
+    return new HttpResponse(null, { status: 200 });
   }),
 ];

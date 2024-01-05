@@ -30,8 +30,7 @@ async function getAppointments(
 export function useAppointments() {
   /** ****************** START 1: monthYear state *********************** */
   // get the monthYear for the current date (for default monthYear state)
-  // const currentMonthYear = getMonthYearDetails(dayjs());
-  const currentMonthYear = getMonthYearDetails(dayjs("2024-01-01"));
+  const currentMonthYear = getMonthYearDetails(dayjs());
 
   // state to track current monthYear chosen by user
   // state value is returned in hook return object

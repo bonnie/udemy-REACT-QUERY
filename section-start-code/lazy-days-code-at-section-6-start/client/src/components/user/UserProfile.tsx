@@ -16,16 +16,21 @@ import { usePatchUser } from "./hooks/usePatchUser";
 import { useUser } from "./hooks/useUser";
 import { UserAppointments } from "./UserAppointments";
 
+import { useLoginData } from "@/auth/AuthContext";
+
 export function UserProfile() {
+  const { userId } = useLoginData();
   const { user } = useUser();
   const patchUser = usePatchUser();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
+    // use login data for redirect, for base app that doesn't
+    //   retrieve user data from the server yet
+    if (!userId) {
       navigate("/signin");
     }
-  }, [user, navigate]);
+  }, [userId, navigate]);
 
   const formElements = ["name", "address", "phone"];
   interface FormValues {

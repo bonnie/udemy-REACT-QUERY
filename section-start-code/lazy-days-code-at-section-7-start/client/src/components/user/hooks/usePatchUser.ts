@@ -19,7 +19,7 @@ import { useUser } from "./useUser";
 //     `/user/${originalData.id}`,
 //     { patch },
 //     {
-//       headers: getJWTHeader(originalData),
+//       headers: getJWTHeader(originalData.token),
 //     },
 //   );
 //   return data.user;
