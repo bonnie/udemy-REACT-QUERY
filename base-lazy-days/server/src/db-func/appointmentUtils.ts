@@ -55,7 +55,7 @@ export async function createAppointments(): Promise<void> {
   const year = dayjs().year();
 
   // do this for three months; dayjs 0-indexes its months, hence starting at 1
-  for (let monthsFromNow = 1; monthsFromNow < 5; monthsFromNow++) {
+  for (let monthsFromNow = 1; monthsFromNow < 4; monthsFromNow++) {
     // make sure month is two digits;
     const monthString = padNum(month + monthsFromNow);
     const startDate = dayjs(`${year}${monthString}01`);
