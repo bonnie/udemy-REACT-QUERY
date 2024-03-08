@@ -20,10 +20,10 @@ export async function deletePost(postId) {
   return response.json();
 }
 
-export async function updatePost(postId) {
+export async function updatePost(postId, title) {
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${postId}`,
-    { method: "PATCH", data: { title: "REACT QUERY FOREVER!!!!" } }
+    { method: "PATCH", data: { title: title } }
   );
   return response.json();
 }
