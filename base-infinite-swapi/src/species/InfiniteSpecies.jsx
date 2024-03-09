@@ -31,7 +31,7 @@ export function InfiniteSpecies() {
     <div className="error">Error! : {error.toString()}</div>
   ) : (
     <>
-      {isFetching && <div className="loading">Loading...</div>}
+      {isFetching && <div className="loading">Loading more...</div>}
       <InfiniteScroll
         loadMore={() => {
           !isFetching && fetchNextPage();
