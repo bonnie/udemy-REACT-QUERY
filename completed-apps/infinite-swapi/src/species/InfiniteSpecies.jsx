@@ -35,6 +35,10 @@ export function InfiniteSpecies() {
           if (!isFetching) fetchNextPage();
         }}
         hasMore={hasNextPage}
+        // Note: add `initialLoad={false}` to avoid double-load of page 2.
+        // See this Q&A thread for more details:
+        //    https://www.udemy.com/course/learn-react-query/learn/#questions/21523180/
+        initialLoad={false}
       >
         {data.pages.map((pageData) => {
           return pageData.results.map((species) => {
