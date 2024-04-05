@@ -2,7 +2,8 @@ import InfiniteScroll from "react-infinite-scroller";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Person } from "./Person";
 
-const initialUrl = "https://swapi.dev/api/people/";
+const baseUrl = "https://swapi-node.vercel.app";
+const initialUrl = baseUrl + "/api/people/";
 const fetchUrl = async (url) => {
   const response = await fetch(url);
   return response.json();
@@ -21,7 +22,7 @@ export function InfinitePeople() {
     queryKey: ["sw-people"],
     queryFn: ({ pageParam = initialUrl }) => fetchUrl(pageParam),
     getNextPageParam: (lastPage) => {
-      return lastPage.next || undefined;
+      return lastPage.next ? baseUrl + lastPage.next : undefined;
     },
   });
 
@@ -48,10 +49,10 @@ export function InfinitePeople() {
           return pageData.results.map((person) => {
             return (
               <Person
-                key={person.name}
-                name={person.name}
-                hairColor={person.hair_color}
-                eyeColor={person.eye_color}
+                key={person.fields.name}
+                name={person.fields.name}
+                hairColor={person.fields.hair_color}
+                eyeColor={person.fields.eye_color}
               />
             );
           });
